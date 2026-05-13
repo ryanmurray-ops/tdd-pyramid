@@ -16,10 +16,8 @@ def test_duty_input_exists(open_homepage):
 def test_duty_number_input_has_label(open_homepage):
     expect(open_homepage.get_by_label("Duty Number")).to_be_visible()
 
-def test_duty_description_exists(page):
-    page.goto("http://localhost:5000")
-
-    expect(page.locator("#duty-description-input")).to_be_visible()
+def test_duty_description_exists(open_homepage):
+    expect(open_homepage.locator("#duty-description-input")).to_be_visible()
 
 def test_duty_description_input_has_label(page):
     page.goto("http://localhost:5000")
