@@ -10,10 +10,8 @@ def test_homepage_has_h1(open_homepage):
 def test_duties_section_exists(open_homepage):
     expect(open_homepage.locator("#duties-section")).to_be_visible()
 
-def test_duty_input_exists(page):
-    page.goto("http://localhost:5000")
-
-    expect(page.locator("#duty-number-input")).to_be_visible()
+def test_duty_input_exists(open_homepage):
+    expect(open_homepage.locator("#duty-number-input")).to_be_visible()
 
 def test_duty_number_input_has_label(page):
     page.goto("http://localhost:5000")
