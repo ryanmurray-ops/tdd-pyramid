@@ -1,10 +1,8 @@
 from playwright.sync_api import expect
 
 
-def test_homepage_has_automate_coin_title(page):
-    page.goto("http://localhost:5000")
-
-    assert "Automate Coin" in page.content()
+def test_homepage_has_automate_coin_title(open_homepage):
+    assert "Automate Coin" in open_homepage.content()
 
 def test_homepage_has_h1(page):
     page.goto("http://localhost:5000")
