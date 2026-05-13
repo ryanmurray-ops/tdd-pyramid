@@ -36,9 +36,7 @@ def test_duty_description_input_has_label(page):
 
     expect(page.get_by_label("Duty Description")).to_be_visible()
 
-def test_add_duty_button_exists(page):
-    page.goto("http://localhost:5000")
-
-    expect(page.get_by_role("button", name="Add Duty")).to_be_visible()
+def test_add_duty_button_exists(open_homepage):
+    expect(open_homepage.get_by_role("button", name="Add Duty")).to_be_visible()
 
 
