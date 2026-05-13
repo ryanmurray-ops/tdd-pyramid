@@ -14,12 +14,12 @@ def test_homepage_has_h1(page):
 def test_duties_section_exists(page):
     page.goto("http://localhost:5000")
 
-    expect(page.locator("#duties-section")).to_be_attached()
+    expect(page.locator("#duties-section")).to_be_visible()
 
 def test_duty_input_exists(page):
     page.goto("http://localhost:5000")
 
-    expect(page.locator("#duty-number-input")).to_be_attached()
+    expect(page.locator("#duty-number-input")).to_be_visible()
 
 def test_duty_number_input_has_label(page):
     page.goto("http://localhost:5000")
