@@ -6,7 +6,9 @@ app = Flask(__name__)
 def home():
     return """
     <h1>Automate Coin</h1>
+
     <div id="duties-section">
+        <label for="duty-number-input">Duty Number</label>
         <input id ="duty-number-input" />
     </div>
     """
