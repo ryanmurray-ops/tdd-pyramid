@@ -19,4 +19,4 @@ def test_duties_section_exists(page):
 def test_duty_input_exists(page):
     page.goto("http://localhost:5000")
 
-    expect(page.locator("#duty--number-input")).to_be_attached()
+    expect(page.locator("#duty-number-input")).to_be_attached()
