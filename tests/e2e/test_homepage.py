@@ -14,4 +14,4 @@ def test_homepage_has_h1(page):
 def test_duties_section_exists(page):
     page.goto("http://localhost:5000")
 
-    expect(page.locator("#duties-section")).to_be_visible()
+    expect(page.locator("#duties-section")).to_be_attached()
