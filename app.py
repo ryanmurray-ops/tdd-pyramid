@@ -11,6 +11,7 @@ def home():
         <label for="duty-number-input">Duty Number</label>
         <input id ="duty-number-input" />
 
+        <label for="duty-description-input">Duty Description</label>
         <input id ="duty-description-input" />
     </div>
     """
