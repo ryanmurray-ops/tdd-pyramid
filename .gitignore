@@ -3,3 +3,5 @@ venv/
 playwright-report/
 htnmlcov
 .coverage
+__pycache__/
+*.pyc
