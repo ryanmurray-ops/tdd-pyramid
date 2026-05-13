@@ -6,7 +6,9 @@ app = Flask(__name__)
 def home():
     return """
     <h1>Automate Coin</h1>
-    <div id="duties-section"></div>
+    <div id="duties-section">
+        <input id ="duty-number-input" />
+    </div>
     """
 
 if __name__ == "__main__":
