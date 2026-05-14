@@ -12,15 +12,27 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        if number and description:
-            duties.append(f"{number} - {description}")
-    
-    duties_html = "".join([f"<li>{duty}</li>" for duty in duties])
+        new_duty = f"{number} - {description}"
+
+        is_duplicate_duty_number = False
+
+        for duty in duties:
+            if duty.startswith(f"{number} -"):
+                is_duplicate_duty_number = True
+
+        if not is_duplicate_duty_number:
+            duties.append(new_duty)
+
+    duties_html = ""
+
+    for duty in duties:
+        duties_html += f"<li>{duty}</li>"
 
     return f"""
     <h1>Automate Coin</h1>
 
     <div id="duties-section">
+
         <form method="POST">
             <label for="duty-number-input">Duty Number</label>
             <input id ="duty-number-input" name="number" />
@@ -34,6 +46,7 @@ def home():
         <ul id="duties-list">
             {duties_html}
         </ul>
+
     </div>
     """
 
