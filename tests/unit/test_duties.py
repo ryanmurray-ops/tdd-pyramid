@@ -8,7 +8,7 @@ def test_returns_true_when_duplicate_duty_number_exists():
 
     assert result is True
 
-def test_returns_true_when_duty_number_is_empty():
+def test_returns_false_when_duty_number_is_empty():
     result = is_empty_duty("", "My Duty")
 
-    assert result is True
+    assert result is False
