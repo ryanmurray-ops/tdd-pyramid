@@ -6,3 +6,6 @@ def is_duplicate_duty_number(number, duties):
 
 def is_valid_duty_number(number):
     return bool(number)
+
+def is_valid_duty_description(description):
+    return bool(description)

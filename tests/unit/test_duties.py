@@ -1,4 +1,4 @@
-from duties import is_duplicate_duty_number, is_valid_duty_number
+from duties import is_duplicate_duty_number, is_valid_duty_description, is_valid_duty_number
 
 
 def test_returns_true_when_duplicate_duty_number_exists():
