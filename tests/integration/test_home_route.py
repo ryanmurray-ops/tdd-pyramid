@@ -59,3 +59,22 @@ def test_home_route_shows_error_for_empty_duty_description():
     assert response.status_code == 200
     assert "Invalid duty description" in response_text
 
+def test_home_route_shows_error_for_duplicate_duty_number():
+    client = app.test_client()
+
+    response = client.post("/", data={
+        "number": "1",
+        "description": "First Duty"
+    })
+
+    response = client.post("/", data={
+        "number": "1",
+        "description": "Duplicate Duty"
+    })
+
+    response_text = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert "Duplicate duty number" in response_text
+    assert "1 - Duplicate Duty" not in response_text
+
