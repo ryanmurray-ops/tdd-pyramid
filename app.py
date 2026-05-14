@@ -1,4 +1,5 @@
 from flask import Flask, request
+from duties import is_duplicate_duty_number
 
 app = Flask(__name__)
 
@@ -14,13 +15,9 @@ def home():
 
         new_duty = f"{number} - {description}"
 
-        is_duplicate_duty_number = False
+        is_duplicate = is_duplicate_duty_number(number, duties)
 
-        for duty in duties:
-            if duty.startswith(f"{number} -"):
-                is_duplicate_duty_number = True
-
-        if not is_duplicate_duty_number:
+        if not is_duplicate:
             duties.append(new_duty)
 
     duties_html = ""
