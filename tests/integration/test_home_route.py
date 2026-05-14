@@ -32,3 +32,17 @@ def test_user_can_create_duty_via_home_route():
             "My First Duty",
             ANY
         )
+
+def test_home_riute_shows_error_for_empty_duty():
+    client = app.test_client()
+
+    response = client.post("/", data={
+        "number": "",
+        "description": ""
+    })
+
+    response_text = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert "Invalid duty number" in response_text
+    
