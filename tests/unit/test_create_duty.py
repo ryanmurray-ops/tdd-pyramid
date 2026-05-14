@@ -16,3 +16,11 @@ def test_create_duty_returns_error_when_duty_description_is_empty():
     result = create_duty("1", "", duties)
 
     assert result == "Invalid duty description"
+
+def test_create_duty_returns_error_when_duty_number_already_exists():
+    duties = ["1 - my First Duty"]
+    result = create_duty("1", "Another Duty", duties)
+
+    assert result == "Duplicate duty number"
+
+    
