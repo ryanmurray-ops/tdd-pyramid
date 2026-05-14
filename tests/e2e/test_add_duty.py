@@ -28,3 +28,9 @@ def test_user_cannont_add_empty_duty(open_homepage):
     page.click("text=Add Duty")
 
     expect(page.locator("#duties-list li")).to_have_count(0)
+
+def test_user_sees_error_when_duty_is_empty(open_homepage):
+    page = open_homepage
+    page.click("text=Add Duty")
+
+    expect(page.locator("#error-message")).to_be_visible()
