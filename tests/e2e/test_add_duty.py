@@ -22,3 +22,9 @@ def test_user_cannot_add_duplicate_duty_number(open_homepage):
     page.click("text=Add Duty")
 
     expect(page.locator("#duties-list")).not_to_contain_text("1 - Duplicate Duty")
+
+def test_user_cannont_add_empty_duty(open_homepage):
+    page = open_homepage
+    page.click("text=Add Duty")
+
+    expect(page.locator("#duties-list")).to_be_empty()
