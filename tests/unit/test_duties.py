@@ -12,3 +12,8 @@ def test_returns_false_when_duty_number_is_empty():
     result = is_valid_duty_number("")
 
     assert result is False
+
+def test_returns_false_when_duty_description_is_empty():
+    result = is_valid_duty_description("")
+
+    assert result is False
