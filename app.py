@@ -1,5 +1,5 @@
 from flask import Flask, request
-from duties import is_duplicate_duty_number
+from duties import is_duplicate_duty_number, is_valid_duty_number
 
 app = Flask(__name__)
 
@@ -15,7 +15,7 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        if not number or not description:
+        if not is_valid_duty_number(number) or not description:
             error = "Duty number and description are required"
         
         else:
