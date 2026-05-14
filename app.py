@@ -9,24 +9,22 @@ duties = []
 def home():
     global duties
 
+    error = None
+
     if request.method == "POST":
         number = request.form.get("number")
         description = request.form.get("description")
 
         if not number or not description:
-            return home()
+            error = "Duty number and description are required"
+        
+        else:
+            new_duty = f"{number} - {description}"
+            is_duplicate = is_duplicate_duty_number(number, duties)
+            if not is_duplicate:
+                duties.append(new_duty)
 
-        new_duty = f"{number} - {description}"
-
-        is_duplicate = is_duplicate_duty_number(number, duties)
-
-        if not is_duplicate:
-            duties.append(new_duty)
-
-    duties_html = ""
-
-    for duty in duties:
-        duties_html += f"<li>{duty}</li>"
+    duties_html = "".join(f"<li>{duty}</li>" for duty in duties)
 
     return f"""
     <h1>Automate Coin</h1>
@@ -42,6 +40,8 @@ def home():
 
             <button type="submit">Add Duty</button>
         </form>
+
+        {f'<div id="error-message">{error}</div>' if error else ''}
 
         <ul id="duties-list">
             {duties_html}
