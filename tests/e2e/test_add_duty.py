@@ -25,9 +25,10 @@ def test_user_cannot_add_duplicate_duty_number(open_homepage):
 
 def test_user_cannont_add_empty_duty(open_homepage):
     page = open_homepage
+    initial_count = page.locator("#duties-list li").count()
     page.click("text=Add Duty")
 
-    expect(page.locator("#duties-list li")).to_have_count(0)
+    expect(page.locator("#duties-list li")).to_have_count(initial_count)
 
 def test_user_sees_error_when_duty_is_empty(open_homepage):
     page = open_homepage
