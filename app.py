@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from duties import create_duty
 
 app = Flask(__name__)
@@ -30,29 +30,11 @@ def home():
 
     duties_html = "".join(f"<li>{duty}</li>" for duty in duties)
 
-    return f"""
-    <h1>Automate Coin</h1>
-
-    <div id="duties-section">
-
-        <form method="POST">
-            <label for="duty-number-input">Duty Number</label>
-            <input id ="duty-number-input" name="number" />
-
-            <label for="duty-description-input">Duty Description</label>
-            <input id ="duty-description-input" name="description" />
-
-            <button type="submit">Add Duty</button>
-        </form>
-
-        {f'<div id="error-message">{error}</div>' if error else ''}
-
-        <ul id="duties-list">
-            {duties_html}
-        </ul>
-
-    </div>
-    """
+    return render_template(
+        "index.html",
+        duties_html=duties,
+        error=error
+    )
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)

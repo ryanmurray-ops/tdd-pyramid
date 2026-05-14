@@ -1,0 +1,32 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <h1>Automate Coin</h1>
+
+    <div id="duties-section">
+
+        <form method="POST">
+            <label for="duty-number-input">Duty Number</label>
+            <input id ="duty-number-input" name="number" />
+
+            <label for="duty-description-input">Duty Description</label>
+            <input id ="duty-description-input" name="description" />
+
+            <button type="submit">Add Duty</button>
+        </form>
+
+        {f'<div id="error-message">{{ error }}</div>' if error else ''}
+
+        <ul id="duties-list">
+            {{ duties_html }}
+        </ul>
+
+    </div>
+
+    </body>
+    </html>
