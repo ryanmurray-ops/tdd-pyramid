@@ -1,4 +1,4 @@
-from duties import is_duplicate_duty_number
+from duties import is_duplicate_duty_number, is_valid_duty_number
 
 
 def test_returns_true_when_duplicate_duty_number_exists():
@@ -9,6 +9,6 @@ def test_returns_true_when_duplicate_duty_number_exists():
     assert result is True
 
 def test_returns_false_when_duty_number_is_empty():
-    result = is_empty_duty("", "My Duty")
+    result = is_valid_duty_number("")
 
     assert result is False
