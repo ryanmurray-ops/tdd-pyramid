@@ -1,9 +1,15 @@
 from flask import Flask, request
-from duties import is_duplicate_duty_number, is_valid_duty_description, is_valid_duty_number
+from duties import create_duty
 
 app = Flask(__name__)
 
 duties = []
+
+ERRORS = (
+    "Invalid duty number",
+    "Invalid duty description",
+    "Duplicate duty number"
+)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -15,14 +21,12 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        if not is_valid_duty_number(number) or not is_valid_duty_description(description):
-            error = "Duty number and description are required"
-        
+        created_duty = create_duty(number, description, duties)
+
+        if created_duty in ERRORS:
+            error = created_duty
         else:
-            new_duty = f"{number} - {description}"
-            is_duplicate = is_duplicate_duty_number(number, duties)
-            if not is_duplicate:
-                duties.append(new_duty)
+            duties.append(created_duty)
 
     duties_html = "".join(f"<li>{duty}</li>" for duty in duties)
 
