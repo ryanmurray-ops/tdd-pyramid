@@ -13,6 +13,9 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
+        if not number or not description:
+            return home()
+
         new_duty = f"{number} - {description}"
 
         is_duplicate = is_duplicate_duty_number(number, duties)
