@@ -4,3 +4,9 @@ def test_create_duty_returns_fromatted_string():
     result = create_duty("1", "My First Duty", [])
 
     assert result == "1 - My First Duty"
+
+def test_create_duty_returns_error_when_duty_number_is_empty():
+    duties = []
+    result = create_duty("", "My First Duty", duties)
+
+    assert result == "Invalid duty number"
