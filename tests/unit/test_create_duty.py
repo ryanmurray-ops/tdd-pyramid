@@ -10,3 +10,9 @@ def test_create_duty_returns_error_when_duty_number_is_empty():
     result = create_duty("", "My First Duty", duties)
 
     assert result == "Invalid duty number"
+
+def test_create_duty_returns_error_when_duty_description_is_empty():
+    duties = []
+    result = create_duty("1", "", duties)
+
+    assert result == "Invalid duty description"
