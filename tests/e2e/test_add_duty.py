@@ -27,4 +27,4 @@ def test_user_cannont_add_empty_duty(open_homepage):
     page = open_homepage
     page.click("text=Add Duty")
 
-    expect(page.locator("#duties-list")).to_be_empty()
+    expect(page.locator("#duties-list li")).to_have_count(0)
