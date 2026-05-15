@@ -3,16 +3,16 @@ from constants import ERRORS
 
 def create_duty(number, description, duties):
     if not is_valid_duty_number(number) and not is_valid_duty_description(description):
-        return 'Duty number and description are required'
+        return None, 'Duty number and description are required'
     
     if not is_valid_duty_number(number):
-        return "Invalid duty number"
+        return None, "Invalid duty number"
 
     if not is_valid_duty_description(description):
-        return "Invalid duty description"
+        return None, "Invalid duty description"
     
     if is_duplicate_duty_number(number, duties):
-        return "Duplicate duty number"
+        return None, "Duplicate duty number"
 
     return f"{number} - {description}", None
 

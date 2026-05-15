@@ -14,8 +14,12 @@ def test_home_route_returns_200():
 def test_user_can_create_duty_via_home_route():
     client = app.test_client()
 
-    with patch("duties.create_duty") as mock_create_duty:
-        mock_create_duty.return_value = "1 - My First Duty"
+    with patch("app.handle_create_duty") as mock_handler:
+        mock_handler.return_value = {
+            "success": True,
+            "duty": "1 - My First Duty",
+            "error": None
+        }
 
         response = client.post("/", data={
             "number": "1",
@@ -27,7 +31,7 @@ def test_user_can_create_duty_via_home_route():
         assert response.status_code == 200
         assert "1 - My First Duty" in response_text
 
-        mock_create_duty.assert_called_once_with(
+        mock_handler.assert_called_once_with(
             "1",
             "My First Duty",
             ANY
