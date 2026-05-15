@@ -84,7 +84,7 @@ They verify:
 
 In some of my integration tests I used mocking to isolate parts of the app that were not relevant to the specific test being run.
 
-For example, I mocked the handle_create_duty function when testing the route. This allowed me to test the route behaviour without relying in the actual business logic inside the function.
+For example, I mocked the handle_create_duty function when testing the route. This allowed me to test the route behaviour without relying on the actual business logic inside the function.
 
 This helped me:
 - Isolate the route from the business logic
@@ -93,13 +93,13 @@ This helped me:
 
 I used unittest.mock.patch to replace the function during the test.
 
-This improved the test reliability and made the integratiin tests faster and more focused.
+This improved the test reliability and made the integration tests faster and more focused.
 
 ---
 
 ### Test Coverage Report
 
-Coverage was generate using pytest-cov.
+Coverage was generated using pytest-cov.
 
 **Command Used**
 pytest --cov=. --cov-report=term-missing
@@ -109,7 +109,7 @@ pytest --cov=. --cov-report=term-missing
 - Total Statements: 220
 - Missed Statements: 19
 
-Most of the missed coverage is in the end-to-end tests, which is expected as they focus on full user flows rather than testing branch of code.
+Most of the missed coverage is in the end-to-end tests, which is expected as they focus on full user flows rather than testing branches of code.
 
 Most of the core business logic is covered by unit and integration tests, which is why modules such as duties.py, validators.py, and services/duty_service.py achieve 100% coverage.
 
@@ -125,7 +125,7 @@ Unit tests make up the majority of the test suite. They focus on testing individ
 
 ## Integration Tests
 
-Integration tests check how different parts of the application work toegther. In this project, they test the Flask routes and ensure that the layers interact correctly with the business logic.
+Integration tests check how different parts of the application work together. In this project, they test the Flask routes and ensure that the layers interact correctly with the business logic.
 
 ## End-to-End Tests
 
@@ -142,11 +142,11 @@ This approach helps balance test speed with reliability and overall coverage.
 
 This project was built using Test Driven Development (TDD), where tests were written before the implementation code. This approach helped guide the design of the application and ensured that each feature was written with clear expected behaviour.
 
-Using TDD helped me nreak the system down into smaller parts, such as validate, business logic, and route handling. This made it easier to build and debug because each part was tested in isolation.
+Using TDD helped me break the system down into smaller parts, such as validate, business logic, and route handling. This made it easier to build and debug because each part was tested in isolation.
 
 If I had used a more traditional approach (writing the full application first and testing afterwards), I think I would have spent more time debugging issues and refactoring large sections of code all at once. It would also have been harder to ensure edge cases were covered.
 
-BDD is a behavious-focused development approach that describes functionality from the users perspective. In my delivery project, I have seen BDD-style thinking used in Jira tickets, where requirements are written using structured scenarios using Given / When / Then. These tickets describe how a feature should behave before development begins. It provides good context and helps improve communication between developers and testers.
+BDD is a behaviour-focused development approach that describes functionality from the users perspective. In my delivery project, I have seen BDD-style thinking used in Jira tickets, where requirements are written using structured scenarios using Given / When / Then. These tickets describe how a feature should behave before development begins. It provides good context and helps improve communication between developers and testers.
 
 For example:
 Given I am on the homepage
@@ -154,9 +154,9 @@ When I enter a valid duty number and description
 And I click "Add Duty"
 Then I should see the duty displayed in the list
 
-This helps ensure clarift around the behaviour and reduces ambiguity. Although I have not implemented BDD frameworks in this project.
+This helps ensure clarity around the behaviour and reduces ambiguity. Although I have not implemented BDD frameworks in this project.
 
-Compared to BDD, TDD was feels more practical for this project because it helped me focus on building and testing small pieces of logic step-by-step.
+Compared to BDD, TDD feels more practical for this project because it helped me focus on building and testing small pieces of logic step-by-step.
 
 If I were to extend this project, I could consider implementing BDD-style scenarios to better represent the full user journeys perhaps with end-to-end tests.
 
@@ -226,10 +226,10 @@ Currently duties are stored as formatted strings, which keeps the implementation
 
 During development, I chose not to refactor duties into structured objects because the tests and requirements at this stage did not drive the design in that direction. As the project followed a Test Driven Development (TDD) approach, I aimed to avoid unnecessary abstraction or complexity before it was required by the tests or feature requirements.
 
-If the application were expanded with features such as editing, persistence, filtering, or databse integration, duties could be refactored into structured objects to improve scalability and maintainability.
+If the application were expanded with features such as editing, persistence, filtering, or database integration, duties could be refactored into structured objects to improve scalability and maintainability.
 
 Additional improvements could include:
-- Datbase integration for persistent storage
+- Database integration for persistent storage
 - User authentication
 - Editing and deleting duties
 - Improved UI accessibility
