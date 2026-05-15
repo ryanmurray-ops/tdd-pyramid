@@ -1,4 +1,7 @@
 def create_duty(number, description, duties):
+    if not number and not description:
+        return 'Duty number and description are required'
+    
     if not is_valid_duty_number(number):
         return "Invalid duty number"
 
