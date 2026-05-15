@@ -113,6 +113,30 @@ Most of the missed coverage is in the end-to-end tests, which is expected as the
 
 Most of the core business logic is covered by unit and integration tests, which is why modules such as duties.py, validators.py, and services/duty_service.py achieve 100% coverage.
 
+---
+
+## Test Pyramid Explanation
+
+This project follows a basic test pyramid structure to ensure the application is well tested at different levels of scope.
+
+## Unit Tests
+
+Unit tests make up the majority of the test suite. They focus on testing individual functions in isolation, such as validation logic and duty creation.
+
+## Integration Tests
+
+Integration tests check how different parts of the application work toegther. In this project, they test the Flask routes and ensure that the layers interact correctly with the business logic.
+
+## End-to-End Tests
+
+End-to-End tests use Playwright to simulate real user behaviour in a browser. These tests ensure the full system works from the users perspective, including form submissions and UI updates.
+
+## Test Distribution
+The majority of tests are unit tests, with fewer integration and end-to-end tests. This is intentional because unit tests are faster and more focused, while high-level tests are used to validate overall system behaviour.
+
+This approach helps balance test speed with reliability and overall coverage.
+
+---
  
 ## How to Run the Project
  
