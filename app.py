@@ -10,7 +10,6 @@ app.service = service
 
 @app.route("/", methods=["GET", "POST"])
 def home():
-    global duties
 
     error = None
 
