@@ -1,5 +1,4 @@
 
-from constants import ERRORS
 from validators import is_duplicate_duty_number, is_valid_duty_description, is_valid_duty_number
 
 def create_duty(number, description, duties):
