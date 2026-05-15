@@ -17,6 +17,12 @@ def test_create_duty_returns_error_when_duty_description_is_empty():
 
     assert result == "Invalid duty description"
 
+def test_create_duty_returns_error_when_both_input_fields_are_empty():
+    duties = []
+    result = create_duty("", "", duties)
+
+    assert result == "Duty number and description are required"
+
 def test_create_duty_returns_error_when_duty_number_already_exists():
     duties = ["1 - my First Duty"]
     result = create_duty("1", "Another Duty", duties)

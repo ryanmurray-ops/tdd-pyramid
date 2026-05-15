@@ -78,3 +78,17 @@ def test_home_route_shows_error_for_duplicate_duty_number():
     assert "Duplicate duty number" in response_text
     assert "1 - Duplicate Duty" not in response_text
 
+def test_home_route_shows_error_when_both_input_fields_are_empty():
+    client = app.test_client()
+    
+    response = app.post("/", data={
+        "number": "",
+        "description": ""
+    })
+
+    html = response.get_data(as_text=True)
+
+    assert "Duty number and description required" in html
+
+
+
