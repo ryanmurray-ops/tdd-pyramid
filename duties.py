@@ -1,5 +1,6 @@
 
 from constants import ERRORS
+from validators import is_valid_duty_number
 
 def create_duty(number, description, duties):
     if not is_valid_duty_number(number) and not is_valid_duty_description(description):
@@ -15,9 +16,6 @@ def create_duty(number, description, duties):
         return None, "Duplicate duty number"
 
     return f"{number} - {description}", None
-
-def is_valid_duty_number(number):
-    return bool(number and number.strip())
 
 def is_valid_duty_description(description):
     return bool(description and description.strip())
