@@ -137,6 +137,30 @@ The majority of tests are unit tests, with fewer integration and end-to-end test
 This approach helps balance test speed with reliability and overall coverage.
 
 ---
+
+## Reflection: TDD vs Other Development Approaches
+
+This project was built using Test Driven Development (TDD), where tests were written before the implementation code. This approach helped guide the design of the application and ensured that each feature was written with clear expected behaviour.
+
+Using TDD helped me nreak the system down into smaller parts, such as validate, business logic, and route handling. This made it easier to build and debug because each part was tested in isolation.
+
+If I had used a more traditional approach (writing the full application first and testing afterwards), I think I would have spent more time debugging issues and refactoring large sections of code all at once. It would also have been harder to ensure edge cases were covered.
+
+BDD is a behavious-focused development approach that describes functionality from the users perspective. In my delivery project, I have seen BDD-style thinking used in Jira tickets, where requirements are written using structured scenarios using Given / When / Then. These tickets describe how a feature should behave before development begins. It provides good context and helps improve communication between developers and testers.
+
+For example:
+Given I am on the homepage
+When I enter a valid duty number and description
+And I click "Add Duty"
+Then I should see the duty displayed in the list
+
+This helps ensure clarift around the behaviour and reduces ambiguity. Although I have not implemented BDD frameworks in this project.
+
+Compared to BDD, TDD was feels more practical for this project because it helped me focus on building and testing small pieces of logic step-by-step.
+
+If I were to extend this project, I could consider implementing BDD-style scenarios to better represent the full user journeys perhaps with end-to-end tests.
+
+Overall, TDD improved the structure of my code, made refactoring safer, and gave me more confidence that changes would not break existing functionality.
  
 ## How to Run the Project
  
