@@ -90,6 +90,18 @@ def test_home_route_shows_error_for_duplicate_duty_number():
     assert "Duplicate duty number" in response_text
     assert "1 - Duplicate Duty" not in response_text
 
+def test_home_route_rejects_whitespace_duty_number():
+    client = app.test_client()
+
+    response = client.post("/", data={
+        "number": " ",
+        "description": "Valid description"
+    })
+
+    html = response = response.get_data(as_text=True)
+
+    assert "Invalid duty number" in html
+
 
 
 
