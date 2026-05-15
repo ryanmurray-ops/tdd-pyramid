@@ -18,5 +18,8 @@ def test_returns_false_when_duty_description_is_empty():
 
     assert result is False
 
-def test_invalid_whitespace_duty_numebr():
+def test_invalid_whitespace_duty_number():
     assert is_valid_duty_number(" ") is False
+
+def test_invalid_whitespace_duty_description():
+    assert is_valid_duty_description(" ") is False
