@@ -102,6 +102,27 @@ def test_home_route_rejects_whitespace_duty_number():
 
     assert "Invalid duty number" in html
 
+def test_home_route_uses_handle_create_duty():
+    client = app.test_client()
+
+    with patch("app.handle_create_duty") as mock_handler:
+        mock_handler.return_value = {
+            "success": True,
+            "duty": "1 - My First Duty",
+            "error": None
+        }
+
+    response = client.post("/", data={
+        "number": "1",
+        "description": "My First Duty"
+    })
+
+    html = response = response.get_data(as_text=True)
+
+    assert response.status_code == 200
+    assert "1 - My First Duty" in html
+
+
 
 
 
