@@ -14,7 +14,7 @@ def create_duty(number, description, duties):
     return f"{number} - {description}"
 
 def is_valid_duty_number(number):
-    return bool(number)
+    return bool(number and number.strip())
 
 def is_valid_duty_description(description):
     return bool(description)
