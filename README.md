@@ -80,6 +80,23 @@ They verify:
  
 ---
 
+### Mocking
+
+In some of my integration tests I used mocking to isolate parts of the app that were not relevant to the specific test being run.
+
+For example, I mocked the handle_create_duty function when testing the route. This allowed me to test the route behaviour without relying in the actual business logic inside the function.
+
+This helped me:
+- Isolate the route from the business logic
+- Ensure tests were focused on what the route returns
+- Avoid unnecessary dependencies during testing
+
+I used unittest.mock.patch to replace the function during the test.
+
+This improved the test reliability and made the integratiin tests faster and more focused.
+
+---
+
 ### Test Coverage Report
 
 Coverage was generate using pytest-cov.
