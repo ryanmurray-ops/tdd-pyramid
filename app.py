@@ -1,16 +1,9 @@
 from flask import Flask, request, render_template
-from duties import create_duty
+from duties import handle_create_duty
 
 app = Flask(__name__)
 
 duties = []
-
-ERRORS = (
-    "Invalid duty number",
-    "Invalid duty description",
-    "Duty number and description are required",
-    "Duplicate duty number"
-)
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -22,12 +15,12 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        created_duty = create_duty(number, description, duties)
+        result = handle_create_duty(number, description, duties)
 
-        if created_duty in ERRORS:
-            error = created_duty
+        if result["success"]:
+            duties.append(result["duty"])
         else:
-            duties.append(created_duty)
+            error = result["error"]
 
     return render_template(
         "index.html",
