@@ -27,6 +27,13 @@ jobs:
 
             - name: Install Playwright browsers
               run: python -m playwright install --with-deps
+            
+            - name: Start flask app
+              run: |
+                python app.py &
+              
+            - name: Wait for app to start
+              run: sleep 5
 
             - name: Run tests
               run: pytest
