@@ -28,11 +28,9 @@ def home():
         else:
             duties.append(created_duty)
 
-    duties_html = "".join(f"<li>{duty}</li>" for duty in duties)
-
     return render_template(
         "index.html",
-        duties_html=duties,
+        duties=duties,
         error=error
     )
 

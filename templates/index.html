@@ -20,10 +20,14 @@
             <button type="submit">Add Duty</button>
         </form>
 
-        {f'<div id="error-message">{{ error }}</div>' if error else ''}
+        {% if error %}
+            <div id="error-message">{{ error }}</div>
+        {% endif %}
 
         <ul id="duties-list">
-            {{ duties_html }}
+            {% for duty in duties %}
+                <li>{{ duty }}</li>
+            {% endfor %}
         </ul>
 
     </div>
