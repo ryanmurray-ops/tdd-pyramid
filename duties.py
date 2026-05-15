@@ -1,10 +1,5 @@
 
-ERRORS = (
-    "Invalid duty number",
-    "Invalid duty description",
-    "Duty number and description are required",
-    "Duplicate duty number"
-)
+from constants import ERRORS
 
 def create_duty(number, description, duties):
     if not is_valid_duty_number(number) and not is_valid_duty_description(description):
