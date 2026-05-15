@@ -1,9 +1,9 @@
 from duties import create_duty
 
-def test_create_duty_returns_fromatted_string():
+def test_create_duty_returns_duty_and_no_error():
     result = create_duty("1", "My First Duty", [])
 
-    assert result == "1 - My First Duty"
+    assert result == ("1 - My First Duty", None)
 
 def test_create_duty_returns_error_when_duty_number_is_empty():
     duties = []
