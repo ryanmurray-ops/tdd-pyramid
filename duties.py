@@ -1,3 +1,11 @@
+
+ERRORS = (
+    "Invalid duty number",
+    "Invalid duty description",
+    "Duty number and description are required",
+    "Duplicate duty number"
+)
+
 def create_duty(number, description, duties):
     if not is_valid_duty_number(number) and not is_valid_duty_description(description):
         return 'Duty number and description are required'
@@ -25,4 +33,11 @@ def is_duplicate_duty_number(number, duties):
             return True
     return False
 
+def handle_create_duty(number, description, duties):
+    result = create_duty(number, description, duties)
+
+    if result in ERRORS:
+        return {"success": False, "duty": None, "error": result}
+    
+    return {"success": True, "duty": result, "error": None}
 
