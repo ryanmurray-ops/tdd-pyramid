@@ -14,7 +14,7 @@ def create_duty(number, description, duties):
     if is_duplicate_duty_number(number, duties):
         return "Duplicate duty number"
 
-    return f"{number} - {description}"
+    return f"{number} - {description}", None
 
 def is_valid_duty_number(number):
     return bool(number and number.strip())
@@ -29,10 +29,10 @@ def is_duplicate_duty_number(number, duties):
     return False
 
 def handle_create_duty(number, description, duties):
-    result = create_duty(number, description, duties)
+    duty, error = create_duty(number, description, duties)
 
-    if result in ERRORS:
-        return {"success": False, "duty": None, "error": result}
+    if error in ERRORS:
+        return {"success": False, "duty": None, "error": error}
     
-    return {"success": True, "duty": result, "error": None}
+    return {"success": True, "duty": duty, "error": None}
 
