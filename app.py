@@ -19,6 +19,7 @@ def home():
 
         if result["success"]:
             duties.append(result["duty"])
+            error = None
         else:
             error = result["error"]
 
