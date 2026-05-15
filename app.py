@@ -1,9 +1,12 @@
 from flask import Flask, request, render_template
 from duties import handle_create_duty
+from services.duty_service import DutyService
 
 app = Flask(__name__)
 
-duties = []
+service = DutyService()
+
+app.service = service
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -15,17 +18,17 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        result = handle_create_duty(number, description, duties)
+        result = handle_create_duty(number, description, service.duties)
 
         if result["success"]:
-            duties.append(result["duty"])
+            service.duties.append(result["duty"])
             error = None
         else:
             error = result["error"]
 
     return render_template(
         "index.html",
-        duties=duties,
+        duties=service.duties,
         error=error
     )
 
