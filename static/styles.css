@@ -1,0 +1,88 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    font-family: Arial, san-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    font-size: 1rem;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 2rem;
+    color: #222;
+    font-size: 2rem;
+}
+
+#duties-section {
+    max-width: 37.5rem;
+    margin: 3rem auto;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 0.625rem;
+    box-shadow: 0 0.125rem 0.625rem rgba(0,0,0,0.1);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+label {
+    font-size: 0.9rem;
+}
+
+input {
+    padding: 0.625rem;
+    border: 0.3125rem solid #ccc;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+button {
+    padding: 0.625rem;
+    background-color: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #005fcc;
+}
+
+#error-message {
+    margin-top: 0.675rem;
+    padding: 0.75rem;
+    background-color: #ffe5e5;
+    color: #b30000;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+}
+
+#duties-list {
+    list-style: none;
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+#duties-list li {
+    padding: 0.875rem;
+    background: #f9f9f9;
+    border-left: 0.25rem solid #0077ff;
+    border-radius: 0.375rem;
+    font-size: 0.95rem;
+    box-shadow: 0 0.0625rem 0.25rem egba(0, 0, 0, 0.05);
+}
+
