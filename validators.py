@@ -6,6 +6,7 @@ def is_valid_duty_description(description):
 
 def is_duplicate_duty_number(number, duties):
     for duty in duties:
-        if duty.startswith(f"{number} -"):
+        duty_number = duty.split(" - ")[0]
+        if duty_number == number:
             return True
     return False
