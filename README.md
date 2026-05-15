@@ -170,16 +170,6 @@ Before running the app, install the required packages:
  
 - pip install flask pytest pytest-cov playwright
  
- 
- 
-## How to Run the Project
- 
-### Install Dependencies
- 
-Before running the app, install the required packages:
- 
-- pip install flask pytest pytest-cov playwright
- 
 ---
  
 ### Run the App
@@ -227,3 +217,19 @@ pytest
 This project is deployed using AWS as part of a CI/CD pipeline.
  
 When changes are pushed to the repository, the application is automatically built and deployed.
+
+---
+
+## Future Improvements
+
+Currently duties are stored as formatted strings, which keeps the implementation simple for the current project requirements.
+
+During development, I chose not to refactor duties into structured objects because the tests and requirements at this stage did not drive the design in that direction. As the project followed a Test Driven Development (TDD) approach, I aimed to avoid unnecessary abstraction or complexity before it was required by the tests or feature requirements.
+
+If the application were expanded with features such as editing, persistence, filtering, or databse integration, duties could be refactored into structured objects to improve scalability and maintainability.
+
+Additional improvements could include:
+- Datbase integration for persistent storage
+- User authentication
+- Editing and deleting duties
+- Improved UI accessibility
