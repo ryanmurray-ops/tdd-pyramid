@@ -79,6 +79,23 @@ They verify:
 - Error messages are shown when expected
  
 ---
+
+### Test Coverage Report
+
+Coverage was generate using pytest-cov.
+
+**Command Used**
+pytest --cov=. --cov-report=term-missing
+
+**Coverage Summary**
+- Overall: 91%
+- Total Statements: 220
+- Missed Statements: 19
+
+Most of the missed coverage is in the end-to-end tests, which is expected as they focus on full user flows rather than testing branch of code.
+
+Most of the core business logic is covered by unit and integration tests, which is why modules such as duties.py, validators.py, and services/duty_service.py achieve 100% coverage.
+
  
 ## How to Run the Project
  
