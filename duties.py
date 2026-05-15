@@ -23,7 +23,7 @@ def create_duty(number, description, duties):
 def handle_create_duty(number, description, duties):
     duty, error = create_duty(number, description, duties)
 
-    if error in ERRORS:
+    if error:
         return {"success": False, "duty": None, "error": error}
     
     return {"success": True, "duty": duty, "error": None}
