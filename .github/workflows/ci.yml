@@ -44,6 +44,11 @@ jobs:
               with:
                 role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ryan-tdd-pyramid 
                 aws-region: eu-west-2
+            
+            - name: Create ECR Repository if it doesn't exist
+              run: |
+                aws ecr describe-repositories --repository-names tdd-pyramid-ryan || \
+                aws ecr create-respository --repository-name tdd-pyramid-ryan
               
             - name: Login to Amazon ECR
               id: login-ecr
@@ -55,11 +60,11 @@ jobs:
 
             - name: Tag Image
               run: |
-                docker tag tdd-pyramid:latest ${{ steps.login-ecr.outputs.registry }}/tdd-pyramid:latest
+                docker tag tdd-pyramid:latest ${{ steps.login-ecr.outputs.registry }}/tdd-pyramid-ryan:latest
             
             - name: Push to ECR
               run: |
-                docker push ${{ steps.login-ecr.outputs.registry }}/tdd-pyramid:latest
+                docker push ${{ steps.login-ecr.outputs.registry }}/tdd-pyramid-ryan:latest
 
               
               
