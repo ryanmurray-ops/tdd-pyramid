@@ -42,7 +42,7 @@ jobs:
             - name: Configure AWS Credentials
               uses: aws-actions/configure-aws-credentials@v4
               with:
-                role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/tdd-pyramid-github-actions-role
+                role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ryan-tdd-pyramid 
                 aws-region: eu-west-2
               
             - name: Login to Amazon ECR
