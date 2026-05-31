@@ -48,7 +48,7 @@ jobs:
             - name: Create ECR Repository if it doesn't exist
               run: |
                 aws ecr describe-repositories --repository-names tdd-pyramid-ryan || \
-                aws ecr create-respository --repository-name tdd-pyramid-ryan
+                aws ecr create-repository --repository-name tdd-pyramid-ryan
               
             - name: Login to Amazon ECR
               id: login-ecr
