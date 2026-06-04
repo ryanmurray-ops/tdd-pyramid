@@ -9,3 +9,7 @@ def reset_duties():
 def open_homepage(page):
     page.goto("/")
     return page
+
+@pytest.fixture(autouse=True)
+def reset_coins():
+    app.coin_service.coins.clear()
