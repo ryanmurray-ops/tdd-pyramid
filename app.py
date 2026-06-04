@@ -40,8 +40,8 @@ def get_coins():
 
 @app.route("/coins", methods=["POST"])
 def create_coin():
-    data = request.get_json()
-    coin = coin_service.create_coin(data["name"])
+    coin_data = request.get_json()
+    coin = coin_service.create_coin(coin_data["name"])
     return {
         "id": coin.id,
         "name": coin.name
