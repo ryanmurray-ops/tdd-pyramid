@@ -24,3 +24,12 @@ def test_get_coin_by_id_returns_404_and_error_message_when_not_found():
     response = client.get("/coins/fake-id")
     assert response.status_code == 404
     assert response.json["error"] == "Coin not found"
+
+def test_create_coin_via_api_returns_201_and_coin():
+    client = app.test_client()
+    response = client.post("/coins", json={
+        "name": "Automate"
+    })
+    assert response.status_code == 201
+    assert response.json["name"] == "Automate"
+    assert "id" in response.json
