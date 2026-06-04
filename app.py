@@ -47,7 +47,7 @@ def get_coin_by_id(coin_id):
                 "name": coin.name
             }), 200
     
-    return None
+    return jsonify({"error": "Coin not found"}), 404
     
 
 if __name__ == "__main__":
