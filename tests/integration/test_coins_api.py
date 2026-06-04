@@ -4,3 +4,9 @@ def test_get_coins_returns_200():
     client = app.test_client()
     response = client.get("/coins")
     assert response.status_code == 200
+
+def test_get_coins_returns_empty_list():
+    client = app.test_client()
+    response = client.get("/coins")
+    assert response.status_code == 200
+    assert response.json == []
