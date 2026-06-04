@@ -12,3 +12,7 @@ def test_coin_has_unique_id():
     assert first_coin.id is not None
     assert second_coin.id is not None
     assert first_coin.id != second_coin.id
+
+def test_coin_starts_incomplete():
+    coin = Coin(name="automate")
+    assert coin.is_complete is False
