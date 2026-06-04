@@ -1,6 +1,6 @@
 from coin import Coin
 
-def test_coin_cabn_be_created():
-    con = Coin(name="Automate")
+def test_coin_can_be_created():
+    coin = Coin(name="Automate")
 
     assert coin.name == "Automate"
