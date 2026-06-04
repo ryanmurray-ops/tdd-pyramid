@@ -18,3 +18,9 @@ def test_get_coin_by_id_returns_correct_coin():
     assert response.status_code == 200
     assert response.json["id"] == coin.id
     assert response.json["name"] == "Automate"
+
+def test_get_coin_by_id_returns_404_and_error_message_when_not_found():
+    client = app.test_client()
+    response = client.get("/coins/fake-id")
+    assert response.status_code == 404
+    assert response.json["error"] == "Coin not found"
