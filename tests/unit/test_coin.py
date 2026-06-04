@@ -16,3 +16,7 @@ def test_coin_has_unique_id():
 def test_coin_starts_incomplete():
     coin = Coin(name="automate")
     assert coin.is_complete is False
+
+def test_coin_starts_with_empty_duties():
+    coin = Coin(name="Automate")
+    assert coin.duties == []
