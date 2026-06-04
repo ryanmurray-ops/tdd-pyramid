@@ -5,10 +5,10 @@ from services.duty_service import DutyService
 
 app = Flask(__name__)
 
-service = DutyService()
+duty_service = DutyService()
 coin_service = CoinService()
 
-app.service = service
+app.duty_service = duty_service
 app.coin_service = coin_service
 
 @app.route("/", methods=["GET", "POST"])
@@ -20,17 +20,17 @@ def home():
         number = request.form.get("number")
         description = request.form.get("description")
 
-        result = handle_create_duty(number, description, service.duties)
+        result = handle_create_duty(number, description, duty_service.duties)
 
         if result["success"]:
-            service.duties.append(result["duty"])
+            duty_service.duties.append(result["duty"])
             error = None
         else:
             error = result["error"]
 
     return render_template(
         "index.html",
-        duties=service.duties,
+        duties=duty_service.duties,
         error=error
     )
 
