@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, jsonify, request, render_template
 from duties import handle_create_duty
 from services.duty_service import DutyService
 
@@ -33,7 +33,7 @@ def home():
 
 @app.route("/coins", methods=["GET"])
 def get_coins():
-    return "", 200
+    return jsonify([])
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
