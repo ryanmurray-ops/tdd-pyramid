@@ -10,3 +10,11 @@ def test_get_coins_returns_empty_list():
     response = client.get("/coins")
     assert response.status_code == 200
     assert response.json == []
+
+def test_get_coin_by_id_returns__correct_coin():
+    client = app.test_client()
+    coin = app.coin_service.create_coin("Automate")
+    response = client.get(f"/coins/{coin.id}")
+    assert response.status_code == 200
+    assert response.json["id"] == coin.id
+    assert response.json["name"] == "Automate"
