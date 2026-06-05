@@ -5,11 +5,8 @@ from services.duty_service import DutyService
 
 app = Flask(__name__)
 
-duty_service = DutyService()
-coin_service = CoinService()
-
-app.duty_service = duty_service
-app.coin_service = coin_service
+app.duty_service = DutyService()
+app.coin_service = CoinService()
 
 @app.route("/", methods=["GET", "POST"])
 def home():
@@ -22,30 +19,39 @@ def home():
         create_duty_result = handle_create_duty(
             duty_form_data.get("number"),
             duty_form_data.get("description"),
-            duty_service.duties
+            app.duty_service.duties
         )
 
         if create_duty_result["success"]:
-            duty_service.duties.append(create_duty_result["duty"])
+            app.duty_service.duties.append(create_duty_result["duty"])
             error = None
         else:
             error = create_duty_result["error"]
 
     return render_template(
         "index.html",
-        duties=duty_service.duties,
+        duties=app.duty_service.duties,
         error=error
     )
 
 @app.route("/coins", methods=["GET"])
 def get_all_coins():
-    coins_response = app.coin_service.get_all_coins()
+    coins = app.coin_service.get_all_coins()
+
+    coins_response = [
+        {
+            "id": coin.id,
+            "name": coin.name
+
+        }
+        for coin in coins
+    ]
     return jsonify(coins_response), 200
 
 @app.route("/coins", methods=["POST"])
 def create_coin():
     coin_creation_data = request.get_json()
-    new_coin = coin_service.create_coin(coin_creation_data["name"])
+    new_coin = app.coin_service.create_coin(coin_creation_data["name"])
     return {
         "id": new_coin.id,
         "name": new_coin.name
