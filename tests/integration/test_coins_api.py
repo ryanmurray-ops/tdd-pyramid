@@ -42,3 +42,12 @@ def test_put_coin_endpoint_returns_200():
         json={"is_complete": True}
     )
     assert response.status_code == 200
+
+def test_put_coin_updates_completion_status():
+    coin = app.coin_service.create_coin("Automate")
+    client = app.test_client()
+    client.put(
+        f"/coins/{coin.id}",
+        json={"is_complete": True}
+    )
+    assert coin.is_complete == True
