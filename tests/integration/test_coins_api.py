@@ -78,3 +78,9 @@ def test_put_unknown_coin_returns_error_message():
     assert response.status_code == 404
     assert coin_update_request["error"] == "Coin not found"
 
+def test_delete_coin_endpoint_returns_200():
+    coin = app.coin_service.create_coin("Automate")
+    client = app.test_client()
+    response = client.delete("f/coins/{coin.id}")
+    assert response.status_code == 200
+
