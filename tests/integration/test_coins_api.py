@@ -92,3 +92,7 @@ def test_delete_coin_removes_coin_from_service():
     client.delete(f"/coins/{coin.id}")
     assert coin not in app.coin_service.coins
 
+def test_delete_unknown_coin_returns_404():
+    client = app.test_client()
+    response = client.delete("/coins/non-existent-id")
+    assert response.status_code == 404
