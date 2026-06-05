@@ -33,3 +33,12 @@ def test_create_coin_via_api_returns_201_and_coin():
     assert response.status_code == 201
     assert response.json["name"] == "Automate"
     assert "id" in response.json
+
+def test_put_coin_endpoint_returns_200():
+    coin = app.coin_service.create_coin("Automate")
+    client = app.test_client()
+    response = client.put(
+        f"/coins/{coin.id}",
+        json={"is_complete": True}
+    )
+    assert response.status_code == 200
