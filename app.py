@@ -54,7 +54,7 @@ def create_coin():
     new_coin = app.coin_service.create_coin(coin_creation_data["name"])
 
     if new_coin is None:
-        return jsonify({}), 400
+        return jsonify({"error": "Coin already exists"}), 400
 
     return {
         "id": new_coin.id,
