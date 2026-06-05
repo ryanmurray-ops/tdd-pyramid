@@ -36,16 +36,7 @@ def home():
 
 @app.route("/coins", methods=["GET"])
 def get_all_coins():
-    coins = app.coin_service.get_all_coins()
-
-    coins_response = [
-        {
-            "id": coin.id,
-            "name": coin.name
-
-        }
-        for coin in coins
-    ]
+    coins_response = app.coin_service.get_all_coins()
     return jsonify(coins_response), 200
 
 @app.route("/coins", methods=["POST"])

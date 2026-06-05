@@ -5,7 +5,13 @@ class CoinService:
         self.coins = []
     
     def get_all_coins(self):
-        return self.coins
+        return [
+            {
+                "id": coin.id,
+                "name": coin.name
+            }
+            for coin in self.coins
+        ]
 
     def create_coin(self, name):
         for coin in self.coins:
