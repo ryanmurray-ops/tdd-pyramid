@@ -34,3 +34,8 @@ def test_delete_coin_renmoves_coin():
     service.delete_coin(coin.id)
     assert service.get_coin_by_id(coin.id) == None
 
+def test_delete_coin_returns_false_when_coin_not_found():
+    service = CoinService()
+    result = service.delete_coin("fake-id")
+    assert result is False
+
