@@ -5,9 +5,15 @@ def test_create_coin_returns_coin():
     coin = service.create_coin("Automate")
     assert coin.name == "Automate"
 
-def test_coin_service_rejeects_duplicate_coin_names():
+def test_coin_service_rejects_duplicate_coin_names():
     service = CoinService()
     service.create_coin("Automate")
     result = service.create_coin("Automate")
     assert result is None
+
+def test_get_coin_by_id_returns_coin_when_exists():
+    service = CoinService()
+    coin = service.create_coin("Automate")
+    result = service.get_coin_by_id(coin.id)
+    assert result == coin
 
