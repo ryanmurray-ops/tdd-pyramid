@@ -81,6 +81,8 @@ def test_put_unknown_coin_returns_error_message():
 def test_delete_coin_endpoint_returns_200():
     coin = app.coin_service.create_coin("Automate")
     client = app.test_client()
-    response = client.delete("f/coins/{coin.id}")
+    response = client.delete(
+        f"/coins/{coin.id}"
+    )  
     assert response.status_code == 200
 

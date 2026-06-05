@@ -68,6 +68,10 @@ def update_coin(coin_id):
             return {}, 200
 
     return {"error": "Coin not found"}, 404
+
+@app.route("/coins/<coin_id>", methods=["DELETE"])
+def delete_coin(coin_id):
+    return {}, 200
     
 
 if __name__ == "__main__":
