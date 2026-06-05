@@ -12,3 +12,9 @@ class CoinService:
         coin = Coin(name)
         self.coins.append(coin)
         return coin
+    
+    def get_coin_by_id(self, coin_id):
+        for coin in self.coins:
+            if coin.id == coin_id:
+                return coin
+            return None
