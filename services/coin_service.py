@@ -25,5 +25,12 @@ class CoinService:
             coin.is_complete = is_complete
             return coin
         return None
+    
+    def delete_coin(self, coin_id):
+        coin = self.get_coin_by_id(coin_id)
+        if coin:
+            self.coins.remove(coin)
+            return True
+        return None
         
     
