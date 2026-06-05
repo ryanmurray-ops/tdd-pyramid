@@ -17,16 +17,19 @@ def home():
     error = None
 
     if request.method == "POST":
-        number = request.form.get("number")
-        description = request.form.get("description")
+        duty_form_data = request.form
 
-        result = handle_create_duty(number, description, duty_service.duties)
+        create_duty_result = handle_create_duty(
+            duty_form_data.get("number"),
+            duty_form_data.get("description"),
+            duty_service.duties
+        )
 
-        if result["success"]:
-            duty_service.duties.append(result["duty"])
+        if create_duty_result["success"]:
+            duty_service.duties.append(create_duty_result["duty"])
             error = None
         else:
-            error = result["error"]
+            error = create_duty_result["error"]
 
     return render_template(
         "index.html",
@@ -40,11 +43,11 @@ def get_coins():
 
 @app.route("/coins", methods=["POST"])
 def create_coin():
-    coin_data = request.get_json()
-    coin = coin_service.create_coin(coin_data["name"])
+    coin_creation_data = request.get_json()
+    new_coin = coin_service.create_coin(coin_creation_data["name"])
     return {
-        "id": coin.id,
-        "name": coin.name
+        "id": new_coin.id,
+        "name": new_coin.name
     }, 201
 
 @app.route("/coins/<coin_id>", methods=["GET"])
@@ -61,13 +64,13 @@ def get_coin_by_id(coin_id):
 
 @app.route("/coins/<coin_id>", methods=["PUT"])
 def update_coin(coin_id):
-    coin_update_request = request.get_json()
-    coin = app.coin_service.update_coin(
+    update_coin_data = request.get_json()
+    updated_coin = app.coin_service.update_coin(
         coin_id,
-        coin_update_request["is_complete"]
+        update_coin_data["is_complete"]
     )
 
-    if coin:
+    if updated_coin:
         return {}, 200
     
     return {"error": "Coin not found"}, 404
