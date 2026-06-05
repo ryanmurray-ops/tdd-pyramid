@@ -60,3 +60,21 @@ def test_put_unknown_coin_returns_404():
     )
     assert response.status_code == 404
 
+def test_put_unknown_coin_returns_404():
+    client = app.test_client()
+    response = client.put(
+        "/coins/{coin.id}",
+        json={"is_complete": True}
+    )
+    assert response.status_code == 404
+
+def test_put_unknown_coin_returns_error_message():
+    client = app.test_client()
+    response = client.put(
+        "/coins/{coin.id}",
+        json={"is_complete": True}
+    )
+    coin_update_request = response.get_json()
+    assert response.status_code == 404
+    assert coin_update_request["error"] == "Coin not found"
+
