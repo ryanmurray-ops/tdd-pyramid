@@ -17,3 +17,9 @@ def test_get_coin_by_id_returns_coin_when_exists():
     result = service.get_coin_by_id(coin.id)
     assert result == coin
 
+def test_update_coin_sets_is_complete_status():
+    service = CoinService()
+    coin = service.create_coin("Automate")
+    service.update_coin(coin.id, True)
+    assert coin.is_complete is True
+
