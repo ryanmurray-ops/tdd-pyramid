@@ -75,7 +75,7 @@ def delete_coin(coin_id):
         if coin.id == coin_id:
             app.coin_service.coins.remove(coin)
             return {}, 200
-    return {}, 404
+    return {"error": "Coin not found"}, 404
     
 
 if __name__ == "__main__":
