@@ -51,3 +51,12 @@ def test_put_coin_updates_completion_status():
         json={"is_complete": True}
     )
     assert coin.is_complete == True
+
+def test_put_unknown_coin_returns_404():
+    client = app.test_client()
+    response = client.put(
+        "/coins/{coin.id}",
+        json={"is_complete": True}
+    )
+    assert response.status_code == 404
+
