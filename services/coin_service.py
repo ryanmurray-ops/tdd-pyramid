@@ -19,4 +19,11 @@ class CoinService:
                 return coin
             return None
         
+    def update_coin(self, coin_id, is_complete):
+        coin = self.get_coin_by_id(coin_id)
+        if coin:
+            coin.is_complete = is_complete
+            return coin
+        return None
+        
     
