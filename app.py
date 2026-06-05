@@ -57,6 +57,10 @@ def get_coin_by_id(coin_id):
             }), 200
     
     return jsonify({"error": "Coin not found"}), 404
+
+@app.route("/coins/<coin_id>", methods=["PUT"])
+def update_coin(coin_id):
+    return {}, 200
     
 
 if __name__ == "__main__":
