@@ -62,20 +62,22 @@ def get_coin_by_id(coin_id):
 @app.route("/coins/<coin_id>", methods=["PUT"])
 def update_coin(coin_id):
     coin_update_request = request.get_json()
+    coin = app.coin_service.update_coin(
+        coin_id,
+        coin_update_request["is_complete"]
+    )
 
-    for coin in app.coin_service.coins:
-        if coin.id == coin_id:
-            coin.is_complete = coin_update_request["is_complete"]
-            return {}, 200
-
+    if coin:
+        return {}, 200
+    
     return {"error": "Coin not found"}, 404
 
 @app.route("/coins/<coin_id>", methods=["DELETE"])
 def delete_coin(coin_id):
-    for coin in app.coin_service.coins:
-        if coin.id == coin_id:
-            app.coin_service.coins.remove(coin)
-            return {}, 200
+    coin_deleted = app.coin_service.delete_coin(coin_id)
+
+    if coin_deleted:
+        return {}, 200
     return {"error": "Coin not found"}, 404
     
 
