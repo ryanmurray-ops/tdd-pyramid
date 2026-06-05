@@ -17,7 +17,7 @@ class CoinService:
         for coin in self.coins:
             if coin.id == coin_id:
                 return coin
-            return None
+        return None
         
     def update_coin(self, coin_id, is_complete):
         coin = self.get_coin_by_id(coin_id)
