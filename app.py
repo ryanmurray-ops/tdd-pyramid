@@ -71,6 +71,10 @@ def update_coin(coin_id):
 
 @app.route("/coins/<coin_id>", methods=["DELETE"])
 def delete_coin(coin_id):
+    for coin in app.coin_service.coins:
+        if coin.id == coin_id:
+            app.coin_service.coins.remove(coin)
+            return {}, 200
     return {}, 200
     
 
