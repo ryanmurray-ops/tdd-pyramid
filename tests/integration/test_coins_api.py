@@ -96,3 +96,9 @@ def test_delete_unknown_coin_returns_404():
     client = app.test_client()
     response = client.delete("/coins/non-existent-id")
     assert response.status_code == 404
+
+def test_delete_unknown_coin_returns_error_message():
+    client = app.test_client()
+    response = client.delete("/coins/non-existent-id")
+    error_response = response.get_json()
+    assert error_response["error"] == "Coin not found"
