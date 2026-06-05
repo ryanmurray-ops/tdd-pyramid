@@ -33,7 +33,7 @@ def test_get_coin_by_id_returns_correct_coin():
 
 def test_get_coin_by_id_returns_404_and_error_message_when_not_found():
     client = app.test_client()
-    response = client.get("/coins/fake-id")
+    response = client.get("/coins/non-existent-id")
     assert response.status_code == 404
     assert response.json["error"] == "Coin not found"
 
@@ -46,6 +46,19 @@ def test_create_coin_via_api_returns_201_and_coin():
     assert response.json["name"] == "Automate"
     assert "id" in response.json
 
+def test_create_coin_returns_400_when_name_already_exists():
+    client = app.test_client()
+    client.post("/coins", json={"name": "Automate"})
+    response = client.post("/coins", json={"name": "Automate"})
+    assert response.status_code == 400
+
+def test_create_coin_returns_error_message_when_name_already_exists():
+    client = app.test_client()
+    client.post("/coins", json={"name": "Automate"})
+    response = client.post("/coins", json={"name": "Automate"})
+    assert response.status_code == 400
+    assert response.json["error"] == "Coin already exists"
+
 def test_put_coin_endpoint_returns_200():
     coin = app.coin_service.create_coin("Automate")
     client = app.test_client()
@@ -54,19 +67,6 @@ def test_put_coin_endpoint_returns_200():
         json={"is_complete": True}
     )
     assert response.status_code == 200
-
-def test_create_coin_returns_400_when_name_already_exists():
-    client = app.test_client()
-    client.post("/coins", json={"name": "Automate"})
-    response = client.post("/coins", json={"name": "Automate"})
-    assert response.status_code == 400
-
-def test_create_coin_returns_400_when_name_already_exists():
-    client = app.test_client()
-    client.post("/coins", json={"name": "Automate"})
-    response = client.post("/coins", json={"name": "Automate"})
-    assert response.status_code == 400
-    assert response.json["error"] == "Coin already exists"
 
 def test_put_coin_updates_completion_status():
     coin = app.coin_service.create_coin("Automate")
@@ -88,7 +88,7 @@ def test_put_unknown_coin_returns_404():
 def test_put_unknown_coin_returns_404():
     client = app.test_client()
     response = client.put(
-        "/coins/{coin.id}",
+        "/coins/non-existent-id",
         json={"is_complete": True}
     )
     assert response.status_code == 404
@@ -96,7 +96,7 @@ def test_put_unknown_coin_returns_404():
 def test_put_unknown_coin_returns_error_message():
     client = app.test_client()
     response = client.put(
-        "/coins/{coin.id}",
+        "/coins/non-existent-id",
         json={"is_complete": True}
     )
     coin_update_request = response.get_json()
@@ -106,9 +106,7 @@ def test_put_unknown_coin_returns_error_message():
 def test_delete_coin_endpoint_returns_200():
     coin = app.coin_service.create_coin("Automate")
     client = app.test_client()
-    response = client.delete(
-        f"/coins/{coin.id}"
-    )  
+    response = client.delete(f"/coins/{coin.id}")  
     assert response.status_code == 200
 
 def test_delete_coin_removes_coin_from_service():
