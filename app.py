@@ -52,6 +52,10 @@ def get_all_coins():
 def create_coin():
     coin_creation_data = request.get_json()
     new_coin = app.coin_service.create_coin(coin_creation_data["name"])
+
+    if new_coin is None:
+        return jsonify({}), 400
+
     return {
         "id": new_coin.id,
         "name": new_coin.name
