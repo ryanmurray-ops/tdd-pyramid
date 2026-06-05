@@ -61,6 +61,13 @@ def test_create_coin_returns_400_when_name_already_exists():
     response = client.post("/coins", json={"name": "Automate"})
     assert response.status_code == 400
 
+def test_create_coin_returns_400_when_name_already_exists():
+    client = app.test_client()
+    client.post("/coins", json={"name": "Automate"})
+    response = client.post("/coins", json={"name": "Automate"})
+    assert response.status_code == 400
+    assert response.json["error"] == "Coin already exists"
+
 def test_put_coin_updates_completion_status():
     coin = app.coin_service.create_coin("Automate")
     client = app.test_client()
