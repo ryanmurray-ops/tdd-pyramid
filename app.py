@@ -65,7 +65,9 @@ def update_coin(coin_id):
     for coin in app.coin_service.coins:
         if coin.id == coin_id:
             coin.is_complete = coin_update_request["is_complete"]
-    return {}, 200
+            return {}, 200
+
+    return {}, 404
     
 
 if __name__ == "__main__":
