@@ -26,6 +26,11 @@ class CoinService:
             return coin
         return None
     
+    def test_update_coin_returns_none_when_coin_not_found():
+        service = CoinService()
+        result = service.update_coin("fake-id", True)
+        assert result is None
+    
     def delete_coin(self, coin_id):
         coin = self.get_coin_by_id(coin_id)
         if coin:
