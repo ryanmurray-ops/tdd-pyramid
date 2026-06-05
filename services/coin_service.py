@@ -3,6 +3,15 @@ from coin import Coin
 class CoinService:
     def __init__(self):
         self.coins = []
+    
+    def get_all_coins(self):
+        return [
+            {
+                "id": coin.id,
+                "name": coin.name
+            }
+            for coin in self.coins
+        ]
 
     def create_coin(self, name):
         for coin in self.coins:
@@ -33,4 +42,7 @@ class CoinService:
             return True
         return False
         
+    
+
+
     
