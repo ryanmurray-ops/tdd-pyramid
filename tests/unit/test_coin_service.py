@@ -23,6 +23,11 @@ def test_update_coin_sets_is_complete_status():
     service.update_coin(coin.id, True)
     assert coin.is_complete is True
 
+def test_update_coin_returns_none_when_coin_not_found():
+    service = CoinService()
+    result = service.update_coin("fake-id", True)
+    assert result is None
+
 def test_delete_coin_renmoves_coin():
     service = CoinService()
     coin = service.create_coin("Automate")
