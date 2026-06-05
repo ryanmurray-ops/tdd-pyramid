@@ -11,7 +11,7 @@ def test_get_coins_returns_empty_list():
     assert response.status_code == 200
     assert response.json == []
 
-def test_get_coins_returns_created_coins():
+def test_get_all_coins_returns_created_coins():
     client = app.test_client()
     app.coin_service.create_coin("Automate")
     app.coin_service.create_coin("Assemble")
@@ -19,8 +19,8 @@ def test_get_coins_returns_created_coins():
     coins_response = response.get_json()
     assert response.status_code == 200
     assert len(coins_response) == 2
-    assert coins_response[0] == "Automate"
-    assert coins_response[1] == "Assemble"
+    assert coins_response[0]["name"] == "Automate"
+    assert coins_response[1]["name"] == "Assemble"
 
 
 def test_get_coin_by_id_returns_correct_coin():
