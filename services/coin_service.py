@@ -31,6 +31,6 @@ class CoinService:
         if coin:
             self.coins.remove(coin)
             return True
-        return None
+        return False
         
     
