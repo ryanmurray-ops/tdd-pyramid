@@ -49,13 +49,14 @@ def create_coin():
 
 @app.route("/coins/<coin_id>", methods=["GET"])
 def get_coin_by_id(coin_id):
-    for coin in app.coin_service.coins:
-        if coin.id == coin_id:
-            return jsonify({
-                "id": coin.id,
-                "name": coin.name
-            }), 200
-    
+    coin = app.coin_service.get_coin_by_id(coin_id)
+
+    if coin:
+        return jsonify({
+            "id": coin.id,
+            "name": coin.name
+        }), 200
+
     return jsonify({"error": "Coin not found"}), 404
 
 @app.route("/coins/<coin_id>", methods=["PUT"])
