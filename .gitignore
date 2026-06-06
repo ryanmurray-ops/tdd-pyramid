@@ -1,7 +1,26 @@
+# Virtual environments
 venv/
-.pytest_cache/
-playwright-report/
-htnmlcov
-.coverage
+.env
+
+# Python cache
 __pycache__/
 *.pyc
+.py[cod]
+
+# Pytest
+.pytest_cache/
+
+# Coverage reports
+htmlcov
+.coverage
+
+# Playwright reports
+playwright-report/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
