@@ -1,8 +1,10 @@
 from coin import Coin
+from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 
 class CoinService:
     def __init__(self):
         self.coins = []
+        self.repository = InMemoryCoinRepository()
     
     def get_all_coins(self):
         return [
@@ -10,7 +12,7 @@ class CoinService:
                 "id": coin.id,
                 "name": coin.name
             }
-            for coin in self.coins
+            for coin in self.repository.get_all_coins()
         ]
 
     def create_coin(self, name):
@@ -20,6 +22,7 @@ class CoinService:
             
         coin = Coin(name)
         self.coins.append(coin)
+        self.repository.create_coin(coin)
         return coin
     
     def get_coin_by_id(self, coin_id):
