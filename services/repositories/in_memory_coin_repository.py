@@ -14,3 +14,10 @@ class InMemoryCoinRepository:
                 return coin
         
         return None
+    
+    def delete_coin(self, coin_id):
+        for coin in self._coins:
+            if coin.id == coin_id:
+                self._coins.remove(coin)
+                return True
+        return False
