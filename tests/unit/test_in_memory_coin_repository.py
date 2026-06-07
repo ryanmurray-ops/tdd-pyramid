@@ -25,6 +25,15 @@ def test_reposiroty_can_get_coin_by_id():
     result = repository.get_coin_by_id(coin.id)
     assert result == coin
 
+def test_reposirtory_can_update_coin_completion_status():
+    repository = InMemoryCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    repository.update_coin(coin.id, True)
+    updated_coin = repository.get_coin_by_id(coin.id)
+    assert updated_coin.is_complete is True
+
+
 def test_repository_can_delete_coin():
     repository = InMemoryCoinRepository()
     coin = Coin("Automate")
