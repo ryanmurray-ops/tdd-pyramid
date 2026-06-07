@@ -17,3 +17,10 @@ def test_repositoy_returns_stored_coin():
     repository.create_coin(coin)
     result = repository.get_all_coins()
     assert result[0] == coin
+
+def test_reposiroty_can_get_coin_by_id():
+    repository = InMemoryCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    result = repository.get_coin_by_id(coin.id)
+    assert result == coin
