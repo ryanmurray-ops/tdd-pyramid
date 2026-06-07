@@ -10,3 +10,10 @@ def test_repositoy_can_store_a_coin():
     coin = Coin("Automate")
     repository.create_coin(coin)
     assert len(repository.get_all_coins()) == 1
+
+def test_repositoy_returns_stored_coin():
+    repository = InMemoryCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    result = repository.get_all_coins()
+    assert result[0] == coin
