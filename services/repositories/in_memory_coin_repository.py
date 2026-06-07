@@ -15,6 +15,13 @@ class InMemoryCoinRepository:
         
         return None
     
+    def get_coin_by_name(self, name):
+        for coin in self._coins:
+            if coin.name == name:
+                return coin
+            
+        return None
+    
     def update_coin(self, coin_id, is_complete):
         for coin in self._coins:
             if coin.id == coin_id:
