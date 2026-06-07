@@ -113,7 +113,8 @@ def test_delete_coin_removes_coin_from_service():
     coin = app.coin_service.create_coin("Automate")
     client = app.test_client()
     client.delete(f"/coins/{coin.id}")
-    assert coin not in app.coin_service.coins
+    result = app.coin_service.get_coin_by_id(coin.id)
+    assert result is None
 
 def test_delete_unknown_coin_returns_404():
     client = app.test_client()

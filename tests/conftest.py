@@ -12,4 +12,4 @@ def open_homepage(page):
 
 @pytest.fixture(autouse=True)
 def reset_coins():
-    app.coin_service.coins.clear()
+    app.coin_service.repository._coins.clear()
