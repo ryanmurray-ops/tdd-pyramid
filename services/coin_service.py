@@ -29,11 +29,18 @@ class CoinService:
         return self.repository.get_coin_by_id(coin_id)
         
     def update_coin(self, coin_id, is_complete):
-        coin = self.get_coin_by_id(coin_id)
-        if coin:
-            coin.is_complete = is_complete
-            return coin
-        return None
+        coin = self.repository.get_coin_by_id(coin_id)
+
+        if not coin:
+            return None
+        
+        updated_coin =self.repository.update_coin(coin_id,is_complete)
+
+        in_memory_coin = self.get_coin_by_id(coin_id)
+        if in_memory_coin:
+            in_memory_coin.is_complete = is_complete
+        
+        return updated_coin
     
     def delete_coin(self, coin_id):
         coin = self.repository.get_coin_by_id(coin_id)
