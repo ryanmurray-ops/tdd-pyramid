@@ -24,3 +24,11 @@ def test_reposiroty_can_get_coin_by_id():
     repository.create_coin(coin)
     result = repository.get_coin_by_id(coin.id)
     assert result == coin
+
+def test_repository_can_delete_coin():
+    repository = InMemoryCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    repository.delete_coin(coin.id)
+    result = repository.get_coin_by_id(coin.id)
+    assert result is None
