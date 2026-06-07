@@ -2,9 +2,9 @@ from coin import Coin
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 
 class CoinService:
-    def __init__(self):
+    def __init__(self, repository):
         self.coins = []
-        self.repository = InMemoryCoinRepository()
+        self.repository = repository
     
     def get_all_coins(self):
         return [
