@@ -1,4 +1,5 @@
 from services.coin_service import CoinService
+from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 
 def test_create_coin_returns_coin():
     service = CoinService()
@@ -38,4 +39,9 @@ def test_delete_coin_returns_false_when_coin_not_found():
     service = CoinService()
     result = service.delete_coin("fake-id")
     assert result is False
+
+def test_coin_service_uses_provided_repository():
+    repository = InMemoryCoinRepository()
+    service = CoinService(repository)
+    assert service.repository is repository
 
