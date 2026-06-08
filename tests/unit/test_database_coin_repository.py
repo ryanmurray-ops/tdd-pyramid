@@ -34,5 +34,13 @@ def test_database_repository_can_get_all_coins():
     names = [coin.name for coin in result]
     assert "Automate" in names
     assert "Assemble" in names
+
+def test_database_repository_can_update_an_existing_coin():
+    repository = DatabaseCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    repository.update_coin(coin.id, True)
+    updated_coin = repository.get_coin_by_id(coin.id)
+    assert updated_coin.is_complete is True
     
     
