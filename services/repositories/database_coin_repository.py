@@ -48,3 +48,12 @@ class DatabaseCoinRepository:
             name=coin_model.name,
             is_complete=coin_model.is_complete
         )
+    
+    def delete_coin(self, coin_id):
+        try:
+            coin_model = CoinModel.get(CoinModel.id == coin_id)
+        except CoinModel.DoesNotExist:
+            return False
+        
+        coin_model.delete_instance()
+        return True
