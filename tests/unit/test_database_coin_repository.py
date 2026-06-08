@@ -1,5 +1,6 @@
 from coin import Coin
 from models.coin_model import CoinModel
+from models.duty_model import DutyModel
 from services.repositories.database_coin_repository import DatabaseCoinRepository
 
 def test_database_repository_can_be_created():
@@ -58,4 +59,16 @@ def test_database_repository_can_get_coin_by_name():
     result = repository.get_coin_by_name("Automate")
     assert result is not None
     assert result.name == "Automate"
+
+def test_database_respository_can_get_all_duties_associated_with_a_coin():
+    repository = DatabaseCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    DutyModel.create(
+        number="1",
+        description="My First Duty",
+        coin=coin.id
+    )
+    duties = repository.get_duties_for_coin(coin.id)
+    assert len(duties) == 1
     
