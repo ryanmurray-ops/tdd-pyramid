@@ -20,3 +20,19 @@ def test_database_repository_can_get_coin_by_id():
     result = repository.get_coin_by_id(coin.id)
     assert result.name == "Automate"
     assert result.id == coin.id
+
+def test_database_repository_can_get_all_coins():
+    repository = DatabaseCoinRepository()
+    coin1 = Coin("Automate")
+    coin2 = Coin("Assemble")
+    repository.create_coin(coin1)
+    repository.create_coin(coin2)
+    result = repository.get_all_coins()
+    
+    assert len(result) == 2
+
+    names = [coin.name for coin in result]
+    assert "Automate" in names
+    assert "Assemble" in names
+    
+    
