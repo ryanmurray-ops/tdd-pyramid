@@ -2,6 +2,16 @@ from coin import Coin
 from models.coin_model import CoinModel
 
 class DatabaseCoinRepository:
+    def get_all_coins(self):
+        coin_models = CoinModel.select()
+        return [
+            Coin(
+                id=coin.id,
+                name=coin.name
+            )
+            for coin in coin_models
+        ]
+
     def create_coin(self, coin):
         return CoinModel.create(
             id=coin.id,
