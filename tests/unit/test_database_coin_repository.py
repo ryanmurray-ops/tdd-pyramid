@@ -50,4 +50,12 @@ def test_database_repository_can_delete_coin():
     repository.delete_coin(coin.id)
     result = repository.get_coin_by_id(coin.id)
     assert result is None
+
+def test_database_repository_can_get_coin_by_name():
+    repository = DatabaseCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    result = repository.get_coin_by_name("Automate")
+    assert result is not None
+    assert result.name == "Automate"
     
