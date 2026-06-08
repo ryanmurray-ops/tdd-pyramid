@@ -1,5 +1,6 @@
 from coin import Coin
 from models.coin_model import CoinModel
+from models.duty_model import DutyModel
 
 class DatabaseCoinRepository:
     def get_all_coins(self):
@@ -68,4 +69,10 @@ class DatabaseCoinRepository:
             id=str(coin_model.id),
             name=coin_model.name,
             is_complete=coin_model.is_complete
+        )
+    
+    def get_duties_for_coin(self, coin_id):
+        return list(
+            DutyModel.select()
+            .where(DutyModel.coin == coin_id)
         )
