@@ -4,10 +4,14 @@ from services.coin_service import CoinService
 from services.duty_service import DutyService
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 
-app = Flask(__name__)
+def create_app(repository):
+    app = Flask(__name__)
+    app.duty_service = DutyService()
+    app.coin_service = CoinService(repository)
 
-app.duty_service = DutyService()
-app.coin_service = CoinService(InMemoryCoinRepository())
+    return app
+
+app = create_app(InMemoryCoinRepository())
 
 @app.route("/", methods=["GET", "POST"])
 def home():
