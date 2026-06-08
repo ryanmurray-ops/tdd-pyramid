@@ -1,14 +1,18 @@
 from flask import Flask, jsonify, request, render_template
+from database import init_db
 from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
+from services.repositories.database_coin_repository import DatabaseCoinRepository
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 
 def create_app(repository):
     app = Flask(__name__)
+    init_db()
 
     app.duty_service = DutyService()
     app.coin_service = CoinService(repository)
+
 
 
     # -----------------------
@@ -102,7 +106,9 @@ def create_app(repository):
 # -----------------------
 # Entry point (dev only)
 # -----------------------
+
 app = create_app(InMemoryCoinRepository())
+# app = create_app(DatabaseCoinRepository())
     
 
 if __name__ == "__main__":
