@@ -57,3 +57,15 @@ class DatabaseCoinRepository:
         
         coin_model.delete_instance()
         return True
+
+    def get_coin_by_name(self, name):
+        coin_model = CoinModel.get_or_none(CoinModel.name == name)
+
+        if not coin_model:
+            return None
+        
+        return Coin(
+            id=str(coin_model.id),
+            name=coin_model.name,
+            is_complete=coin_model.is_complete
+        )
