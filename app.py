@@ -100,6 +100,10 @@ def create_app(repository):
         if coin_deleted:
             return {}, 200
         return {"error": "Coin not found"}, 404
+    
+    @app.route("/coins/<coin_id>/duties", methods=["POST"])
+    def create_duty_for_coin(coin_id):
+        return {}, 201
 
     return app
 
