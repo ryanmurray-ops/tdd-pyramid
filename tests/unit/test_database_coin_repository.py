@@ -43,4 +43,11 @@ def test_database_repository_can_update_an_existing_coin():
     updated_coin = repository.get_coin_by_id(coin.id)
     assert updated_coin.is_complete is True
     
+def test_database_repository_can_delete_coin():
+    repository = DatabaseCoinRepository()
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+    repository.delete_coin(coin.id)
+    result = repository.get_coin_by_id(coin.id)
+    assert result is None
     
