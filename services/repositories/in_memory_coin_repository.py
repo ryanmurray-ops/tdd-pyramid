@@ -52,3 +52,6 @@ class InMemoryCoinRepository:
             self._duties[coin_id].append(duty)
 
             return duty
+        
+    def get_duties_for_coin(self, coin_id):
+        return self._duties.get(coin_id)
