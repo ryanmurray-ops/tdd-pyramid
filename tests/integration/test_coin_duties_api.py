@@ -28,3 +28,14 @@ def test_duty_is_stored_for_coin(app, client):
     assert len(duties) == 1
     assert duties[0]["number"] == "1"
     assert duties[0]["description"] == "My First Duty"
+
+def test_cannot_create_duty_for_nonexistent_coin(app, client):
+    response = client.post(
+        "/coins/999/duties",
+        json={
+            "duty_number": "1",
+            "description": "Should fail"
+        }
+    )
+    
+    assert response.status_code == 404
