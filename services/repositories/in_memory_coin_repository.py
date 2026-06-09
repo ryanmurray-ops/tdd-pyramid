@@ -40,18 +40,18 @@ class InMemoryCoinRepository:
         return False
     
     def create_duty(self, coin_id, duty_number, description):
+        duty = {
+            "coin_id": coin_id,
+            "number": duty_number,
+            "description": description
+        }
+
         if coin_id not in self._duties:
             self._duties[coin_id] = []
 
-            duty = {
-                "coin_id": coin_id,
-                "number": duty_number,
-                "description": description
-            }
+        self._duties[coin_id].append(duty)
 
-            self._duties[coin_id].append(duty)
-
-            return duty
+        return duty
         
     def get_duties_for_coin(self, coin_id):
-        return self._duties.get(coin_id)
+        return self._duties.get(coin_id, [])

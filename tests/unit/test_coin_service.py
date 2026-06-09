@@ -56,13 +56,15 @@ def test_can_add_duty_to_coin():
     repository = InMemoryCoinRepository()
     service = CoinService(repository)
 
+    coin = service.create_coin("Automate")
+
     service.add_duty_to_coin(
-        coin_id="1",
+        coin_id=coin.id,
         duty_number="1",
         description="My First Duty"
     )
 
-    duties = repository.get_duties_for_coin("1")
+    duties = repository.get_duties_for_coin(coin.id)
 
     assert len(duties) == 1
     assert duties[0]["number"] == "1"

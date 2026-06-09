@@ -33,6 +33,11 @@ class CoinService:
         return self.repository.delete_coin(coin_id)
     
     def add_duty_to_coin(self, coin_id, duty_number, description):
+        coin = self.repository.get_coin_by_id(coin_id)
+
+        if not coin:
+            return None
+        
         return self.repository.create_duty(
             coin_id,
             duty_number,

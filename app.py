@@ -105,11 +105,14 @@ def create_app(repository):
     def create_duty_for_coin(coin_id):
         response_data = request.get_json()
 
-        app.coin_service.add_duty_to_coin(
+        result = app.coin_service.add_duty_to_coin(
             coin_id,
             response_data["duty_number"],
             response_data["description"]
         )
+
+        if not result:
+            return {}, 404
 
         return {}, 201
 
