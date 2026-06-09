@@ -112,7 +112,7 @@ def create_app(repository):
         )
 
         if not result:
-            return {}, 404
+            return {"error": "Coin not found"}, 404
 
         return {}, 201
 
