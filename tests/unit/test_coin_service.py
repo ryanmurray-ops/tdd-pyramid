@@ -52,3 +52,19 @@ def test_coin_service_uses_provided_repository():
     service = CoinService(repository)
     assert service.repository is repository
 
+def test_can_add_duty_to_coin():
+    repository = InMemoryCoinRepository()
+    service = CoinService(repository)
+
+    service.add_duty_to_coin(
+        coin_id="1",
+        duty_number="1",
+        description="My First Duty"
+    )
+
+    duties = repository.get_duties_for_coin("1")
+
+    assert len(duties) == 1
+    assert duties[0]["number"] == "1"
+    assert duties[0]["description"] == "My First Duty"
+
