@@ -4,7 +4,7 @@ def test_can_create_duty_for_an_existing_coin(app, client):
     response = client.post(
         f"/coins/{coin.id}/duties",
         json={
-            "number": "1",
+            "duty_number": "1",
             "description": "My First Duty"
         }
     )

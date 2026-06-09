@@ -103,6 +103,14 @@ def create_app(repository):
     
     @app.route("/coins/<coin_id>/duties", methods=["POST"])
     def create_duty_for_coin(coin_id):
+        response_data = request.get_json()
+
+        app.coin_service.add_duty_to_coin(
+            coin_id,
+            response_data["duty_number"],
+            response_data["description"]
+        )
+
         return {}, 201
 
     return app
