@@ -10,3 +10,21 @@ def test_can_create_duty_for_an_existing_coin(app, client):
     )
     
     assert response.status_code == 201
+
+def test_duty_is_stored_for_coin(app, client):
+    coin = app.coin_service.create_coin("Automate")
+
+    client.post(
+        f"/coins/{coin.id}/duties",
+        json={
+            "coin": "Automate",
+            "duty_number": "1",
+            "description": "My First Duty"
+        }
+    )
+
+    duties = app.coin_service.repository.get_duties_for_coin(coin.id)
+
+    assert len(duties) == 1
+    assert duties[0]["number"] == "1"
+    assert duties[0]["description"] == "My First Duty"
