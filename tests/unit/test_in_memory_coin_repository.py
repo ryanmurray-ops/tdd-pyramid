@@ -49,3 +49,8 @@ def test_repository_can_delete_coin():
     repository.delete_coin(coin.id)
     result = repository.get_coin_by_id(coin.id)
     assert result is None
+
+def test_repository_can_create_a_duty():
+    repository = InMemoryCoinRepository()
+    result = repository.create_duty("1", "1", "My First Duty")
+    assert result is not None
