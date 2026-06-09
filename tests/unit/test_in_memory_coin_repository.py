@@ -54,3 +54,10 @@ def test_repository_can_create_a_duty():
     repository = InMemoryCoinRepository()
     result = repository.create_duty("1", "1", "My First Duty")
     assert result is not None
+
+def test_repository_can_get_duties_for_coin():
+    repository = InMemoryCoinRepository()
+    result = repository.create_duty("1", "1", "My First Duty")
+    duties = repository.get_duties_for_coin("1")
+
+    assert len(duties) == 1
