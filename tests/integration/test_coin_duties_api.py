@@ -39,3 +39,17 @@ def test_cannot_create_duty_for_nonexistent_coin(app, client):
     )
     
     assert response.status_code == 404
+
+def test_cannont_create_duty_for_nonexistent_coin_and_return_error_message(app, client):
+    response = client.post(
+        "/coins/999/duties",
+        json={
+            "duty_number": "1",
+            "description": "Should fail"
+        }
+    )
+    
+    response_data = response.get_json()
+
+    assert response.status_code == 404
+    assert response_data["error"] == 'Coin not found'
