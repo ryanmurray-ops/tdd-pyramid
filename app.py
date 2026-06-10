@@ -105,6 +105,9 @@ def create_app(repository):
     def create_duty_for_coin(coin_id):
         response_data = request.get_json()
 
+        if "duty_number" not in response_data:
+            return {"error": "duty_number is required"}, 400
+
         result = app.coin_service.add_duty_to_coin(
             coin_id,
             response_data["duty_number"],
