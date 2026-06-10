@@ -72,10 +72,16 @@ class DatabaseCoinRepository:
         )
     
     def get_duties_for_coin(self, coin_id):
-        return list(
-            DutyModel.select()
-            .where(DutyModel.coin == coin_id)
-        )
+        duties = DutyModel.select().where(DutyModel.coin == coin_id)
+
+        return [
+            {
+                "coin_id": str(duty.coin.id),
+                "number": duty.number,
+                "description": duty.description
+            }
+            for duty in duties
+        ]
 
     def create_duty(self, coin_id, duty_number, description):
         existing_duty = DutyModel.get_or_none(
