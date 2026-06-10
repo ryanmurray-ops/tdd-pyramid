@@ -107,3 +107,21 @@ def test_database_respository_cannot_create_duplicate_duty_number_for_same_coin(
     )
 
     assert result is None
+
+def test_database_repository_returns_duty_in_the_correct_format():
+    repository = DatabaseCoinRepository()
+    
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+
+    repository.create_duty(
+        coin.id,
+        "1",
+        "My First Duty"
+    )
+
+    duties = repository.get_duties_for_coin(coin.id)
+
+    assert isinstance(duties[0], dict)
+    assert duties[0]["number"] == "1"
+    assert duties[0]["description"] == "My First Duty"
