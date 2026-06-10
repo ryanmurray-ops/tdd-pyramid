@@ -78,6 +78,14 @@ class DatabaseCoinRepository:
         )
 
     def create_duty(self, coin_id, duty_number, description):
+        existing_duty = DutyModel.get_or_none(
+            (DutyModel.coin ==coin_id) &
+            (DutyModel.number == duty_number) 
+        )
+
+        if existing_duty:
+            return None
+        
         duty = DutyModel.create(
             coin=coin_id,
             number=duty_number,
