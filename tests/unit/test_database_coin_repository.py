@@ -71,4 +71,20 @@ def test_database_respository_can_get_all_duties_associated_with_a_coin():
     )
     duties = repository.get_duties_for_coin(coin.id)
     assert len(duties) == 1
+
+def test_database_repository_can_create_duty():
+    repository = DatabaseCoinRepository()
+
+    coin = Coin("Automate")
+    repository.create_coin(coin)
+
+    result = repository.create_duty(
+        coin.id,
+        "1",
+        "My First Duty"
+    )
+
+    assert result["number"] == "1"
+    assert result["description"] == "My First Duty"
+    assert result["coin_id"] == coin.id
     
