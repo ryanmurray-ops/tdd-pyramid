@@ -76,3 +76,16 @@ class DatabaseCoinRepository:
             DutyModel.select()
             .where(DutyModel.coin == coin_id)
         )
+
+    def create_duty(self, coin_id, duty_number, description):
+        duty = DutyModel.create(
+            coin=coin_id,
+            number=duty_number,
+            description=description
+        )
+
+        return {
+            "coin_id": coin_id,
+            "number": duty.number,
+            "description": duty.description
+        }
