@@ -5,6 +5,7 @@ from services.coin_service import CoinService
 from services.duty_service import DutyService
 from services.repositories.database_coin_repository import DatabaseCoinRepository
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
+from validators import validate_duty_request
 
 def create_app(repository):
     app = Flask(__name__)
@@ -105,23 +106,23 @@ def create_app(repository):
     def create_duty_for_coin(coin_id):
         response_data = request.get_json()
 
-        if "duty_number" not in response_data:
-            return {"error": "duty_number is required"}, 400
+        error = validate_duty_request(response_data)
+        if error:
+            return {"error": error}, 400
         
-        if "description" not in response_data:
-            return {"error": "description is required"}, 400
-
         result = app.coin_service.add_duty_to_coin(
             coin_id,
             response_data["duty_number"],
             response_data["description"]
         )
 
-        if result == "coin_not_found":
-            return {"error": "Coin not found"}, 404
+        error_responses = {
+            "coin_not_found": ({"error": "Coin not found"}, 404),
+            "duplicate_duty": ({"error": "Duty already exists"}, 409)
+        }
 
-        if result == "duplicate_duty":
-            return {"error": "Duty already exists"}, 409
+        if result in error_responses:
+            return error_responses[result]
 
         return {}, 201
 
