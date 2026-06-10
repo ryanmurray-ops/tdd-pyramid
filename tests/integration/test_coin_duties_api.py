@@ -89,3 +89,16 @@ def test_cannont_create_duty_without_duty_number(app, client):
 
     assert response.status_code == 400
     assert response.get_json()["error"] == "duty_number is required"
+
+def test_cannont_create_duty_without_description(app, client):
+    coin = app.coin_service.create_coin("Automate")
+
+    response = client.post(
+        f"/coins/{coin.id}/duties",
+        json={
+            "duty_number": "1"
+        }
+    )
+
+    assert response.status_code == 400
+    assert response.get_json()["error"] == "description is required"
