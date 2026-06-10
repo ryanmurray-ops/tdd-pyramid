@@ -111,8 +111,11 @@ def create_app(repository):
             response_data["description"]
         )
 
-        if not result:
+        if result == "coin_not_found":
             return {"error": "Coin not found"}, 404
+
+        if result == "duplicate_duty":
+            return {"error": "Duty already exists"}, 409
 
         return {}, 201
 

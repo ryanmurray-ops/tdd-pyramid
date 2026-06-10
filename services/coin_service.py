@@ -36,13 +36,18 @@ class CoinService:
         coin = self.repository.get_coin_by_id(coin_id)
 
         if not coin:
-            return None
+            return "coin_not_found"
         
-        return self.repository.create_duty(
+        duty = self.repository.create_duty(
             coin_id,
             duty_number,
             description
         )
+    
+        if duty is None:
+            return "duplicate_duty"
+        
+        return "success"
         
         
     
