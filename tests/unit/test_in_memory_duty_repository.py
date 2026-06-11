@@ -22,6 +22,7 @@ def test_repository_can_create_duty():
 
 def test_repository_can_get_duty_by_id():
     repository = InMemoryDutyRepository()
+
     duty_created = repository.create_duty(
         number="D1",
         description="My First Duty"
@@ -32,3 +33,17 @@ def test_repository_can_get_duty_by_id():
     assert result["id"] == duty_created["id"]
     assert result["number"] == "D1"
     assert result["description"] == "My First Duty"
+
+def test_repository_can_delete_duty():
+    repository = InMemoryDutyRepository()
+
+    duty_created = repository.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    repository.delete_duty(duty_created["id"])
+
+    duties = repository.get_all_duties()
+
+    assert len(duties) == 0
