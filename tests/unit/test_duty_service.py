@@ -11,9 +11,26 @@ def test_service_can_create_duty():
         number="D1",
         description="My First Duty"
     )
+    
 
     assert duty_created["number"] == "D1"
     assert duty_created["description"] == "My First Duty"
+
+def test_service_rejects_duplicate_duty_numbers():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="Duplicate Duty"
+    )
+
+    assert created_duty is None
 
 def test_service_can_get_all_duties():
     repository = InMemoryDutyRepository()
@@ -59,3 +76,4 @@ def test_service_can_delete_duty():
     duties = service.get_all_duties()
 
     assert len(duties) == 0
+
