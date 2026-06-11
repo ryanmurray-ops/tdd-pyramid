@@ -17,3 +17,9 @@ class InMemoryDutyRepository:
         self._duties.append(duty)
         return duty
     
+    def get_duty_by_id(self, duty_id):
+        for duty in self._duties:
+            if duty["id"] == duty_id:
+                return duty
+        return None
+    
