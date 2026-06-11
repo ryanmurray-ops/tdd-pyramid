@@ -11,3 +11,6 @@ class DutyService:
             number,
             description
         )
+    
+    def get_all_duties(self):
+        return self.repository.get_all_duties()
