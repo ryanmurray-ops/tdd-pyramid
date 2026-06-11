@@ -14,3 +14,6 @@ class DutyService:
     
     def get_all_duties(self):
         return self.repository.get_all_duties()
+    
+    def get_duty_by_id(self, duty_id):
+        return self.repository.get_duty_by_id(duty_id)
