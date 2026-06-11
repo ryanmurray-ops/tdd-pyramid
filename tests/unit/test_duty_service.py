@@ -44,3 +44,18 @@ def test_service_can_get_duty_by_id():
     assert result["id"] == duty_created["id"]
     assert result["number"] == "D1"
     assert result["description"] == "My First Duty"
+
+def test_service_can_delete_duty():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    duty_created = service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    service.delete_duty(duty_created["id"])
+
+    duties = service.get_all_duties()
+
+    assert len(duties) == 0
