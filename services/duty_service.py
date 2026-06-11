@@ -17,3 +17,6 @@ class DutyService:
     
     def get_duty_by_id(self, duty_id):
         return self.repository.get_duty_by_id(duty_id)
+    
+    def delete_duty(self, duty_id):
+        return self.repository.delete_duty(duty_id)
