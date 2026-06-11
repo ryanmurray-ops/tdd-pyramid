@@ -141,7 +141,8 @@ def create_app(repository):
 
     @app.route("/duties", methods=["GET"])
     def get_duties():
-        return jsonify(app.duty_service.get_all_duties()), 200
+        duties_response = app.duty_service.get_all_duties()
+        return jsonify(duties_response), 200
     
     return app
 
