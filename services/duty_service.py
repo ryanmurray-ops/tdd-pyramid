@@ -7,10 +7,13 @@ class DutyService:
         self.duties = self.repository.get_all_duties()
 
     def create_duty(self, number, description):
-        return self.repository.create_duty(
-            number,
-            description
-        )
+        existing_duties = self.repository.get_all_duties()
+
+        for duty in existing_duties:
+            if duty["number"] == number:
+                return None
+            
+        return self.repository.create_duty(number, description)
     
     def get_all_duties(self):
         return self.repository.get_all_duties()
