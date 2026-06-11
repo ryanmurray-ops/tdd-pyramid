@@ -109,7 +109,7 @@ def create_app(repository):
     
 
 # -----------------------
-# Duties
+# Coin -> Duties (legacy API maintained alongside new DutyService)
 # -----------------------
     @app.route("/coins/<coin_id>/duties", methods=["POST"])
     def create_duty_for_coin(coin_id):
@@ -135,6 +135,14 @@ def create_app(repository):
 
         return {}, 201
 
+# -----------------------
+# Duties (NEW SYSTEM())
+# -----------------------
+
+    @app.route("/duties", methods=["GET"])
+    def get_duties():
+        return jsonify([]), 200
+    
     return app
 
 # -----------------------
