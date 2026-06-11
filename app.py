@@ -5,13 +5,18 @@ from services.coin_service import CoinService
 from services.duty_service import DutyService
 from services.repositories.database_coin_repository import DatabaseCoinRepository
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
+from services.repositories.in_memory_duty_repository import InMemoryDutyRepository
 from validators import validate_duty_request
 
 def create_app(repository):
     app = Flask(__name__)
     init_db()
 
-    app.duty_service = DutyService()
+    # -----------------------
+    # Services
+    # -----------------------
+
+    app.duty_service = DutyService(InMemoryDutyRepository())
     app.coin_service = CoinService(repository)
 
 
@@ -102,6 +107,10 @@ def create_app(repository):
             return {}, 200
         return {"error": "Coin not found"}, 404
     
+
+# -----------------------
+# Duties
+# -----------------------
     @app.route("/coins/<coin_id>/duties", methods=["POST"])
     def create_duty_for_coin(coin_id):
         response_data = request.get_json()
