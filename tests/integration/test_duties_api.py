@@ -191,3 +191,21 @@ def test_update_duty_endpoint_exists(client, app):
     )
 
     assert response.status_code == 200
+
+def test_can_update_duty_description(app, client):
+    duty = app.duty_service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    response = client.put(
+        f"/duties/{duty['id']}",
+        json={
+            "description": "Updated description"
+        }
+    )
+    
+    updated_duty = app.duty_service.get_duty_by_id(duty["id"])
+
+    assert response.status_code == 200
+    assert updated_duty["description"] == "Updated description"
