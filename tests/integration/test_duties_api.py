@@ -209,3 +209,15 @@ def test_can_update_duty_description(app, client):
 
     assert response.status_code == 200
     assert updated_duty["description"] == "Updated description"
+
+def test_can_update_returns_404_when_duty_not_found(app, client):
+    response = client.put(
+        f"/duties/non-existent-id",
+        json={
+            "description": "Updated description"
+        }
+    )
+
+    assert response.status_code == 404
+    assert response.get_json(["error" == "Duty not found"])
+    
