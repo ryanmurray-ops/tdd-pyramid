@@ -148,6 +148,12 @@ def create_app(repository):
     def create_duty():
         response_data = request.get_json()
 
+        existing_duties = app.duty_service.get_all_duties()
+
+        for duty in existing_duties:
+            if duty["number"] == response_data.get("number"):
+                return {"error": "Duty already exists"}, 400
+
         if "number" not in response_data and "description" not in response_data:
             return {"error": "Number and Description are required"}, 400
 
