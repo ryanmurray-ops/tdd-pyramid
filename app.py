@@ -190,6 +190,13 @@ def create_app(repository):
     
     @app.route("/duties/<duty_id>", methods=["PUT"])
     def update_duty(duty_id):
+        response_data = request.get_json()
+
+        duty = app.duty_service.get_duty_by_id(duty_id)
+        
+        if "description" in response_data:
+            duty["description"] = response_data["description"]
+
         return {}, 200
     
     return app
