@@ -170,6 +170,10 @@ def create_app(repository):
 
         return {}, 201
     
+    @app.route("/duties/<duty_id>", methods=["GET"])
+    def get_duty_by_id(duty_id):
+        return {}, 200
+    
     return app
 
 # -----------------------
