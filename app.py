@@ -144,6 +144,17 @@ def create_app(repository):
         duties_response = app.duty_service.get_all_duties()
         return jsonify(duties_response), 200
     
+    @app.route("/duties", methods=["POST"])
+    def create_duty():
+        response_data = request.get_json()
+
+        app.duty_service.create_duty(
+            number=response_data["number"],
+            description=response_data["description"]
+        )
+
+        return {}, 201
+    
     return app
 
 # -----------------------
