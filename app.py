@@ -150,6 +150,9 @@ def create_app(repository):
 
         if "number" not in response_data:
             return {"error": "Number is required"}, 400
+        
+        if "description" not in response_data:
+            return {"error": "Description is required"}, 400
 
         app.duty_service.create_duty(
             number=response_data["number"],
