@@ -188,6 +188,10 @@ def create_app(repository):
         
         return {}, 200
     
+    @app.route("/duties/<duty_id>", methods=["PUT"])
+    def update_duty(duty_id):
+        return {}, 200
+    
     return app
 
 # -----------------------
