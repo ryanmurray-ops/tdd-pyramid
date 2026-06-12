@@ -193,6 +193,9 @@ def create_app(repository):
         response_data = request.get_json()
 
         duty = app.duty_service.get_duty_by_id(duty_id)
+
+        if not duty:
+            return {"error": "Duty not found"}, 404
         
         if "description" in response_data:
             duty["description"] = response_data["description"]
