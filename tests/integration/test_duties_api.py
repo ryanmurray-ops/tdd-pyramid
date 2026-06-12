@@ -59,4 +59,17 @@ def test_post_duties_returns_400_when_number_missing(client):
     )
 
     assert response.status_code == 400
+
+def test_post_duties_returns_400_when_number_missing(client):
+    response = client.post(
+        "/duties",
+        json={
+            "description": "My First Duty"
+        }
+    )
+
+    error_response = response.get_json()
+
+    assert response.status_code == 400
+    assert error_response["error"] == "Number is required"
     
