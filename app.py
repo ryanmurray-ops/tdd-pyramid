@@ -190,18 +190,10 @@ def create_app(repository):
     
     @app.route("/duties/<duty_id>", methods=["PUT"])
     def update_duty(duty_id):
-        response_data = request.get_json()
+        duty = app.duty_service.update_duty(duty_id, request.get_json())
 
-        duty = app.duty_service.get_duty_by_id(duty_id)
-
-        if not duty:
-            return {"error": "Duty not found"}, 404
-        
-        if "number" in response_data:
-            return {"error": "Duty number cannot be changed"}, 400
-        
-        if "description" in response_data:
-            duty["description"] = response_data["description"]
+        if not duty["success"]:
+            return {"error": duty["error"]}, duty["status_code"]
 
         return {}, 200
     
