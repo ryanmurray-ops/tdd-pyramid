@@ -172,3 +172,9 @@ def test_delete_duty_returns_404_when_duty_not_found(app, client):
     response = client.delete(f"/duties/non-existent-id")
 
     assert response.status_code == 404
+
+def test_delete_duty_returns_error_message_when_duty_not_found(app, client):
+    response = client.delete(f"/duties/non-existent-id")
+
+    assert response.status_code == 404
+    assert response.get_json()["error"] == "Duty not found"
