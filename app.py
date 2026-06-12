@@ -148,6 +148,9 @@ def create_app(repository):
     def create_duty():
         response_data = request.get_json()
 
+        if "number" not in response_data and "description" not in response_data:
+            return {"error": "Number and Description are required"}, 400
+
         if "number" not in response_data:
             return {"error": "Number is required"}, 400
         
