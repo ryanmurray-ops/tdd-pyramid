@@ -148,6 +148,9 @@ def create_app(repository):
     def create_duty():
         response_data = request.get_json()
 
+        if "number" not in response_data:
+            return {}, 400
+
         app.duty_service.create_duty(
             number=response_data["number"],
             description=response_data["description"]
