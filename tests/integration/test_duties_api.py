@@ -95,4 +95,22 @@ def test_post_duties_returns_400_when_description_missing(client):
 
     assert response.status_code == 400
     assert error_response["error"] == "Description is required"
+
+def test_post_duties_returns_400_when_number_and_description_missing(client):
+    response = client.post(
+        "/duties", json={}
+    )
+
+    assert response.status_code == 400
+
+def test_post_duties_returns_400_when_number_and_description_missing(client):
+    response = client.post(
+        "/duties", json={}
+    )
+
+    error_response = response.get_json()
+
+    assert response.status_code == 400
+    assert error_response["error"] == "Nuber and Description are required"
+  
     
