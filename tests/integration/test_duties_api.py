@@ -83,7 +83,7 @@ def test_post_duties_returns_400_when_description_missing(client):
 
     assert response.status_code == 400
 
-def test_post_duties_returns_400_when_description_missing(client):
+def test_post_duties_returns_error_message_when_description_missing(client):
     response = client.post(
         "/duties",
         json={
@@ -103,7 +103,7 @@ def test_post_duties_returns_400_when_number_and_description_missing(client):
 
     assert response.status_code == 400
 
-def test_post_duties_returns_400_when_number_and_description_missing(client):
+def test_post_duties_returns_error_message_when_number_and_description_missing(client):
     response = client.post(
         "/duties", json={}
     )
