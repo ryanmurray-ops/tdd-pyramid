@@ -175,7 +175,7 @@ def create_app(repository):
         duty = app.duty_service.get_duty_by_id(duty_id)
 
         if not duty:
-            return {}, 404
+            return {"error": "Duty not found"}, 404
         
         return duty, 200
     
