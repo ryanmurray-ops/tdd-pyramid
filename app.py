@@ -184,7 +184,7 @@ def create_app(repository):
         duty = app.duty_service.delete_duty(duty_id)
 
         if not duty:
-            return {}, 404
+            return {"error": "Duty not found"}, 404
         
         return {}, 200
     
