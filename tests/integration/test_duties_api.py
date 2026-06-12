@@ -111,6 +111,18 @@ def test_post_duties_returns_400_when_number_and_description_missing(client):
     error_response = response.get_json()
 
     assert response.status_code == 400
-    assert error_response["error"] == "Nuber and Description are required"
+    assert error_response["error"] == "Number and Description are required"
   
-    
+def test_post_duties_rejects_duplicate_number(app, client):
+    app.duty_service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    response = client.post("/duties", json={
+        "number": "D1",
+        "description": "Duplicate Duty"
+    })
+
+    assert response.status_code == 400
+    assert response.get_json()["error"] == "Duty already exists"
