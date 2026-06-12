@@ -179,6 +179,12 @@ def create_app(repository):
         
         return duty, 200
     
+    @app.route("/duties/<duty_id>", methods=["DELETE"])
+    def delete_duty(duty_id):
+        app.duty_service.delete_duty(duty_id)
+        
+        return {}, 200
+    
     return app
 
 # -----------------------
