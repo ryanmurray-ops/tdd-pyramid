@@ -33,3 +33,20 @@ def test_create_duty_returns_201(client):
     })
 
     assert response.status_code == 201
+
+def test_post_creates_duty_and_stores_via_service(app, client):
+    response = client.post(
+        "/duties",
+        json={
+            "number": "D1",
+            "description": "My First Duty"
+        }
+    )
+
+    duties = app.duty_service.get_all_duties()
+
+    assert response.status_code == 201
+    assert len(duties) == 1
+    assert duties[0]["number"] == "D1"
+    assert duties[0]["description"] == "My First Duty"
+    
