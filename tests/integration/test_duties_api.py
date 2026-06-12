@@ -160,3 +160,10 @@ def test_get_single_duty_returns_404_when_not_found(client):
 
     assert response.status_code == 404
     assert response.get_json()["error"] == "Duty not found"
+
+def test_delete_duty_returns_200_when_exists(app, client):
+    duty = app.duty_service.create_duty("D1", "My First Duty")
+    
+    response = client.delete(f"/duties/{duty['id']}")
+
+    assert response.status_code == 200
