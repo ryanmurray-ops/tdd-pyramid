@@ -197,6 +197,9 @@ def create_app(repository):
         if not duty:
             return {"error": "Duty not found"}, 404
         
+        if "number" in response_data:
+            return {"error": "Duty number cannot be changed"}, 400
+        
         if "description" in response_data:
             duty["description"] = response_data["description"]
 
