@@ -136,3 +136,16 @@ def test_get_single_duty_endpoint_returns_200_when_exists(app, client):
     response = client.get(f"/duties/{duty['id']}")
 
     assert response.status_code == 200
+
+def test_get_single_duty_endpoint_returns_correct_data(app, client):
+    duty = app.duty_service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    response = client.get(f"/duties/{duty['id']}")
+    response_data = response.get_json()
+
+    assert response.status_code == 200
+    assert response_data["number"] == "D1"
+    assert response_data["description"] == "My First Duty"
