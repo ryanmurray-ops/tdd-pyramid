@@ -154,3 +154,9 @@ def test_get_single_duty_returns_404_when_not_found(client):
     response = client.get("/duties/non-existent-id")
 
     assert response.status_code == 404
+
+def test_get_single_duty_returns_404_when_not_found(client):
+    response = client.get("/duties/non-existent-id")
+
+    assert response.status_code == 404
+    assert response.get_json()["error"] == "Duty not found"
