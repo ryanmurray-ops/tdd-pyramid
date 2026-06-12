@@ -219,5 +219,21 @@ def test_can_update_returns_404_when_duty_not_found(app, client):
     )
 
     assert response.status_code == 404
-    assert response.get_json(["error" == "Duty not found"])
+    assert response.get_json()["error"] == "Duty not found"
     
+def test_cannot_update_duty_number(app, client):
+    duty = app.duty_service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    response = client.put(
+        f"/duties/{duty['id']}",
+        json={
+            "number":"NEW",
+            "description": "Updated description"
+        }
+    )
+
+    assert response.status_code == 400
+    assert response.get_json()["error"] == "Duty number cannot be changed"
