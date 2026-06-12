@@ -149,3 +149,8 @@ def test_get_single_duty_endpoint_returns_correct_data(app, client):
     assert response.status_code == 200
     assert response_data["number"] == "D1"
     assert response_data["description"] == "My First Duty"
+
+def test_get_single_duty_returns_404_when_not_found(client):
+    response = client.get("/duties/non-existent-id")
+
+    assert response.status_code == 404
