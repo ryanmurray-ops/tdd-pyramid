@@ -25,3 +25,11 @@ def test_get_duties_can_return_data_from_services(app, client):
             "description": "My First Duty"           
         }
     ]
+
+def test_create_duty_returns_201(client):
+    response = client.post("/duties", json={
+        "number": "D1",
+        "description": "My First Duty"
+    })
+
+    assert response.status_code == 201
