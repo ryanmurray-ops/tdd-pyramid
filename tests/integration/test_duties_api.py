@@ -126,3 +126,13 @@ def test_post_duties_rejects_duplicate_number(app, client):
 
     assert response.status_code == 400
     assert response.get_json()["error"] == "Duty already exists"
+
+def test_get_single_duty_endpoint_returns_200_when_exists(app, client):
+    duty = app.duty_service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    response = client.get(f"/duties/{duty['id']}")
+
+    assert response.status_code == 200
