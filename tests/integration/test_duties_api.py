@@ -49,4 +49,14 @@ def test_post_creates_duty_and_stores_via_service(app, client):
     assert len(duties) == 1
     assert duties[0]["number"] == "D1"
     assert duties[0]["description"] == "My First Duty"
+
+def test_post_duties_returns_400_when_number_missing(client):
+    response = client.post(
+        "/duties",
+        json={
+            "description": "My First Duty"
+        }
+    )
+
+    assert response.status_code == 400
     
