@@ -24,10 +24,9 @@ class InMemoryDutyRepository:
         return None
     
     def delete_duty(self, duty_id):
-        new_duties = []
-
         for duty in self._duties:
-            if duty["id"] != duty_id:
-                new_duties.append(duty)
+            if duty["id"] == duty_id:
+                self._duties.remove(duty)
+                return duty
 
-        self._duties = new_duties
+        return None
