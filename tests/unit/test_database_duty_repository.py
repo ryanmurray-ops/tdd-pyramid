@@ -11,6 +11,11 @@ def test_database_duty_repository_can_be_created():
     duties = repository.get_all_duties()
     assert duties == []
 
+def test_get_all_duties_returns_empty_list_when_no_duties():
+    repository = DatabaseDutyRepository()
+    duties = repository.get_all_duties()
+    assert duties == []
+
 def test_database_duty_repository_can_create_duty():
     repository = DatabaseDutyRepository()
 
