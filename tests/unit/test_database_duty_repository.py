@@ -25,3 +25,20 @@ def test_database_duty_repository_can_create_duty():
     assert result["number"] == "D1"
     assert result["description"] == "My First Duty"
     assert result["coin_id"] == coin.id
+
+def test_database_duty_repository_can_get_all_duties():
+    repository = DatabaseDutyRepository()
+
+    coin = CoinModel.create(name="Automate")
+
+    result = repository.create_duty(
+        coin.id,
+        "D1",
+        "My First Duty"
+    )
+
+    duties = repository.get_all_duties()
+
+    assert len(duties) == 1
+    assert duties[0]["number"] == "D1"
+    assert duties[0]["description"] == "My First Duty"
