@@ -116,4 +116,11 @@ def test_database_duty_repository_can_update_duty_description():
 
     assert updated_duty["description"] == "Updated Description"
 
+def test_update_duty_returns_none_when_duty_not_found():
+    repository = DatabaseDutyRepository()
+
+    duty = repository.update_duty("non-existent-id", "New description")
+
+    assert duty is None
+
 
