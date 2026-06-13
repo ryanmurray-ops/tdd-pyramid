@@ -23,7 +23,7 @@ def app():
 def client(app):
     return app.test_client()
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope="session", autouse=True)
 def setup_db():
     init_db()
     
