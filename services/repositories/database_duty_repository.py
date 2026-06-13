@@ -1,2 +1,3 @@
 class DatabaseDutyRepository:
-    pass
+    def get_all_duties(self):
+        return []
