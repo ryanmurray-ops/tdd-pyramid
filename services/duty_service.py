@@ -35,18 +35,11 @@ class DutyService:
         duty = self.repository.get_duty_by_id(duty_id)
 
         if not duty:
-            return {
-                "success": False,
-                "error": "Duty not found",
-                "status_code": 404
-            }
+            return None
         
         if "number" in data:
-            return {
-                "success": False,
-                "error": "Duty number cannot be changed",
-                "status_code": 400
-            }
+            return "number_not_allowed"
+                
 
         if "description" in data:
             duty["description"] = data["description"]

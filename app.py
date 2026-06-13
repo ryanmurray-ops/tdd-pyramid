@@ -192,8 +192,11 @@ def create_app(repository):
     def update_duty(duty_id):
         duty = app.duty_service.update_duty(duty_id, request.get_json())
 
-        if not duty["success"]:
-            return {"error": duty["error"]}, duty["status_code"]
+        if duty is None:
+            return {"error": "Duty not found"}, 404
+        
+        if duty == "number_not_allowed":
+            return {"error": "Duty number cannot be changed"}, 400
 
         return {}, 200
     
