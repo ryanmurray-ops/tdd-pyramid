@@ -78,3 +78,22 @@ def test_database_duty_repository_can_delete_duty():
 
     assert len(duties) == 0
 
+def test_database_duty_repository_can_update_duty_description():
+    repository = DatabaseDutyRepository()
+
+    coin = CoinModel.create(name="Automate")
+
+    created_duty = repository.create_duty(
+        coin.id,
+        "D1",
+        "My First Duty"
+    )
+
+    updated_duty = repository.update_duty(
+        created_duty["id"],
+        "Updated Description"
+    )
+
+    assert updated_duty["description"] == "Updated Description"
+
+
