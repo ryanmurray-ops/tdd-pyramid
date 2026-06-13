@@ -31,7 +31,7 @@ def test_database_duty_repository_can_get_all_duties():
 
     coin = CoinModel.create(name="Automate")
 
-    result = repository.create_duty(
+    created_duty = repository.create_duty(
         coin.id,
         "D1",
         "My First Duty"
@@ -42,3 +42,20 @@ def test_database_duty_repository_can_get_all_duties():
     assert len(duties) == 1
     assert duties[0]["number"] == "D1"
     assert duties[0]["description"] == "My First Duty"
+
+def test_database_duty_repository_can_get_duty_by_id():
+    repository = DatabaseDutyRepository()
+
+    coin = CoinModel.create(name="Automate")
+
+    created_duty = repository.create_duty(
+        coin.id,
+        "D1",
+        "My First Duty"
+    )
+
+    retrieved_duty = repository.get_duty_by_id(created_duty["id"])
+
+    assert retrieved_duty["id"] == created_duty["id"]
+    assert retrieved_duty["number"] == "D1"
+    assert retrieved_duty["description"] == "My First Duty"
