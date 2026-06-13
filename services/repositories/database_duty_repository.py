@@ -22,7 +22,18 @@ class DatabaseDutyRepository:
         )
 
         return {
+            "id": duty.id,
             "coin_id": coin_id,
+            "number": duty.number,
+            "description": duty.description
+        }
+    
+    def get_duty_by_id(self, duty_id):
+        duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+
+        return {
+            "id": duty.id,
+            "coin_id": str(duty.coin.id),
             "number": duty.number,
             "description": duty.description
         }
