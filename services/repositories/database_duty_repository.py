@@ -37,3 +37,10 @@ class DatabaseDutyRepository:
             "number": duty.number,
             "description": duty.description
         }
+    
+    def delete_duty(self, duty_id):
+        duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+
+        duty.delete_instance()
+
+        return True
