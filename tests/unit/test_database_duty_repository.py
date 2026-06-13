@@ -59,3 +59,22 @@ def test_database_duty_repository_can_get_duty_by_id():
     assert retrieved_duty["id"] == created_duty["id"]
     assert retrieved_duty["number"] == "D1"
     assert retrieved_duty["description"] == "My First Duty"
+
+def test_database_duty_repository_can_delete_duty():
+    repository = DatabaseDutyRepository()
+
+    coin = CoinModel.create(name="Automate")
+
+    created_duty = repository.create_duty(
+        coin.id,
+        "D1",
+        "My First Duty"
+    )
+
+    repository.delete_duty(created_duty["id"])
+
+    duties = repository.get_all_duties()
+
+
+    assert len(duties) == 0
+
