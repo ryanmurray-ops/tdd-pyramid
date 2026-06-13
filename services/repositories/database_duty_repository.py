@@ -48,7 +48,13 @@ class DatabaseDutyRepository:
         }
     
     def delete_duty(self, duty_id):
-        duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+        try:
+            duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+        except Exception:
+            return False
+
+        if not duty:
+            return False
 
         duty.delete_instance()
 
