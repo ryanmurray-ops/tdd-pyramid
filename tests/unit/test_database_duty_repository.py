@@ -65,6 +65,13 @@ def test_database_duty_repository_can_get_duty_by_id():
     assert retrieved_duty["number"] == "D1"
     assert retrieved_duty["description"] == "My First Duty"
 
+def test_get_duty_by_id_returns_none_when_not_found():
+    repository = DatabaseDutyRepository()
+
+    retrieved_duty = repository.get_duty_by_id("non-existent-id")
+
+    assert retrieved_duty is None
+
 def test_database_duty_repository_can_delete_duty():
     repository = DatabaseDutyRepository()
 
@@ -82,6 +89,7 @@ def test_database_duty_repository_can_delete_duty():
 
 
     assert len(duties) == 0
+    
 
 def test_database_duty_repository_can_update_duty_description():
     repository = DatabaseDutyRepository()
