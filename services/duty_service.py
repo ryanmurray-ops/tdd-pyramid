@@ -25,17 +25,11 @@ class DutyService:
         duty = self.repository.get_duty_by_id(duty_id)
         
         if not duty:
-            return {
-                "success": False,
-                "error": "Duty not found",
-                "status_code": 404
-            }
+            return None
         
         self.repository.delete_duty(duty_id)
-
-        return {
-            "success": True
-        }
+        
+        return duty
 
     def update_duty(self, duty_id, data):
         duty = self.repository.get_duty_by_id(duty_id)
