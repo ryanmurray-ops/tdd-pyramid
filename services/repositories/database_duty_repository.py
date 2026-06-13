@@ -61,7 +61,13 @@ class DatabaseDutyRepository:
         return True
     
     def update_duty(self, duty_id, description):
-        duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+        try:
+            duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+        except Exception:
+            return None
+
+        if not duty:
+            return None
 
         duty.description = description
         duty.save()
