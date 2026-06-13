@@ -44,3 +44,16 @@ class DatabaseDutyRepository:
         duty.delete_instance()
 
         return True
+    
+    def update_duty(self, duty_id, description):
+        duty = DutyModel.get_or_none(DutyModel.id == duty_id)
+
+        duty.description = description
+        duty.save()
+
+        return {
+            "id": duty.id,
+            "coin_id": str(duty.coin.id),
+            "number": duty.number,
+            "description": duty.description
+        }
