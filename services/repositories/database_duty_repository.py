@@ -1,0 +1,2 @@
+class DatabaseDutyRepository:
+    pass
