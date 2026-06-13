@@ -89,6 +89,13 @@ def test_database_duty_repository_can_delete_duty():
 
 
     assert len(duties) == 0
+
+def test_delete_duty_returns_false_when_duty_not_found():
+    repository = DatabaseDutyRepository()
+
+    duty = repository.delete_duty("non-existent-id")
+
+    assert duty is False
     
 
 def test_database_duty_repository_can_update_duty_description():
