@@ -108,3 +108,21 @@ def test_service_rejects_empty_desctiption_update():
     )
 
     assert updated_duty == "empty_description_not_allowed"
+
+def test_service_update_persists_via_repository():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    service.update_duty(
+        created_duty["id"],
+        {"description": "Updated"}
+    )
+
+    updated_duty = service.get_duty_by_id(created_duty["id"])
+    
+    assert updated_duty["description"] == "Updated"
