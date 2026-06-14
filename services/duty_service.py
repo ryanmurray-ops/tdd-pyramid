@@ -47,13 +47,13 @@ class DutyService:
             if data["description"].strip() == "":
                 return "empty_description_not_allowed"
 
-        if "description" in data:
-            updated_duty = self.repository.update_duty(
+            return self.repository.update_duty(
                 duty_id,
                 data["description"]
             )
-            return updated_duty
 
-        return duty
+        return "no_valid_fields"
+        
+
 
     

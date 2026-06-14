@@ -180,3 +180,19 @@ def test_service__rejects_empty_description():
         {"description": ""}
     )
     assert updated_duty == "empty_description_not_allowed"
+
+
+def test_service_rejects_empty_update_request():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    updated_duty = service.update_duty(
+        created_duty["id"],
+        {}
+    )
+    assert updated_duty == "no_valid_fields"
