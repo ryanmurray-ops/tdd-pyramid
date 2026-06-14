@@ -137,3 +137,14 @@ def test_service_rejects_empty_description_on_create():
     )
 
     assert created_duty is None
+
+def test_service_rejects_whitescape_only_description():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="   "
+    )
+
+    assert created_duty is None
