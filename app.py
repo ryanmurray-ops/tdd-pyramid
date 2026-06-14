@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, render_template
 from database import init_db
-from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
 from services.repositories.database_coin_repository import DatabaseCoinRepository
@@ -27,29 +26,42 @@ def create_app(repository):
 
     @app.route("/", methods=["GET", "POST"])
     def home():
-
         error = None
 
         if request.method == "POST":
-            duty_form_data = request.form
+            number = (request.form.get("number") or "").strip()
+            description = (request.form.get("description") or ""). strip()
 
-            create_duty_result = handle_create_duty(
-                duty_form_data.get("number"),
-                duty_form_data.get("description"),
-                app.duty_service.duties
-            )
+            if not number and not description:
+                error = "Duty number and description are required"
 
-            if create_duty_result["success"]:
-                app.duty_service.duties.append(create_duty_result["duty"])
-                error = None
+            elif not number:
+                error = "Invalid duty number"
+
+            elif not description:
+                error = "Invalid duty description"
+
             else:
-                error = create_duty_result["error"]
+                result = app.duty_service.create_duty(
+                    number=number,
+                    description=description
+                )
+
+                if result is None:
+                    error = "Duplicate duty number"
+
+        duties = app.duty_service.get_all_duties()
+
+        formatted_duties = [
+            f"{d['number']} - {d['description']}"
+            for d in duties
+        ]
 
         return render_template(
             "index.html",
-            duties=app.duty_service.duties,
+            duties=formatted_duties,
             error=error
-        )
+    )
     
 
     # -----------------------

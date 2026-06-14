@@ -11,31 +11,18 @@ def test_home_route_returns_200():
 
     assert response.status_code == 200
 
-def test_user_can_create_duty_via_home_route():
+def test_home_route_creates_duty():
     client = app.test_client()
 
-    with patch("app.handle_create_duty") as mock_handler:
-        mock_handler.return_value = {
-            "success": True,
-            "duty": "1 - My First Duty",
-            "error": None
-        }
+    response = client.post("/", data={
+        "number": "1",
+        "description": "My First Duty"
+    })
 
-        response = client.post("/", data={
-            "number": "1",
-            "description": "My First Duty"
-        })
+    html = response.get_data(as_text=True)
 
-        response_text = response.get_data(as_text=True)
-
-        assert response.status_code == 200
-        assert "1 - My First Duty" in response_text
-
-        mock_handler.assert_called_once_with(
-            "1",
-            "My First Duty",
-            ANY
-        )
+    assert response.status_code == 200
+    assert "1 - My First Duty" in html
 
 def test_home_route_shows_error_for_empty_duty_number():
     client = app.test_client()
@@ -105,26 +92,6 @@ def test_home_route_rejects_whitespace_duty_number():
     html = response = response.get_data(as_text=True)
 
     assert "Invalid duty number" in html
-
-def test_home_route_uses_handle_create_duty():
-    client = app.test_client()
-
-    with patch("app.handle_create_duty") as mock_handler:
-        mock_handler.return_value = {
-            "success": True,
-            "duty": "1 - My First Duty",
-            "error": None
-        }
-
-        response = client.post("/", data={
-            "number": "1",
-            "description": "My First Duty"
-        })
-
-        html = response.get_data(as_text=True)
-
-        assert response.status_code == 200
-        assert "1 - My First Duty" in html
 
 
 
