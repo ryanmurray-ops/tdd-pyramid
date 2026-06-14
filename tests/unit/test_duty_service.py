@@ -126,3 +126,14 @@ def test_service_update_persists_via_repository():
     updated_duty = service.get_duty_by_id(created_duty["id"])
     
     assert updated_duty["description"] == "Updated"
+
+def test_service_rejects_empty_description_on_create():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description=""
+    )
+
+    assert created_duty is None
