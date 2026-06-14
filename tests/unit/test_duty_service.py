@@ -148,3 +148,19 @@ def test_service_rejects_whitescape_only_description():
     )
 
     assert created_duty is None
+
+def test_service__rejects_whitespace_only_desctiption_update():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    updated_duty = service.update_duty(
+        created_duty["id"],
+        {"description": "     "}
+    )
+
+    assert updated_duty == "empty_description_not_allowed"
