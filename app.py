@@ -3,11 +3,12 @@ from database import init_db
 from services.coin_service import CoinService
 from services.duty_service import DutyService
 from services.repositories.database_coin_repository import DatabaseCoinRepository
+from services.repositories.database_duty_repository import DatabaseDutyRepository
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
 from services.repositories.in_memory_duty_repository import InMemoryDutyRepository
 from validators import validate_duty_request
 
-def create_app(repository):
+def create_app(coin_repository, duty_repository):
     app = Flask(__name__)
     init_db()
 
@@ -15,8 +16,8 @@ def create_app(repository):
     # Services
     # -----------------------
 
-    app.duty_service = DutyService(InMemoryDutyRepository())
-    app.coin_service = CoinService(repository)
+    app.coin_service = CoinService(coin_repository)
+    app.duty_service = DutyService(duty_repository)
 
 
 
@@ -215,8 +216,16 @@ def create_app(repository):
 # Entry point (dev only)
 # -----------------------
 
-app = create_app(InMemoryCoinRepository())
-# app = create_app(DatabaseCoinRepository())
+app = create_app(
+    InMemoryCoinRepository(),
+    InMemoryDutyRepository()
+)
+
+# app = create_app(
+#     DatabaseCoinRepository(),
+#     DatabaseDutyRepository()
+# )
+
     
 
 if __name__ == "__main__":

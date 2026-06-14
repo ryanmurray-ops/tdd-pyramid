@@ -4,6 +4,7 @@ from database import init_db
 from models.coin_model import CoinModel
 from models.duty_model import DutyModel
 from services.repositories.in_memory_coin_repository import InMemoryCoinRepository
+from services.repositories.in_memory_duty_repository import InMemoryDutyRepository
 
 @pytest.fixture 
 def open_homepage(page):
@@ -17,7 +18,7 @@ def reset_db():
 
 @pytest.fixture
 def app():
-    return create_app(InMemoryCoinRepository())
+    return create_app(InMemoryCoinRepository(), InMemoryDutyRepository())
 
 @pytest.fixture
 def client(app):
