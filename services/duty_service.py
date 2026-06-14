@@ -39,6 +39,10 @@ class DutyService:
 
         if "number" in data:
             return "number_not_allowed"
+        
+        if "description" in data:
+            if data["description"] == "":
+                return "empty_description_not_allowed"
 
         if "description" in data:
             updated_duty = self.repository.update_duty(
