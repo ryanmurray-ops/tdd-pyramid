@@ -44,7 +44,7 @@ class DutyService:
             return "number_not_allowed"
         
         if "description" in data:
-            if data["description"] == "":
+            if data["description"].strip() == "":
                 return "empty_description_not_allowed"
 
         if "description" in data:
