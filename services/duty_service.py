@@ -7,6 +7,9 @@ class DutyService:
         self.duties = self.repository.get_all_duties()
 
     def create_duty(self, number, description):
+        if description == "":
+            return None
+        
         existing_duties = self.repository.get_all_duties()
 
         for duty in existing_duties:
