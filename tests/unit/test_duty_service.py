@@ -77,3 +77,18 @@ def test_service_can_delete_duty():
 
     assert len(duties) == 0
 
+def test_service_updates_duty_description():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    created_duty = service.create_duty(
+        number="D1",
+        description="My First Duty"
+    )
+
+    updated_duty = service.update_duty(
+        created_duty["id"],
+        {"description": "Updated"}
+    )
+
+    assert updated_duty["description"] == "Updated"
