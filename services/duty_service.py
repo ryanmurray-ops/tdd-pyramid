@@ -36,15 +36,15 @@ class DutyService:
 
         if not duty:
             return None
-        
+
         if "number" in data:
             return "number_not_allowed"
-                
 
         if "description" in data:
-            duty["description"] = data["description"]
+            updated_duty = self.repository.update_duty(
+                duty_id,
+                data["description"]
+            )
+            return updated_duty
 
-        return {
-            "success": True,
-            "duty": duty
-        }
+        return duty

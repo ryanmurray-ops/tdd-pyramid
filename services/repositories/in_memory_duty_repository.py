@@ -30,3 +30,10 @@ class InMemoryDutyRepository:
                 return duty
 
         return None
+    
+    def update_duty(self, duty_id, description):
+        for duty in self._duties:
+            if duty["id"] == duty_id:
+                duty["description"] = description
+                return duty
+        return None
