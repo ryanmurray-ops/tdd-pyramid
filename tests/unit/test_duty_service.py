@@ -191,8 +191,19 @@ def test_service_rejects_empty_update_request():
         description="My First Duty"
     )
 
-    updated_duty = service.update_duty(
+    update_duty = service.update_duty(
         created_duty["id"],
         {}
     )
-    assert updated_duty == "no_valid_fields"
+    assert update_duty == "no_valid_fields"
+
+def test_Service_update_returns_none_when_duty_not_found():
+    repository = InMemoryDutyRepository()
+    service = DutyService(repository)
+
+    update_duty = service.update_duty(
+        "non-existent-id",
+        {"description": "Updated"}
+    )
+
+    assert update_duty is None
