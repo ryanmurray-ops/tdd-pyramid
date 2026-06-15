@@ -3,7 +3,12 @@ class CoinService:
         self.coins =[]
 
     def create_coin(self, name):
+        for coin in self.coins:
+            if coin == name:
+                return None
+            
         self.coins.append(name)
+        return name
     
     def get_all_coins(self):
         return self.coins
