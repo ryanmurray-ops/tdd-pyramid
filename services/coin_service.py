@@ -16,3 +16,13 @@ class CoinService:
     def get_coin_by_id(self, coin_id):
         return CoinModel.get_or_none(CoinModel.id == coin_id)
     
+    def update_completion_status(self, coin_id):
+        coin = CoinModel.get_or_none(CoinModel.id == coin_id)
+
+        if not coin:
+            return None
+
+        coin.is_complete = True
+        coin.save()
+
+        return coin
