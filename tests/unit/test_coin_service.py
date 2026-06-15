@@ -4,10 +4,12 @@ def test_can_create_coin():
     service = CoinService()
 
     coin = service.create_coin("Automate")
+    coins = service.get_all_coins()
 
-    assert len(service.coins) == 1
+    assert coin is not None
     assert coin.name == "Automate"
-
+    assert len(coins) == 1
+    
 def test_can_get_all_coins():
     service = CoinService()
 
@@ -39,7 +41,7 @@ def test_cannot_create_duplicate_coin():
     result = service.create_coin("Automate")
 
     assert result is None
-    assert len(service.coins) == 1 
+    assert len(service.get_all_coins()) == 1
 
 def test_create_coin_returns_object():
     service = CoinService()

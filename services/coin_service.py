@@ -1,25 +1,14 @@
-class Coin:
-    def __init__(self, name):
-        self.name = name
+from models.coin_model import CoinModel
 
 class CoinService:
-    def __init__(self):
-        self.coins = []
-
     def create_coin(self, name):
-        for coin in self.coins:
-            if coin.name == name:
-                return None
-            
-        coin = Coin(name)
-        self.coins.append(coin)
-        return coin
-    
+        if CoinModel.get_or_none(CoinModel.name == name):
+            return None
+        
+        return CoinModel.create(name=name)
+  
     def get_all_coins(self):
-        return self.coins
+        return list(CoinModel.select())
 
     def get_coin_by_name(self, name):
-        for coin in self.coins:
-            if coin.name == name:
-                return coin
-        return None
+        return CoinModel.get_or_none(CoinModel.name == name)
