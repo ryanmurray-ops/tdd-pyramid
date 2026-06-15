@@ -22,4 +22,12 @@ def test_coin_defaults_to_not_complete_status():
     coin = CoinModel.create(name="Automate")
     assert coin.is_complete is False
 
+def test_can_retrieve_all_coins():
+    CoinModel.create(name="Automate")
+    CoinModel.create(name="Deploy")
+    coins = CoinModel.select()
+    coin_names = [coin.name for coin in coins]
+    assert len(list(coins)) == 2
+    assert "Automate" in coin_names
+    assert "Deploy" in coin_names
     
