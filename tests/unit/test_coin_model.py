@@ -18,4 +18,8 @@ def test_coin_names_must_be_unique():
     with pytest.raises(IntegrityError):
         CoinModel.create(name="Automate")
 
+def test_coin_defaults_to_not_complete_status():
+    coin = CoinModel.create(name="Automate")
+    assert coin.is_complete is False
+
     
