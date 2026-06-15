@@ -49,3 +49,14 @@ def test_create_coin_returns_object():
     coin = service.create_coin("Automate")
 
     assert coin.name == "Automate"
+
+def test_can_get_coin_by_id():
+    service = CoinService()
+
+    coin = service.create_coin("Automate")
+
+    coin_found = service.get_coin_by_id(coin.id)
+
+    assert coin_found is not None
+    assert coin_found.id == coin.id
+    assert coin_found.name == "Automate"
