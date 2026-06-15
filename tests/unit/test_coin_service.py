@@ -60,3 +60,9 @@ def test_can_get_coin_by_id():
     assert coin_found is not None
     assert coin_found.id == coin.id
     assert coin_found.name == "Automate"
+
+def test_can_update_coin_completion_status_to_complete():
+    service = CoinService()
+    coin = service.create_coin("Automate")
+    updated_coin = service.update_completion_status(coin.id)
+    assert updated_coin.is_complete is True
