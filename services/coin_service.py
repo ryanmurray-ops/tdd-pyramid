@@ -4,3 +4,6 @@ class CoinService:
 
     def create_coin(self, name):
         self.coins.append(name)
+    
+    def get_all_coins(self):
+        return self.coins
