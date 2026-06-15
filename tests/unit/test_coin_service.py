@@ -3,10 +3,10 @@ from services.coin_service import CoinService
 def test_can_create_coin():
     service = CoinService()
 
-    service.create_coin("Automate")
+    coin = service.create_coin("Automate")
 
     assert len(service.coins) == 1
-    assert service.coins[0].name == "Automate"
+    assert coin.name == "Automate"
 
 def test_can_get_all_coins():
     service = CoinService()
