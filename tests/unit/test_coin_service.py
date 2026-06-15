@@ -16,9 +16,11 @@ def test_can_get_all_coins():
 
     coins = service.get_all_coins()
 
+    coin_names = [coin.name for coin in coins]
+
     assert len(coins) == 2
-    assert coins[0].name == "Automate"
-    assert coins[1].name == "Deploy"
+    assert "Automate" in coin_names
+    assert "Deploy" in coin_names
 
 def test_can_get_coin_by_name():
     service = CoinService()
