@@ -10,6 +10,7 @@ def test_can_create_coin():
 
 def test_can_get_all_coins():
     service = CoinService()
+
     service.create_coin("Automate")
     service.create_coin("Deploy")
 
@@ -18,3 +19,13 @@ def test_can_get_all_coins():
     assert len(coins) == 2
     assert coins[0] == "Automate"
     assert coins[1] == "Deploy"
+
+def test_can_get_coin_by_name():
+    service = CoinService()
+
+    service.create_coin("Automate")
+    service.create_coin("Deploy")
+
+    coin = service.get_coin_by_name("Deploy")
+
+    assert coin == "Deploy"
