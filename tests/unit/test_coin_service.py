@@ -1,4 +1,5 @@
 from services.coin_service import CoinService
+from services.duty_service import DutyService
 
 def test_can_create_coin():
     service = CoinService()
@@ -66,3 +67,16 @@ def test_can_update_coin_completion_status_to_complete():
     coin = service.create_coin("Automate")
     updated_coin = service.update_completion_status(coin.id)
     assert updated_coin.is_complete is True
+
+def test_can_assign_duty_to_coin():
+    coin_service = CoinService()
+    duty_service = DutyService()
+
+    coin = coin_service.create_coin("Automate")
+    duty = duty_service.create_duty("D5", "CI/CD Pipeline")
+
+    updated_coin = coin_service.assign_duty(coin.id, duty.number)
+
+    duties = list(updated_coin.duties)
+
+    assert duty in duties 
