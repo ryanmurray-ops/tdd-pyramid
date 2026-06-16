@@ -119,3 +119,12 @@ def test_cannot_assign_same_duty_twice_to_coin():
     assign_duplicate_duty = coin_service.assign_duty(coin.id, "D5")
 
     assert assign_duplicate_duty is None
+
+def test_create_coin_returns_success_response():
+    service = CoinService()
+    
+    created_coin = service.create_coin("Automate")
+
+    assert created_coin["success"] is True
+    assert created_coin["data"].name == "Automate"
+    assert created_coin["error"] is None
