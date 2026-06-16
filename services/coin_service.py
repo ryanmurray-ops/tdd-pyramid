@@ -19,7 +19,13 @@ class CoinService:
         }
   
     def get_all_coins(self):
-        return list(CoinModel.select())
+        coins = list(CoinModel.select())
+
+        return {
+            "success": True,
+            "data": coins,
+            "error": None
+        }
 
     def get_coin_by_name(self, name):
         return CoinModel.get_or_none(CoinModel.name == name)
