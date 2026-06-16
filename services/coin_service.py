@@ -40,6 +40,9 @@ class CoinService:
         if not coin or not duty:
             return None
         
+        if duty in coin.duties:
+            return None
+        
         coin.duties.add(duty)
 
         return coin
