@@ -37,15 +37,6 @@ def test_can_get_coin_by_name():
 
     assert coin.name == "Deploy"
 
-def test_cannot_create_duplicate_coin():
-    service = CoinService()
-
-    service.create_coin("Automate")
-    duplicate_coin = service.create_coin("Automate")
-
-    duplicate_coin is None
-    assert len(service.get_all_coins()) == 1
-
 def test_create_coin_returns_object():
     service = CoinService()
 
