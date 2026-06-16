@@ -2,6 +2,7 @@ import pytest
 from app import app
 from database.db import db
 from models.coin_model import CoinModel
+from models.duty_model import DutyModel
 
 @pytest.fixture(autouse=True)
 def reset_duties():
@@ -16,7 +17,9 @@ def open_homepage(page):
 def setup_database():
     db.connect(reuse_if_open=True)
     db.drop_tables([CoinModel], safe=True)
+    db.drop_tables([DutyModel], safe=True)
     db.create_tables([CoinModel])
+    db.create_tables([DutyModel])
     yield
     db.close()
 
