@@ -26,3 +26,4 @@ def setup_database():
 @pytest.fixture(autouse=True)
 def clean_db():
     CoinModel.delete().execute()
+    DutyModel.delete().execute()
