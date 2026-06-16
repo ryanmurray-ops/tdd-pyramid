@@ -1,4 +1,5 @@
 from models.coin_model import CoinModel
+from models.duty_model import DutyModel
 
 class CoinService:
     def create_coin(self, name):
@@ -24,5 +25,18 @@ class CoinService:
 
         coin.is_complete = True
         coin.save()
+
+        return coin
+
+    def assign_duty(self, coin_id, duty_number):
+        coin = CoinModel.get_or_none(
+            CoinModel.id == coin_id
+        )
+
+        duty = DutyModel.get_or_none(
+            DutyModel.number == duty_number
+        )
+        
+        coin.duties.add(duty)
 
         return coin
