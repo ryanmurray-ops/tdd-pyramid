@@ -17,7 +17,7 @@ def test_service_can_create_duty_and_save_to_database():
     assert duty is not None
     assert DutyModel.get_or_none(DutyModel.number == "D5") is not None
 
-def test_serivice_can_get_all_duties():
+def test_service_can_get_all_duties():
     service = DutyService()
 
     service.create_duty("D5", "CI/CD Pipeline")
@@ -30,4 +30,15 @@ def test_serivice_can_get_all_duties():
     assert len(duties) == 2
     assert "D5" in duty_numbers
     assert "D7" in duty_numbers
+
+def test_service_can_get_duty_by_number():
+    service = DutyService()
+
+    service.create_duty("D5", "CI/CD Pipeline")
+
+    duty = service.get_duty_by_number("D5")
+
+    assert duty is not None
+    assert duty.number == "D5"
+    assert duty.description == "CI/CD Pipeline"
 
