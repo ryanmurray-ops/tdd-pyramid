@@ -10,3 +10,6 @@ class DutyService:
             description=description
         )
         return duty
+    
+    def get_all_duties(self):
+        return list(DutyModel.select())
