@@ -107,3 +107,15 @@ def test_assign_duty_returns_none_when_duty_does_not_exist():
     )
 
     assert result is None
+
+def test_cannot_assign_same_duty_twice_to_coin():
+    coin_service = CoinService()
+    duty_service = DutyService()
+
+    coin = coin_service.create_coin("Automate")
+    duty = duty_service.create_duty("D5", "CI/CD Pipeline")
+
+    coin_service.assign_duty(coin.id, "D5")
+    assign_duplicate_duty = coin_service.assign_duty(coin.id, "D5")
+
+    assert assign_duplicate_duty is None
