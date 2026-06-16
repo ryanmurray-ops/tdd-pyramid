@@ -95,3 +95,15 @@ def test_assign_duty_returns_none_when_coin_does_not_exist():
     )
 
     assert result is None
+
+def test_assign_duty_returns_none_when_duty_does_not_exist():
+    coin_service = CoinService()
+
+    coin = coin_service.create_coin("Automate")
+
+    result = coin_service.assign_duty(
+        coin.id,
+        "D999"
+    )
+
+    assert result is None
