@@ -16,14 +16,17 @@ def open_homepage(page):
 @pytest.fixture(scope="session", autouse=True)
 def setup_database():
     db.connect(reuse_if_open=True)
-    db.drop_tables([CoinModel], safe=True)
-    db.drop_tables([DutyModel], safe=True)
-    db.create_tables([CoinModel])
-    db.create_tables([DutyModel])
+
+    db.create_tables([CoinModel, DutyModel, CoinModel.duties.get_through_model()])
+
     yield
+
+    db.drop_tables([CoinModel, DutyModel, CoinModel.duties.get_through_model()])
+
     db.close()
 
 @pytest.fixture(autouse=True)
 def clean_db():
+    CoinModel.duties.get_through_model().delete().execute()
     CoinModel.delete().execute()
     DutyModel.delete().execute()
