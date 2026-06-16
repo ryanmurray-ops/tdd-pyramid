@@ -51,3 +51,9 @@ def test_service_can_update_duty_description():
 
     assert updated_duty.description == "Updated Description"
 
+def test_service_returns_none_when_updating_non_existent_duty():
+    service = DutyService()
+
+    duty = service.update_duty_description("D5", "Does Not Exist")
+
+    assert duty is None
