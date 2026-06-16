@@ -1,3 +1,5 @@
+import uuid
+
 from services.coin_service import CoinService
 from services.duty_service import DutyService
 
@@ -80,3 +82,16 @@ def test_can_assign_duty_to_coin():
     duties = list(updated_coin.duties)
 
     assert duty in duties 
+
+def test_assign_duty_returns_none_when_coin_does_not_exist():
+    coin_service = CoinService()
+    duty_service = DutyService()
+
+    duty = duty_service.create_duty("D5", "CI/CD Pipeline")
+
+    result = coin_service.assign_duty(
+        uuid.uuid4(),
+        duty.number
+    )
+
+    assert result is None
