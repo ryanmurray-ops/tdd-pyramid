@@ -6,7 +6,13 @@ class CoinService:
         if CoinModel.get_or_none(CoinModel.name == name):
             return None
         
-        return CoinModel.create(name=name)
+        coin = CoinModel.create(name=name)
+
+        return {
+            "success": True,
+            "data": coin,
+            "error": None
+        }
   
     def get_all_coins(self):
         return list(CoinModel.select())
