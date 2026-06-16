@@ -42,3 +42,12 @@ def test_service_can_get_duty_by_number():
     assert duty.number == "D5"
     assert duty.description == "CI/CD Pipeline"
 
+def test_service_can_update_duty_description():
+    service = DutyService()
+
+    duty = service.create_duty("D5", "CI/CD Pipeline")
+
+    updated_duty = service.update_duty_description("D5", "Updated Description")
+
+    assert updated_duty.description == "Updated Description"
+
