@@ -128,3 +128,14 @@ def test_create_coin_returns_success_response():
     assert created_coin["success"] is True
     assert created_coin["data"].name == "Automate"
     assert created_coin["error"] is None
+
+def test_create_coin_returns_error_when_coin_already_exists():
+    service = CoinService()
+
+    service.create_coin("Automate")
+
+    duplicate_coin = service.create_coin("Automate")
+
+    assert duplicate_coin["success"] is False
+    assert duplicate_coin["data"] is None
+    assert duplicate_coin["error"] == "Coin already exists"
