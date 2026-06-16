@@ -7,7 +7,7 @@ def test_can_create_coin():
     service = CoinService()
 
     created_coin = service.create_coin("Automate")
-    coins = service.get_all_coins()
+    coins = service.get_all_coins()["data"]
 
     assert created_coin["success"] is True
     assert created_coin["data"].name == "Automate"
@@ -19,7 +19,7 @@ def test_can_get_all_coins():
     service.create_coin("Automate")
     service.create_coin("Deploy")
 
-    coins = service.get_all_coins()
+    coins = service.get_all_coins()["data"]
 
     coin_names = [coin.name for coin in coins]
 
