@@ -4,7 +4,7 @@ from database.db import db
 
 class DutyModel(db.Model):
     id = UUIDField(primary_key=True, default=uuid.uuid4)
-    name = CharField()
+    number = CharField()
     description = TextField()
 
     class Meta:
