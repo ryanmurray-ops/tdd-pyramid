@@ -18,3 +18,16 @@ class DutyService:
         return DutyModel.get_or_none(
             DutyModel.number == number
         )
+    
+    def update_duty_description(self, number, description):
+        duty = DutyModel.get_or_none(
+            DutyModel.number == number
+        )
+
+        if not duty:
+            return None
+        
+        duty.description = description
+        duty.save()
+
+        return duty
