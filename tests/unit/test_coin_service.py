@@ -130,3 +130,15 @@ def test_create_coin_returns_error_when_coin_already_exists():
     assert duplicate_coin["success"] is False
     assert duplicate_coin["data"] is None
     assert duplicate_coin["error"] == "Coin already exists"
+
+def test_get_all_coins_returns_success_response():
+    service = CoinService()
+
+    service.create_coin("Automate")
+    service.create_coin("Deploy")
+
+    retrieved_coins = service.get_all_coins()
+
+    assert retrieved_coins["success"] is True
+    assert len(retrieved_coins["data"]) == 2
+    assert retrieved_coins["error"] == None
