@@ -36,6 +36,9 @@ class CoinService:
         duty = DutyModel.get_or_none(
             DutyModel.number == duty_number
         )
+
+        if not coin:
+            return None
         
         coin.duties.add(duty)
 
