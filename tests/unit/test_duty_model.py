@@ -1,4 +1,6 @@
 import uuid
+import pytest
+from peewee import IntegrityError
 
 from models.duty_model import DutyModel
 
@@ -20,3 +22,14 @@ def test_duty_has_uuid_id():
     assert duty.id is not None
     assert isinstance(duty.id, uuid.UUID)
 
+def test_duty_numbers_must_be_unique():
+    DutyModel.create(
+        number="D5",
+        description="CI/CD Pipeline"
+    )
+
+    with pytest.raises(IntegrityError):
+        DutyModel.create(
+            number="D5",
+            description="Another Description"
+        )
