@@ -67,14 +67,21 @@ class CoinService:
 
         return self._success("Coin deleted")
 
-    def assign_duty(self, coin_id, duty_number):
-        coin = CoinModel.get_or_none(
-            CoinModel.id == coin_id
-        )
+    def update_coin(self, coin_id, update_data):
+        coin = CoinModel.get_or_none(CoinModel.id == coin_id)
 
-        duty = DutyModel.get_or_none(
-            DutyModel.number == duty_number
-        )
+        if not coin:
+            return self._error("Coin not found")
+        
+        coin.name = update_data
+        coin.save()
+
+        return self._success(coin)
+
+    def assign_duty(self, coin_id, duty_number):
+        coin = CoinModel.get_or_none(CoinModel.id == coin_id)
+
+        duty = DutyModel.get_or_none(DutyModel.number == duty_number)
 
         if not coin:
             return self._error("Coin not found")
