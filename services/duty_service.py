@@ -37,17 +37,9 @@ class DutyService:
         duty = DutyModel.get_or_none(DutyModel.number == number)
 
         if not duty:
-            return {
-            "success": False,
-            "data": None,
-            "error": "Duty not found"
-        }
+            return self._error("Duty not found")
 
-        return {
-            "success": True,
-            "data": duty,
-            "error": None
-        }
+        return self._success(duty)
     
     def update_duty_description(self, number, description):
         duty = DutyModel.get_or_none(DutyModel.number == number)
