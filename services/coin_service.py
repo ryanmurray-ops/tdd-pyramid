@@ -18,11 +18,7 @@ class CoinService:
     
     def create_coin(self, name):
         if CoinModel.get_or_none(CoinModel.name == name):
-            return {
-            "success": False,
-            "data": None,
-            "error": "Coin already exists"
-        }
+            return self._error("Coin already exists")
         
         coin = CoinModel.create(name=name)
 
