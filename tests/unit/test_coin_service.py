@@ -159,6 +159,15 @@ def test_can_delete_coin():
     assert result["data"] == "Coin deleted"
     assert result["error"] is None
 
+def test_delete_coin_returns_error_when_coin_not_found():
+    service = CoinService()
+
+    delete_request = service.delete_coin(uuid.uuid4())
+
+    assert delete_request["success"] is False
+    assert delete_request["data"] is None
+    assert delete_request["error"] == "Coin not found"
+
 def test_can_update_coin():
     service = CoinService()
 
