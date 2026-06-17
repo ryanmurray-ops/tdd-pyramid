@@ -179,3 +179,15 @@ def test_update_coin_returns_error_when_coin_not_found():
     assert update_request["success"] is False
     assert update_request["data"] is None
     assert update_request["error"] == "Coin not found"
+
+def test_update_coin_returns_error_when_coin_already_exists():
+    service = CoinService()
+
+    coin1 = service.create_coin("Automate")
+    coin2 = service.create_coin("Deploy")
+
+    update_request = service.update_coin(coin2["data"].id, "Automate")
+
+    assert update_request["success"] is False
+    assert update_request["data"] is None
+    assert update_request["error"] == "Coin already exists"
