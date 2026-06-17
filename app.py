@@ -57,13 +57,5 @@ def get_coins():
 def get_coin_by_id(coin_id):
     coin_response = app.coin_service.get_coin_by_id(coin_id)
 
-    return ({
-        "success": coin_response["success"],
-        "data": {
-            "id": str(coin_response["data"].id),
-            "name": coin_response["data"].name,
-            "is_complete": coin_response["data"].is_complete
-        } if coin_response["data"] else None,
-        "error": coin_response["error"]
-    }), 200
+    return jsonify(format_coin_response(coin_response)), 200
 
