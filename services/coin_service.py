@@ -47,11 +47,7 @@ class CoinService:
             "error": "Coin not found"
         }
 
-        return {
-            "success": True,
-            "data": coin,
-            "error": None
-        }
+        return self._success(coin)
         
     
     def update_completion_status(self, coin_id):
