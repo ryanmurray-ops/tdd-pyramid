@@ -146,3 +146,15 @@ def test_cannot_assign_same_duty_twice_to_coin():
     assert assign_duplicate_duty["success"] is False
     assert assign_duplicate_duty["data"] is None
     assert assign_duplicate_duty["error"] == "Duty already assigned"
+
+def test_can_delete_coin():
+    service = CoinService()
+
+    created_coin = service.create_coin("Automate")
+    coin_id = created_coin["data"].id
+
+    result = service.delete_coin(coin_id)
+
+    assert result["success"] is True
+    assert result["data"] == "Coin deleted"
+    assert result["error"] is None
