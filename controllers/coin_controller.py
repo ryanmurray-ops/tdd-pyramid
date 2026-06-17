@@ -12,3 +12,6 @@ class CoinController:
     
     def get_coin_by_name(self, name):
         return self.service.get_coin_by_name(name)
+
+    def get_coin_by_id(self, coin_id):
+        return self.service.get_coin_by_id(coin_id)
