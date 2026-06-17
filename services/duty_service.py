@@ -32,11 +32,18 @@ class DutyService:
         }
     
     def get_duty_by_number(self, number):
-        duties = DutyModel.get_or_none(DutyModel.number == number)
+        duty = DutyModel.get_or_none(DutyModel.number == number)
+
+        if not duty:
+            return {
+            "success": False,
+            "data": None,
+            "error": "Duty not found"
+        }
 
         return {
             "success": True,
-            "data": duties,
+            "data": duty,
             "error": None
         }
     
