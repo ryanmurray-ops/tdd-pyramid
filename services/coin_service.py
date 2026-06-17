@@ -67,26 +67,14 @@ class CoinService:
         )
 
         if not coin:
-            return {
-            "success": False,
-            "data": None,
-            "error": "Coin not found"
-        }
+            return self._error("Coin not found")
         
         if not duty:
-            return {
-            "success": False,
-            "data": None,
-            "error": "Duty not found"
-        }
+            return self._error("Duty not found")
         
         if duty in coin.duties:
-            return {
-            "success": False,
-            "data": None,
-            "error": "Duty already assigned"
-        }
-        
+            return self._error("Duty already assigned")
+         
         coin.duties.add(duty)
 
         return self._success(coin)
