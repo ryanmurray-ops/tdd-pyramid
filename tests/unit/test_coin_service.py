@@ -96,13 +96,13 @@ def test_can_assign_duty_to_coin():
     duty_service = DutyService()
 
     created_coin = coin_service.create_coin("Automate")
-    duty = duty_service.create_duty("D5", "CI/CD Pipeline")
+    created_duty = duty_service.create_duty("D5", "CI/CD Pipeline")
 
-    updated_coin = coin_service.assign_duty(created_coin["data"].id, duty.number)
+    updated_coin = coin_service.assign_duty(created_coin["data"].id, created_duty["data"].number)
 
     duties = list(updated_coin["data"].duties)
 
-    assert duty in duties 
+    assert created_duty["data"] in duties 
 
 def test_assign_duty_returns_error_when_coin_does_not_exist():
     coin_service = CoinService()
@@ -112,7 +112,7 @@ def test_assign_duty_returns_error_when_coin_does_not_exist():
 
     result = coin_service.assign_duty(
         uuid.uuid4(),
-        duty.number
+        duty["data"].number
     )
 
     assert result["success"] is False

@@ -9,7 +9,11 @@ class DutyService:
             number=number,
             description=description
         )
-        return duty
+        return {
+            "success": True,
+            "data": duty,
+            "error": None
+        }
     
     def get_all_duties(self):
         return list(DutyModel.select())
