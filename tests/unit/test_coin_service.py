@@ -39,16 +39,6 @@ def test_get_all_coins_returns_success_response():
     assert len(found_coins["data"]) == 2
     assert found_coins["error"] == None
 
-def test_can_get_coin_by_name():
-    service = CoinService()
-
-    service.create_coin("Automate")
-    service.create_coin("Deploy")
-
-    coin = service.get_coin_by_name("Deploy")
-
-    assert coin.name == "Deploy"
-
 def test_get_coin_by_name_returns_success_response():
     service = CoinService()
 
