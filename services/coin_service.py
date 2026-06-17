@@ -31,7 +31,14 @@ class CoinService:
         return CoinModel.get_or_none(CoinModel.name == name)
     
     def get_coin_by_id(self, coin_id):
-        return CoinModel.get_or_none(CoinModel.id == coin_id)
+        coin = CoinModel.get_or_none(CoinModel.id == coin_id)
+
+        return {
+            "success": True,
+            "data": coin,
+            "error": None
+        }
+        
     
     def update_completion_status(self, coin_id):
         coin = CoinModel.get_or_none(CoinModel.id == coin_id)

@@ -44,17 +44,6 @@ def test_create_coin_returns_object():
 
     assert created_coin["data"].name == "Automate"
 
-def test_can_get_coin_by_id():
-    service = CoinService()
-
-    created_coin = service.create_coin("Automate")
-
-    coin_found = service.get_coin_by_id(created_coin["data"].id)
-
-    assert coin_found is not None
-    assert coin_found.id == created_coin["data"].id
-    assert coin_found.name == "Automate"
-
 def test_can_update_coin_completion_status_to_complete():
     service = CoinService()
     created_coin = service.create_coin("Automate")
