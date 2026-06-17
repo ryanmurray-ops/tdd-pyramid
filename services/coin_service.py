@@ -89,8 +89,4 @@ class CoinService:
         
         coin.duties.add(duty)
 
-        return {
-            "success": True,
-            "data": coin,
-            "error": None
-        }
+        return self._success(coin)
