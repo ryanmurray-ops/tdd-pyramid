@@ -125,6 +125,21 @@ def test_can_assign_duty_to_coin():
 
     assert duty in duties 
 
+def test_assign_duty_returns_success_response():
+    coin_service = CoinService()
+    duty_service = DutyService()
+
+    created_coin = coin_service.create_coin("Automate")
+    created_duty = duty_service.create_duty("D5", "CI/CD Pipeline")
+
+    updated_coin = coin_service.assign_duty(created_coin["data"].id, created_duty["data"].number)
+
+    assert updated_coin["success"] is True
+    assert updated_coin["data"] is not None
+    assert created_duty in list(updated_coin["data"].duties)
+    assert updated_coin["error"] is None
+
+
 def test_assign_duty_returns_none_when_coin_does_not_exist():
     coin_service = CoinService()
     duty_service = DutyService()
