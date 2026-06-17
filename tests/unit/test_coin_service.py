@@ -51,6 +51,15 @@ def test_get_coin_by_name_returns_success_response():
     assert found_coin["data"].name == "Deploy"
     assert found_coin["error"] is None
 
+def test_get_coin_by_name_returns_error_when_coin_does_not_exist():
+    service = CoinService()
+
+    missing_coin = service.get_coin_by_name("DoesNotExist")
+
+    assert missing_coin["success"] is False
+    assert missing_coin["data"] is None
+    assert missing_coin["error"] == "Coin not found"
+
 def test_create_coin_returns_success_response():
     service = CoinService()
     
