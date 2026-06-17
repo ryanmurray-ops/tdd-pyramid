@@ -73,6 +73,11 @@ class CoinService:
         if not coin:
             return self._error("Coin not found")
         
+        existing_coin = CoinModel.get_or_none(CoinModel.name == update_data)
+
+        if existing_coin:
+            return self._error("Coin already exists")
+        
         coin.name = update_data
         coin.save()
 
