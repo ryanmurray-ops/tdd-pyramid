@@ -33,11 +33,11 @@ def test_get_all_coins_returns_success_response():
     service.create_coin("Automate")
     service.create_coin("Deploy")
 
-    retrieved_coins = service.get_all_coins()
+    found_coins = service.get_all_coins()
 
-    assert retrieved_coins["success"] is True
-    assert len(retrieved_coins["data"]) == 2
-    assert retrieved_coins["error"] == None
+    assert found_coins["success"] is True
+    assert len(found_coins["data"]) == 2
+    assert found_coins["error"] == None
 
 def test_can_get_coin_by_name():
     service = CoinService()
@@ -48,6 +48,18 @@ def test_can_get_coin_by_name():
     coin = service.get_coin_by_name("Deploy")
 
     assert coin.name == "Deploy"
+
+def test_get_coin_by_name_returns_success_response():
+    service = CoinService()
+
+    service.create_coin("Automate")
+    service.create_coin("Deploy")
+
+    found_coin = service.get_coin_by_name("Deploy")
+
+    assert found_coin["success"]
+    assert found_coin["data"].name == "Deploy"
+    assert found_coin["error"] is None
 
 def test_create_coin_returns_success_response():
     service = CoinService()
