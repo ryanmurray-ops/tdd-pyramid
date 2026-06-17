@@ -158,3 +158,15 @@ def test_can_delete_coin():
     assert result["success"] is True
     assert result["data"] == "Coin deleted"
     assert result["error"] is None
+
+def test_can_update_coin():
+    service = CoinService()
+
+    created_coin = service.create_coin("Automate")
+    coin_id = created_coin["data"].id
+
+    updated_coin = service.update_coin(coin_id, "Deploy")
+
+    assert updated_coin["success"] is True
+    assert updated_coin["data"].name == "Deploy"
+    assert updated_coin["error"] is None
