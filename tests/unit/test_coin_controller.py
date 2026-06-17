@@ -18,3 +18,12 @@ def test_controller_can_get_all_coins():
     found_coins = controller.get_all_coins()
 
     assert len(found_coins["data"]) == 2
+
+def test_controller_can_get_coin_by_name():
+    controller = CoinController()
+
+    controller.create_coin("Automate")
+
+    found_coin = controller.get_coin_by_name("Automate")
+
+    assert found_coin["data"].name == "Automate"
