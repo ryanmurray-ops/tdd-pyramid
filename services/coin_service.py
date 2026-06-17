@@ -19,11 +19,7 @@ class CoinService:
         
         coin = CoinModel.create(name=name)
 
-        return {
-            "success": True,
-            "data": coin,
-            "error": None
-        }
+        return self._success(coin)
   
     def get_all_coins(self):
         coins = list(CoinModel.select())
