@@ -64,12 +64,20 @@ class CoinService:
         coin = CoinModel.get_or_none(CoinModel.id == coin_id)
 
         if not coin:
-            return None
-
+            return {
+                "success": False,
+                "data": None,
+                "error": "Coin not found"
+            }
+        
         coin.is_complete = True
         coin.save()
 
-        return coin
+        return {
+            "success": True,
+            "data": coin,
+            "error": None
+        }
 
     def assign_duty(self, coin_id, duty_number):
         coin = CoinModel.get_or_none(

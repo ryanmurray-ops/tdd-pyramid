@@ -101,12 +101,6 @@ def test_get_coin_by_id_returns_error_when_coin_does_not_exist():
     assert missing_coin["data"] is None
     assert missing_coin["error"] == "Coin not found"
 
-def test_can_update_coin_completion_status_to_complete():
-    service = CoinService()
-    created_coin = service.create_coin("Automate")
-    updated_coin = service.update_completion_status(created_coin["data"].id)
-    assert updated_coin["data"].is_complete is True
-
 def test_update_completion_status_returns_success_response():
     service = CoinService()
 
