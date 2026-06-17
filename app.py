@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request, render_template
 from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
+from utils.coin_mapper import format_coin_response
 
 app = Flask(__name__)
 
@@ -37,17 +38,7 @@ def create_coin():
 
     created_coin = app.coin_service.create_coin(create_coin_request["name"])
 
-    response = {
-        "success": created_coin["success"],
-        "data": {
-            "id": str(created_coin["data"].id),
-            "name": created_coin["data"].name,
-            "is_complete": created_coin["data"].is_complete
-        },
-        "error": created_coin["error"]
-    }
-
-    return jsonify(response), 201
+    return jsonify(format_coin_response(created_coin)), 201
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
