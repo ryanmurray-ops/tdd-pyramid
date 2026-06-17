@@ -121,7 +121,7 @@ def test_can_assign_duty_to_coin():
 
     updated_coin = coin_service.assign_duty(created_coin["data"].id, duty.number)
 
-    duties = list(updated_coin.duties)
+    duties = list(updated_coin["data"].duties)
 
     assert duty in duties 
 
@@ -132,7 +132,7 @@ def test_assign_duty_returns_success_response():
     created_coin = coin_service.create_coin("Automate")
     created_duty = duty_service.create_duty("D5", "CI/CD Pipeline")
 
-    updated_coin = coin_service.assign_duty(created_coin["data"].id, created_duty["data"].number)
+    updated_coin = coin_service.assign_duty(created_coin["data"].id, created_duty.number)
 
     assert updated_coin["success"] is True
     assert updated_coin["data"] is not None
@@ -140,7 +140,7 @@ def test_assign_duty_returns_success_response():
     assert updated_coin["error"] is None
 
 
-def test_assign_duty_returns_none_when_coin_does_not_exist():
+def test_assign_duty_returns_error_when_coin_does_not_exist():
     coin_service = CoinService()
     duty_service = DutyService()
 
@@ -151,9 +151,11 @@ def test_assign_duty_returns_none_when_coin_does_not_exist():
         duty.number
     )
 
-    assert result is None
+    assert result["success"] is False
+    assert result["data"] is None
+    assert result["error"] == "Coin not found"
 
-def test_assign_duty_returns_none_when_duty_does_not_exist():
+def test_assign_duty_returns_error_when_duty_does_not_exist():
     coin_service = CoinService()
 
     created_coin = coin_service.create_coin("Automate")
@@ -163,7 +165,9 @@ def test_assign_duty_returns_none_when_duty_does_not_exist():
         "D999"
     )
 
-    assert result is None
+    assert result["success"] is False
+    assert result["data"] is None
+    assert result["error"] == "Duty not found"
 
 def test_cannot_assign_same_duty_twice_to_coin():
     coin_service = CoinService()
@@ -175,4 +179,6 @@ def test_cannot_assign_same_duty_twice_to_coin():
     coin_service.assign_duty(created_coin["data"].id, "D5")
     assign_duplicate_duty = coin_service.assign_duty(created_coin["data"].id, "D5")
 
-    assert assign_duplicate_duty is None
+    assert assign_duplicate_duty["success"] is False
+    assert assign_duplicate_duty["data"] is None
+    assert assign_duplicate_duty["error"] == "Duty already assigned"

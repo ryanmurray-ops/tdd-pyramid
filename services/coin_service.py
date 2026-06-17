@@ -88,12 +88,31 @@ class CoinService:
             DutyModel.number == duty_number
         )
 
-        if not coin or not duty:
-            return None
+        if not coin:
+            return {
+            "success": False,
+            "data": None,
+            "error": "Coin not found"
+        }
+        
+        if not duty:
+            return {
+            "success": False,
+            "data": None,
+            "error": "Duty not found"
+        }
         
         if duty in coin.duties:
-            return None
+            return {
+            "success": False,
+            "data": None,
+            "error": "Duty already assigned"
+        }
         
         coin.duties.add(duty)
 
-        return coin
+        return {
+            "success": True,
+            "data": coin,
+            "error": None
+        }
