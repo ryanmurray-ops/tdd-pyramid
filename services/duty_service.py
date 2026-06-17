@@ -5,10 +5,17 @@ class DutyService:
         self.duties = [] # LEGACY (Temporary Phase 1 compatability)
 
     def create_duty(self, number, description):
-        duty = DutyModel.create(
-            number=number,
-            description=description
-        )
+        existing_duty = DutyModel.get_or_none(DutyModel.number == number)
+
+        if existing_duty:
+            return {
+                "success": False,
+                "data": None,
+                "error": "Duty already exists"
+            }
+        
+        duty = DutyModel.create(number=number,description=description)
+        
         return {
             "success": True,
             "data": duty,
