@@ -12,6 +12,26 @@ def test_can_create_coin():
     assert created_coin["success"] is True
     assert created_coin["data"].name == "Automate"
     assert len(coins) == 1
+
+def test_create_coin_returns_success_response():
+    service = CoinService()
+    
+    created_coin = service.create_coin("Automate")
+
+    assert created_coin["success"] is True
+    assert created_coin["data"].name == "Automate"
+    assert created_coin["error"] is None
+
+def test_create_coin_returns_error_when_coin_already_exists():
+    service = CoinService()
+
+    service.create_coin("Automate")
+
+    duplicate_coin = service.create_coin("Automate")
+
+    assert duplicate_coin["success"] is False
+    assert duplicate_coin["data"] is None
+    assert duplicate_coin["error"] == "Coin already exists"
     
 def test_can_get_all_coins():
     service = CoinService()
@@ -60,26 +80,6 @@ def test_get_coin_by_name_returns_error_when_coin_does_not_exist():
     assert missing_coin["data"] is None
     assert missing_coin["error"] == "Coin not found"
 
-def test_create_coin_returns_success_response():
-    service = CoinService()
-    
-    created_coin = service.create_coin("Automate")
-
-    assert created_coin["success"] is True
-    assert created_coin["data"].name == "Automate"
-    assert created_coin["error"] is None
-
-def test_create_coin_returns_error_when_coin_already_exists():
-    service = CoinService()
-
-    service.create_coin("Automate")
-
-    duplicate_coin = service.create_coin("Automate")
-
-    assert duplicate_coin["success"] is False
-    assert duplicate_coin["data"] is None
-    assert duplicate_coin["error"] == "Coin already exists"
-
 def test_get_coin_by_id_returns_success_response():
     service = CoinService()
     
@@ -91,6 +91,15 @@ def test_get_coin_by_id_returns_success_response():
     assert found_coin["data"].id == created_coin["data"].id
     assert found_coin["data"].name == "Automate"
     assert found_coin["error"] is None
+
+def test_get_coin_by_id_returns_error_when_coin_does_not_exist():
+    service = CoinService()
+
+    missing_coin = service.get_coin_by_id(uuid.uuid4())
+
+    assert missing_coin["success"] is False
+    assert missing_coin["data"] is None
+    assert missing_coin["error"] == "Coin not found"
 
 def test_can_update_coin_completion_status_to_complete():
     service = CoinService()
