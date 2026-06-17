@@ -90,6 +90,17 @@ def test_service_can_update_duty_description():
 
     assert updated_duty.description == "Updated Description"
 
+def test_service_can_update_duty_description_and_return_success_response():
+    service = DutyService()
+
+    duty = service.create_duty("D5", "CI/CD Pipeline")
+
+    updated_duty = service.update_duty_description("D5", "Updated Description")
+
+    assert updated_duty["success"] is True
+    assert updated_duty["data"].description == "Updated Description"
+    assert updated_duty["error"] is None
+
 def test_service_returns_none_when_updating_non_existent_duty():
     service = DutyService()
 
