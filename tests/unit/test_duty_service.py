@@ -18,6 +18,16 @@ def test_service_can_create_duty_and_return_success_response():
     assert created_duty["data"].number == "D5"
     assert created_duty["error"] is None
 
+def test_create_duty_returns_error_when_duty_already_exists():
+    service = DutyService()
+
+    created_duty = service.create_duty("D5", "CI/CD Pipeline")
+    duplicate_duty = service.create_duty("D5", "Another Description")
+
+    assert duplicate_duty["success"] is False
+    assert duplicate_duty["data"] is None
+    assert duplicate_duty["error"] == "Duty already exists"
+
 def test_service_can_get_all_duties_and_return_success_response():
     service = DutyService()
 
