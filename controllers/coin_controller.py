@@ -6,3 +6,6 @@ class CoinController:
 
     def create_coin(self, name):
         return self.service.create_coin(name)
+    
+    def get_all_coins(self):
+        return self.service.get_all_coins()
