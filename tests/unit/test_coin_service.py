@@ -27,6 +27,18 @@ def test_can_get_all_coins():
     assert "Automate" in coin_names
     assert "Deploy" in coin_names
 
+def test_get_all_coins_returns_success_response():
+    service = CoinService()
+
+    service.create_coin("Automate")
+    service.create_coin("Deploy")
+
+    retrieved_coins = service.get_all_coins()
+
+    assert retrieved_coins["success"] is True
+    assert len(retrieved_coins["data"]) == 2
+    assert retrieved_coins["error"] == None
+
 def test_can_get_coin_by_name():
     service = CoinService()
 
@@ -37,12 +49,37 @@ def test_can_get_coin_by_name():
 
     assert coin.name == "Deploy"
 
-def test_create_coin_returns_object():
+def test_create_coin_returns_success_response():
     service = CoinService()
-
+    
     created_coin = service.create_coin("Automate")
 
+    assert created_coin["success"] is True
     assert created_coin["data"].name == "Automate"
+    assert created_coin["error"] is None
+
+def test_create_coin_returns_error_when_coin_already_exists():
+    service = CoinService()
+
+    service.create_coin("Automate")
+
+    duplicate_coin = service.create_coin("Automate")
+
+    assert duplicate_coin["success"] is False
+    assert duplicate_coin["data"] is None
+    assert duplicate_coin["error"] == "Coin already exists"
+
+def test_get_coin_by_id_returns_success_response():
+    service = CoinService()
+    
+    created_coin = service.create_coin("Automate")
+
+    found_coin = service.get_coin_by_id(created_coin["data"].id)
+
+    assert found_coin["success"] == True
+    assert found_coin["data"].id == created_coin["data"].id
+    assert found_coin["data"].name == "Automate"
+    assert found_coin["error"] is None
 
 def test_can_update_coin_completion_status_to_complete():
     service = CoinService()
@@ -99,47 +136,3 @@ def test_cannot_assign_same_duty_twice_to_coin():
     assign_duplicate_duty = coin_service.assign_duty(created_coin["data"].id, "D5")
 
     assert assign_duplicate_duty is None
-
-def test_create_coin_returns_success_response():
-    service = CoinService()
-    
-    created_coin = service.create_coin("Automate")
-
-    assert created_coin["success"] is True
-    assert created_coin["data"].name == "Automate"
-    assert created_coin["error"] is None
-
-def test_create_coin_returns_error_when_coin_already_exists():
-    service = CoinService()
-
-    service.create_coin("Automate")
-
-    duplicate_coin = service.create_coin("Automate")
-
-    assert duplicate_coin["success"] is False
-    assert duplicate_coin["data"] is None
-    assert duplicate_coin["error"] == "Coin already exists"
-
-def test_get_all_coins_returns_success_response():
-    service = CoinService()
-
-    service.create_coin("Automate")
-    service.create_coin("Deploy")
-
-    retrieved_coins = service.get_all_coins()
-
-    assert retrieved_coins["success"] is True
-    assert len(retrieved_coins["data"]) == 2
-    assert retrieved_coins["error"] == None
-
-def test_get_coin_by_id_returns_success_response():
-    service = CoinService()
-    
-    created_coin = service.create_coin("Automate")
-
-    found_coin = service.get_coin_by_id(created_coin["data"].id)
-
-    assert found_coin["success"] == True
-    assert found_coin["data"].id == created_coin["data"].id
-    assert found_coin["data"].name == "Automate"
-    assert found_coin["error"] is None
