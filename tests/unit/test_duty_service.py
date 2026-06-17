@@ -69,6 +69,18 @@ def test_service_can_get_duty_by_number():
     assert duty.number == "D5"
     assert duty.description == "CI/CD Pipeline"
 
+def test_service_can_get_duty_by_number_and_return_success_response():
+    service = DutyService()
+
+    service.create_duty("D5", "CI/CD Pipeline")
+
+    duty = service.get_duty_by_number("D5")
+
+    assert duty["success"] is True
+    assert duty["data"].number == "D5"
+    assert duty["data"].description == "CI/CD Pipeline"
+    assert duty["error"] is None
+
 def test_service_can_update_duty_description():
     service = DutyService()
 
