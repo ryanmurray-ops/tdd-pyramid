@@ -56,6 +56,16 @@ class CoinService:
         coin.save()
 
         return self._success(coin)
+    
+    def delete_coin(self, coin_id):
+        coin = CoinModel.get_or_none(CoinModel.id == coin_id)
+
+        if not coin:
+            return self._error("Coin not found")
+        
+        coin.delete_instance
+
+        return self._success("Coin deleted")
 
     def assign_duty(self, coin_id, duty_number):
         coin = CoinModel.get_or_none(
