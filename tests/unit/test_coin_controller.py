@@ -27,3 +27,12 @@ def test_controller_can_get_coin_by_name():
     found_coin = controller.get_coin_by_name("Automate")
 
     assert found_coin["data"].name == "Automate"
+
+def test_get_coin_by_id():
+    controller = CoinController()
+
+    created_coin = controller.create_coin("Automate")
+
+    found_coin = controller.get_coin_by_id(created_coin["data"].id)
+
+    assert found_coin["data"].id == created_coin["data"].id
