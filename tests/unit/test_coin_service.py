@@ -105,7 +105,18 @@ def test_can_update_coin_completion_status_to_complete():
     service = CoinService()
     created_coin = service.create_coin("Automate")
     updated_coin = service.update_completion_status(created_coin["data"].id)
-    assert updated_coin.is_complete is True
+    assert updated_coin["data"].is_complete is True
+
+def test_update_completion_status_returns_success_response():
+    service = CoinService()
+
+    created_coin = service.create_coin("Automate")
+
+    result = service.update_completion_status(created_coin["data"].id)
+
+    assert result["success"] is True
+    assert result["data"].is_complete is True
+    assert result["error"] is None
 
 def test_can_assign_duty_to_coin():
     coin_service = CoinService()
