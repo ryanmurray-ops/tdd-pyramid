@@ -142,3 +142,15 @@ def test_get_all_coins_returns_success_response():
     assert retrieved_coins["success"] is True
     assert len(retrieved_coins["data"]) == 2
     assert retrieved_coins["error"] == None
+
+def test_get_coin_by_id_returns_success_response():
+    service = CoinService()
+    
+    created_coin = service.create_coin("Automate")
+
+    found_coin = service.get_coin_by_id(created_coin["data"].id)
+
+    assert found_coin["success"] == True
+    assert found_coin["data"].id == created_coin["data"].id
+    assert found_coin["data"].name == "Automate"
+    assert found_coin["error"] is None
