@@ -14,3 +14,20 @@ def test_can_create_coin_via_api():
     assert data["success"] is True
     assert data["data"]["name"] == "Automate"
     assert data["error"] is None
+
+def test_can_get_all_coins_via_api():
+    client = app.test_client()
+
+    client.post("/coins", json={"name": "Automate"})
+    client.post("/coins", json={"name": "Deploy"})
+
+    response = client.get("/coins")
+    api_response = response.get_json()
+    
+    coin_names = [coin["name"] for coin in api_response["data"]]
+
+    assert response.status_code == 200
+    assert api_response["success"] is True
+    assert "Automate" in coin_names
+    assert "Deploy" in coin_names
+    assert api_response["error"] is None
