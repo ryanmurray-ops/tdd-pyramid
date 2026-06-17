@@ -40,6 +40,24 @@ def test_service_can_get_all_duties():
     assert "D5" in duty_numbers
     assert "D7" in duty_numbers
 
+def test_service_can_get_all_coins_and_return_success_response():
+    service = DutyService()
+
+    service.create_duty("D5", "CI/CD Pipeline")
+    service.create_duty("D7", "Monitoring")
+
+    response = service.get_all_duties()
+
+    duties = response["data"]
+
+    duty_numbers = [duty.number for duty in duties]
+
+    assert response["success"] is True
+    assert len(duties) == 2
+    assert "D5" in duty_numbers
+    assert "D7" in duty_numbers
+    assert response["error"] is None
+
 def test_service_can_get_duty_by_number():
     service = DutyService()
 
