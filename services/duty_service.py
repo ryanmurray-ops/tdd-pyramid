@@ -25,9 +25,13 @@ class DutyService:
         }
     
     def get_duty_by_number(self, number):
-        return DutyModel.get_or_none(
-            DutyModel.number == number
-        )
+        duties = DutyModel.get_or_none(DutyModel.number == number)
+
+        return {
+            "success": True,
+            "data": duties,
+            "error": None
+        }
     
     def update_duty_description(self, number, description):
         duty = DutyModel.get_or_none(
