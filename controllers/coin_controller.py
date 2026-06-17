@@ -9,3 +9,6 @@ class CoinController:
     
     def get_all_coins(self):
         return self.service.get_all_coins()
+    
+    def get_coin_by_name(self, name):
+        return self.service.get_coin_by_name(name)
