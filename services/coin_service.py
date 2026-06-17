@@ -30,6 +30,13 @@ class CoinService:
     def get_coin_by_name(self, name):
         coin = CoinModel.get_or_none(CoinModel.name == name)
 
+        if not coin:
+            return {
+            "success": False,
+            "data": None,
+            "error": "Coin not found"
+        }
+
         return {
             "success": True,
             "data": coin,
