@@ -42,3 +42,23 @@ def create_coin():
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
+
+@app.route("/coins", methods=["GET"])
+def get_coins():
+    coins_response = app.coin_service.get_all_coins()
+
+    formatted_response = [
+        {
+            "id": str(coin.id),
+            "name": coin.name,
+            "is_complete": coin.is_complete
+        }
+        for coin in coins_response["data"]
+    ]
+
+    return jsonify({
+        "success": True,
+        "data": formatted_response,
+        "error": None
+    }), 200
+
