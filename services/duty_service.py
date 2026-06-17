@@ -44,4 +44,8 @@ class DutyService:
         duty.description = description
         duty.save()
 
-        return duty
+        return {
+            "success": True,
+            "data": duty,
+            "error": None
+        }
