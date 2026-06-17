@@ -16,7 +16,13 @@ class DutyService:
         }
     
     def get_all_duties(self):
-        return list(DutyModel.select())
+        duties = list(DutyModel.select())
+
+        return {
+            "success": True,
+            "data": duties,
+            "error": None
+        }
     
     def get_duty_by_number(self, number):
         return DutyModel.get_or_none(

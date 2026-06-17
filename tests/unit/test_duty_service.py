@@ -32,7 +32,7 @@ def test_service_can_get_all_duties():
     service.create_duty("D5", "CI/CD Pipeline")
     service.create_duty("D7", "Monitoring")
 
-    duties = service.get_all_duties()
+    duties = service.get_all_duties()["data"]
 
     duty_numbers = [duty.number for duty in duties]
 
