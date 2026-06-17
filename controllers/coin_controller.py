@@ -15,3 +15,6 @@ class CoinController:
 
     def get_coin_by_id(self, coin_id):
         return self.service.get_coin_by_id(coin_id)
+    
+    def update_completion_status(self, coin_id):
+        return self.service.update_completion_status(coin_id)
