@@ -9,6 +9,13 @@ class CoinService:
             "error": None
         }
     
+    def _error(self, message):
+        return {
+            "success": False,
+            "data": None,
+            "error": message
+        }
+    
     def create_coin(self, name):
         if CoinModel.get_or_none(CoinModel.name == name):
             return {
