@@ -58,6 +58,15 @@ def test_service_can_get_duty_by_number_and_return_success_response():
     assert duty["data"].description == "CI/CD Pipeline"
     assert duty["error"] is None
 
+def test_service_get_duty_by_number_returns_error_when_duty_not_found():
+    service = DutyService()
+
+    requested_duty = service.get_duty_by_number("D999")
+
+    assert requested_duty["success"] is False
+    assert requested_duty["data"]is None
+    assert requested_duty["error"] == "Duty not found"
+
 def test_service_can_update_duty_description_and_return_success_response():
     service = DutyService()
 
