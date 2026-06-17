@@ -36,3 +36,12 @@ def test_get_coin_by_id():
     found_coin = controller.get_coin_by_id(created_coin["data"].id)
 
     assert found_coin["data"].id == created_coin["data"].id
+
+def test_controller_can_update_completion_status():
+    controller = CoinController()
+
+    created_coin = controller.create_coin("Automate")
+
+    updated_coin = controller.update_completion_status(created_coin["data"].id)
+
+    assert updated_coin["data"].is_complete is True
