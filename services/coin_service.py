@@ -59,11 +59,7 @@ class CoinService:
         coin.is_complete = True
         coin.save()
 
-        return {
-            "success": True,
-            "data": coin,
-            "error": None
-        }
+        return self._success(coin)
 
     def assign_duty(self, coin_id, duty_number):
         coin = CoinModel.get_or_none(
