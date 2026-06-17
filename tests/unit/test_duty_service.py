@@ -77,10 +77,3 @@ def test_update_duty_description_returns_error_when_duty_not_found():
     assert update_request["success"] is False
     assert update_request["data"] is None
     assert update_request["error"] == "Duty not found"
-
-def test_service_returns_none_when_updating_non_existent_duty():
-    service = DutyService()
-
-    duty = service.update_duty_description("D5", "Does Not Exist")
-
-    assert duty is None
