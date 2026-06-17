@@ -39,11 +39,7 @@ class CoinService:
             "error": "Coin not found"
         }
 
-        return {
-            "success": True,
-            "data": coin,
-            "error": None
-        }
+        return self._success(coin)
     
     def get_coin_by_id(self, coin_id):
         coin = CoinModel.get_or_none(CoinModel.id == coin_id)
