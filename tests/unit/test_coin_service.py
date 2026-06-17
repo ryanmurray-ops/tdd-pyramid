@@ -170,3 +170,12 @@ def test_can_update_coin():
     assert updated_coin["success"] is True
     assert updated_coin["data"].name == "Deploy"
     assert updated_coin["error"] is None
+
+def test_update_coin_returns_error_when_coin_not_found():
+    service = CoinService()
+
+    update_request = service.update_coin(uuid.uuid4(), "Deploy")
+
+    assert update_request["success"] is False
+    assert update_request["data"] is None
+    assert update_request["error"] == "Coin not found"
