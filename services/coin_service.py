@@ -2,6 +2,13 @@ from models.coin_model import CoinModel
 from models.duty_model import DutyModel
 
 class CoinService:
+    def _success(self, data):
+        return {
+            "success": True,
+            "data": data,
+            "error": None
+        }
+    
     def create_coin(self, name):
         if CoinModel.get_or_none(CoinModel.name == name):
             return {
