@@ -17,6 +17,15 @@ def test_service_can_create_duty_and_save_to_database():
     assert duty is not None
     assert DutyModel.get_or_none(DutyModel.number == "D5") is not None
 
+def test_service_can_create_duty_and_return_success_response():
+    service = DutyService()
+
+    created_duty = service.create_duty("D5", "CI/CD Pipeline")
+
+    assert created_duty["success"] is True
+    assert created_duty["data"].number == "D5"
+    assert created_duty["error"] is None
+
 def test_service_can_get_all_duties():
     service = DutyService()
 
