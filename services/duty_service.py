@@ -22,19 +22,11 @@ class DutyService:
         existing_duty = DutyModel.get_or_none(DutyModel.number == number)
 
         if existing_duty:
-            return {
-                "success": False,
-                "data": None,
-                "error": "Duty already exists"
-            }
+            return self._error("Duty already exists")
         
         duty = DutyModel.create(number=number,description=description)
         
-        return {
-            "success": True,
-            "data": duty,
-            "error": None
-        }
+        return self._success(duty)
     
     def get_all_duties(self):
         duties = list(DutyModel.select())
