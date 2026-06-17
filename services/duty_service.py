@@ -4,6 +4,20 @@ class DutyService:
     def __init__(self):
         self.duties = [] # LEGACY (Temporary Phase 1 compatability)
 
+    def _success(self, data):
+        return {
+            "success": True,
+            "data": data,
+            "error": None
+        }
+    
+    def _error(self, message):
+        return {
+            "success": False,
+            "data": None,
+            "error": message
+        }
+
     def create_duty(self, number, description):
         existing_duty = DutyModel.get_or_none(DutyModel.number == number)
 
