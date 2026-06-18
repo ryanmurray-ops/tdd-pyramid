@@ -17,6 +17,19 @@ def test_can_create_coin_via_api():
     assert data["data"]["name"] == "Automate"
     assert data["error"] is None
 
+def test_create_coin_returns_error_when_coin_already_exists_via_api():
+    client = app.test_client()
+
+    client.post("/coins", json={"name": "Automate"})
+
+    create_coin = client.post("/coins", json={"name": "Automate"})
+    api_response = create_coin.get_json()
+
+    assert create_coin.status_code == 400
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin already exists"
+
 def test_can_get_all_coins_via_api():
     client = app.test_client()
 
