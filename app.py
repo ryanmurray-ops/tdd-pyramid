@@ -66,6 +66,9 @@ def get_coin_by_id(coin_id):
 def delete_coin(coin_id):
     delete_response = app.coin_service.delete_coin(coin_id)
 
+    if not delete_response["success"]:
+        return jsonify(delete_response), 404
+
     return jsonify(delete_response), 200
 
 @app.route("/coins/<coin_id>", methods=["PUT"])
