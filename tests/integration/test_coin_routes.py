@@ -105,3 +105,16 @@ def test_can_update_coin_via_api():
     assert api_response["success"] is True
     assert api_response["data"]["name"] == "Deploy"
     assert api_response["error"] is None
+
+def test_update_coin_returns_error_when_coin_not_found():
+    client = app.test_client()
+
+    update_response = client.put(f"/coins/{uuid.uuid4()}", json={"name": "Deploy"})
+    api_response = update_response.get_json()
+
+    assert update_response.status_code == 404
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin not found"
+
+
