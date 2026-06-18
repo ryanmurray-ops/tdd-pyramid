@@ -1,3 +1,5 @@
+import uuid
+
 from app import app
 
 
@@ -32,7 +34,7 @@ def test_can_get_all_coins_via_api():
     assert "Deploy" in coin_names
     assert api_response["error"] is None
 
-def test_can_get_coin_by_id_via_apit():
+def test_can_get_coin_by_id_via_api():
     client = app.test_client()
 
     created_coin = client.post("/coins", json={"name": "Automate"})
@@ -47,6 +49,18 @@ def test_can_get_coin_by_id_via_apit():
     assert api_response["success"] is True
     assert api_response["data"]["name"] == "Automate"
     assert api_response["error"] is None
+
+def test_get_coin_by_id_returns_error_when_coin_not_found():
+    client = app.test_client()
+
+    response = client.get(f"/coins/{uuid.uuid4()}")
+
+    api_response = response.get_json()
+
+    assert response.status_code == 404
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin not found"
 
 def test_can_delete_coin_via_api():
     client = app.test_client()
