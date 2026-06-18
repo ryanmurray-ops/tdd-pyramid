@@ -117,4 +117,21 @@ def test_update_coin_returns_error_when_coin_not_found():
     assert api_response["data"] is None
     assert api_response["error"] == "Coin not found"
 
+def test_update_coin_returns_error_when_coin_already_exists():
+    client = app.test_client()
+
+    coin1 = client.post("/coins", json={"name": "Automate"}) 
+    coin2 = client.post("/coins", json={"name": "Deploy"}) 
+
+    coin2_id = coin2.get_json()["data"]["id"]
+
+    update_response = client.put(f"/coins/{coin2_id}", json={"name": "Automate"})
+
+    api_response = update_response.get_json()
+
+    assert update_response.status_code == 400
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin already exists"
+
 
