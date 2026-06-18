@@ -77,5 +77,8 @@ def update_coin(coin_id):
 
     update_response = app.coin_service.update_coin(coin_id, request_data["name"])
 
+    if not update_response["success"]:
+        return jsonify(update_response), 404
+
     return jsonify(format_coin_response(update_response)), 200
 
