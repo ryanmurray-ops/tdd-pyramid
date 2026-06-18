@@ -38,6 +38,9 @@ def create_coin():
 
     created_coin = app.coin_service.create_coin(create_coin_request["name"])
 
+    if not created_coin["success"]:
+        return jsonify(created_coin), 400
+
     return jsonify(format_coin_response(created_coin)), 201
 
 if __name__ == "__main__":
