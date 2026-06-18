@@ -78,7 +78,12 @@ def update_coin(coin_id):
     update_response = app.coin_service.update_coin(coin_id, request_data["name"])
 
     if not update_response["success"]:
-        return jsonify(update_response), 404
+
+        if update_response["error"] == "Coin not found":
+            return jsonify(update_response), 404
+        
+        if update_response["error"] == "Coin already exists":
+            return jsonify(update_response), 400
 
     return jsonify(format_coin_response(update_response)), 200
 
