@@ -63,7 +63,7 @@ class CoinService:
         if not coin:
             return self._error("Coin not found")
         
-        coin.delete_instance
+        coin.delete_instance()
 
         return self._success("Coin deleted")
 
