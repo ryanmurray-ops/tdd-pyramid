@@ -65,3 +65,11 @@ def delete_coin(coin_id):
 
     return jsonify(delete_response), 200
 
+@app.route("/coins/<coin_id>", methods=["PUT"])
+def update_coin(coin_id):
+    request_data = request.get_json()
+
+    update_response = app.coin_service.update_coin(coin_id, request_data["name"])
+
+    return jsonify(format_coin_response(update_response)), 200
+
