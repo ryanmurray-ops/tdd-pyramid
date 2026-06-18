@@ -59,3 +59,9 @@ def get_coin_by_id(coin_id):
 
     return jsonify(format_coin_response(coin_response)), 200
 
+@app.route("/coins/<coin_id>", methods=["DELETE"])
+def delete_coin(coin_id):
+    delete_response = app.coin_service.delete_coin(coin_id)
+
+    return jsonify(delete_response), 200
+
