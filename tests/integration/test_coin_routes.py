@@ -78,6 +78,18 @@ def test_can_delete_coin_via_api():
     assert api_response["data"] == "Coin deleted"
     assert api_response["error"] is None
 
+def test_delete_coin_returns_error_when_coin_not_found():
+    client = app.test_client()
+
+    delete_response = client.delete(f"/coins/{uuid.uuid4()}")
+
+    api_response = delete_response.get_json()
+
+    assert delete_response.status_code == 404
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin not found"
+
 def test_can_update_coin_via_api():
     client = app.test_client()
 
