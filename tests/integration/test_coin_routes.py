@@ -63,3 +63,19 @@ def test_can_delete_coin_via_api():
     assert api_response["success"] is True
     assert api_response["data"] == "Coin deleted"
     assert api_response["error"] is None
+
+def test_can_update_coin_via_api():
+    client = app.test_client()
+
+    created_coin = client.post("/coins", json={"name": "Automate"})
+    coin_data = created_coin.get_json()
+
+    coin_id = coin_data["data"]["id"]
+
+    update_response = client.put(f"/coins/{coin_id}", json={"name": "Deploy"})
+    api_response = update_response.get_json()
+
+    assert update_response.status_code == 200
+    assert api_response["success"] is True
+    assert api_response["data"]["name"] == "Deploy"
+    assert api_response["error"] is None
