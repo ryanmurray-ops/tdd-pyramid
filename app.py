@@ -4,7 +4,7 @@ from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
 from utils.coin_mapper import format_coin_list, format_coin_response
-from utils.duty_mapper import format_duty_response
+from utils.duty_mapper import format_duty_list, format_duty_response
 
 app = Flask(__name__)
 
@@ -102,6 +102,16 @@ def create_duty():
         return jsonify(created_duty), 400
     
     return jsonify(format_duty_response(created_duty)), 201
+
+@app.route("/duties", methods=["GET"])
+def get_duties():
+    duties_response = app.duty_service.get_all_duties()
+
+    return jsonify({
+        "success": True,
+        "data": format_duty_list(duties_response["data"]),
+        "error": None
+    }), 200
 
 with app.app_context():
     init_db()

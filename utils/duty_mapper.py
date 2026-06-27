@@ -8,4 +8,14 @@ def format_duty_response(duty_response):
         },
         "error": duty_response["error"]  
     }
+
+def format_duty_list(duties):
+    return [
+        {
+            "id": str(duty.id),
+            "number": duty.number,
+            "description": duty.description
+        }
+        for duty in duties
+    ]
     
