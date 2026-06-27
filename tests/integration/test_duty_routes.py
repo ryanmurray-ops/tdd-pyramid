@@ -43,3 +43,21 @@ def test_can_get_all_duties_via_api():
     assert "D5" in duty_numbers
     assert "D7" in duty_numbers
     assert api_response["error"] is None
+
+def test_can_get_duty_by_number_via_api():
+    client = app.test_client()
+
+    client.post("/duties", json={
+        "number": "D5",
+        "description": "CI/CD Pipeline"
+    })
+
+    response = client.get("/duties/D5")
+
+    api_response = response.get_json()
+
+    assert response.status_code == 200
+    assert api_response["success"] is True
+    assert api_response["data"]["number"] == "D5"
+    assert api_response["data"]["description"] == "CI/CD Pipeline"
+    assert api_response["error"] is None
