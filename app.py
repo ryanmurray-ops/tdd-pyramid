@@ -43,9 +43,6 @@ def create_coin():
 
     return jsonify(format_coin_response(created_coin)), 201
 
-if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=5000)
-
 @app.route("/coins", methods=["GET"])
 def get_coins():
     coins_response = app.coin_service.get_all_coins()
@@ -89,4 +86,7 @@ def update_coin(coin_id):
             return jsonify(update_response), 400
 
     return jsonify(format_coin_response(update_response)), 200
+
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
 
