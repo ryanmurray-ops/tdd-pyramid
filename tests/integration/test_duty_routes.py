@@ -62,6 +62,18 @@ def test_can_get_duty_by_number_via_api():
     assert api_response["data"]["description"] == "CI/CD Pipeline"
     assert api_response["error"] is None
 
+def test_get_duty_by_number_returns_404_when_duty_not_found():
+    client = app.test_client()
+
+    response = client.get("/duties/Non-Existent-Duty")
+
+    api_response = response.get_json()
+
+    assert response.status_code == 404
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Duty not found"
+
 def test_can_update_duty_description_via_api():
     client = app.test_client()
 
