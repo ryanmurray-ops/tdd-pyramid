@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request, render_template
+from database import init_db
 from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
@@ -86,6 +87,9 @@ def update_coin(coin_id):
             return jsonify(update_response), 400
 
     return jsonify(format_coin_response(update_response)), 200
+
+with app.app_context():
+    init_db()
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
