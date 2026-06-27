@@ -19,6 +19,32 @@ def test_can_create_duty_via_api():
     assert api_repsonse["data"]["description"] == "CI/CD Pipeline"
     assert api_repsonse["error"] is None
 
+def test_cannot_create_duplicate_duty_number_via_api():
+    client = app.test_client()
+
+    client.post(
+        "/duties",
+        json={
+            "number": "D5",
+            "description": "First Duty"
+        }
+    )
+
+    response = client.post(
+        "/duties",
+        json={
+            "number": "D5",
+            "description": "Second Duty"
+        }
+    )
+
+    api_response = response.get_json()
+
+    assert response.status_code == 400
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Duty already exists"
+
 def test_can_get_all_duties_via_api():
     client = app.test_client()
 
