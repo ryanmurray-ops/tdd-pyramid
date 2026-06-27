@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, render_template
-from database import init_db
+from database.init_db import init_db
 from duties import handle_create_duty
 from services.coin_service import CoinService
 from services.duty_service import DutyService
