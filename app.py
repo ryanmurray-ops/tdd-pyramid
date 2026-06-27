@@ -122,6 +122,20 @@ def get_duty_by_number(number):
     
     return jsonify(format_duty_response(duty_response)), 200
 
+@app.route("/duties/<number>", methods=["PUT"])
+def update_duty_description(number):
+    request_data = request.get_json()
+
+    update_response = app.duty_service.update_duty_description(
+        number,
+        request_data["description"]
+    )
+
+    if not update_response["success"]:
+        return jsonify(update_response), 404
+    
+    return jsonify(format_duty_response(update_response)), 200
+
 with app.app_context():
     init_db()
 
