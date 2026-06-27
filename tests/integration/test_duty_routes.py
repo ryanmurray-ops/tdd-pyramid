@@ -93,3 +93,17 @@ def test_can_update_duty_description_via_api():
     assert api_response["data"]["number"] == "D5"
     assert api_response["data"]["description"] == "Updated Description"
     assert api_response["error"] is None 
+
+def test_update_duty_returns_404_when_not_found():
+    client = app.test_client()
+
+    response = client.put("/duties/Non-Existent_Duty", json={
+        "description": "Update Description"
+    })
+
+    api_response = response.get_json()
+
+    assert response.status_code == 404
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Duty not found"
