@@ -113,6 +113,15 @@ def get_duties():
         "error": None
     }), 200
 
+@app.route("/duties/<number>", methods=["GET"])
+def get_duty_by_number(number):
+    duty_response = app.duty_service.get_duty_by_number(number)
+
+    if not duty_response["success"]:
+        return jsonify(duty_response), 404
+    
+    return jsonify(format_duty_response(duty_response)), 200
+
 with app.app_context():
     init_db()
 
