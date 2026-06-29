@@ -2,234 +2,219 @@
  
 ## Project Overview
  
-This is a Flask web application that allows users to create and manage duties linked to the Automate Coin.
+This project was completed over two phases using a Test Driven Development (TDD) approach.
  
-Users are able to:
-- Add a duty using a form
-- View all created duties on the homepage
-- Ensure duty numbers are unique
-- See error messages when invalid input is submitted
- 
-This project was built using Test Driven Development (TDD), where tests were written first and the implementation was built to satisfy them.
+The aim of the project was to build a system capable of managing Coins and Duties, starting with a simple web application before extending it into a fully tested REST API backed by a relational database.
  
 ---
  
-## Tech Stack
+# Phase 1
  
-This project uses:
+Phase 1 focused on building a basic Flask application to understand TDD and the different layers of an application.
+ 
+Users could:
+ 
+- Create Duties
+- Validate user input
+- Prevent duplicate Duty numbers
+- Display created Duties on the page
+ 
+At this stage, Duties were stored in memory rather than a database.
+ 
+## Technologies
  
 - Python
-- Flask (web framework)
-- HTML for the front-end
-- Pytest for unit and integration testing
-- Playwright for end-to-end testing
-- unittest.mock for mocking in integration tests
- 
----
- 
-## Features
- 
-### Duty Management
-Users can add duties using a simple form.
- 
-Once submitted, the duty is displayed in a list on the page.
- 
-### Validation Rules
-- Duty number must not be empty
-- Duty description must not be empty
-- Duty numbers must be unique
- 
-### Error Handling
-If invalid data is submitted, an error message is displayed and the duty is not added.
- 
----
+- Flask
+- HTML
+- Pytest
+- Playwright
  
 ## Testing
  
-The project follows a basic test pyramid structure.
+Phase 1 introduced the TDD workflow by writing tests before implementation.
  
-### Unit Tests
-Unit tests focus on testing individual functions in isolation.
+Tests included:
  
-They cover:
-- Duty creation logic
-- Input validation
-- Duplicate duty checks
+- Unit Tests
+- Integration Tests
+- End-to-End Tests using Playwright
  
----
- 
-### Integration Tests
-Integration tests check how the Flask application works with the rest of the system.
- 
-They:
-- Send requests to Flask routes
-- Check responses from the server
-- Verify duties are created correctly through the web layer
-- Use mocking where needed to isolate behaviour
+Coverage exceeded the required 80%.
  
 ---
  
-### End-to-End Tests
-End-to-end tests use Playwright to simulate real user interaction in a browser.
+# Phase 2
  
-They verify:
-- The homepage loads correctly
-- Duties can be added through the form
-- Duties appear on the page
-- Error messages are shown when expected
+Phase 2 extended the project into a REST API with persistent storage.
+ 
+The application now stores Coins and Duties in a PostgreSQL database using Peewee ORM.
+ 
+Coins can now:
+ 
+- Be created
+- Be updated
+- Be deleted
+- Be marked as complete
+- Be retrieved by ID
+- Be retrieved as a collection
+- Be linked to one or more Duties
+ 
+Duties can:
+ 
+- Be created
+- Be updated
+- Be retrieved individually
+- Be retrieved as a collection
+ 
+Validation was added to ensure:
+ 
+- Coin names remain unique
+- Duty numbers remain unique
+- Coins cannot be created without at least one valid Duty
+- Duplicate duty assignments are prevented
+- Only duty descriptions may be updated
  
 ---
-
-### Mocking
-
-In some of my integration tests I used mocking to isolate parts of the app that were not relevant to the specific test being run.
-
-For example, I mocked the handle_create_duty function when testing the route. This allowed me to test the route behaviour without relying on the actual business logic inside the function.
-
-This helped me:
-- Isolate the route from the business logic
-- Ensure tests were focused on what the route returns
-- Avoid unnecessary dependencies during testing
-
-I used unittest.mock.patch to replace the function during the test.
-
-This improved the test reliability and made the integration tests faster and more focused.
-
+ 
+# Technology Stack
+ 
+- Python
+- Flask
+- PostgreSQL
+- Peewee ORM
+- Pytest
+- AWS EC2
+- GitHub
+- GitHub Actions
+ 
 ---
-
-### Test Coverage Report
-
-Coverage was generated using pytest-cov.
-
-**Command Used**
-pytest --cov=. --cov-report=term-missing
-
-**Coverage Summary**
-- Overall: 91%
-- Total Statements: 220
-- Missed Statements: 19
-
-Most of the missed coverage is in the end-to-end tests, which is expected as they focus on full user flows rather than testing branches of code.
-
-Most of the core business logic is covered by unit and integration tests, which is why modules such as duties.py, validators.py, and services/duty_service.py achieve 100% coverage.
-
+ 
+# API Endpoints
+ 
+## Coins
+ 
+|  Method  |      Endpoint               |     Description             |
+|----------|-----------------------------|-----------------------------|
+|  GET     |      /coins                 |     Get all coins           |
+|  GET     |      /coins/{id}            |     Get a coin by ID        |
+|  POST    |      /coins                 |     Create a coin           |
+|  PUT     |      /coins/{id}            |     Update a coin           |
+|  DELETE  |      /coins/{id}            |     Delete a coin           |
+|  PATCH   |      /coins/{id}/complete   |     Mark coin as complete   |
+ 
+## Duties
+ 
+|  Method  |      Endpoint               |     Description             |
+|----------|-----------------------------|-----------------------------|
+|  GET     |      /duties                |     Get all duties          |
+|  GET     |      /duties/{number}       |     Get a duty              |
+|  POST    |      /duties                |     Create a duty           |
+|  PUT     |      /duties/{number}       |     Update a duty           |
+ 
 ---
-
-## Test Pyramid Explanation
-
-This project follows a basic test pyramid structure to ensure the application is well tested at different levels of scope.
-
+ 
+# Testing
+ 
+The project follows the Test Pyramid.
+ 
 ## Unit Tests
-
-Unit tests make up the majority of the test suite. They focus on testing individual functions in isolation, such as validation logic and duty creation.
-
+ 
+The majority of tests focus on business logic including:
+ 
+- Coin Service
+- Duty Service
+- Models
+- Relationships
+ 
 ## Integration Tests
-
-Integration tests check how different parts of the application work together. In this project, they test the Flask routes and ensure that the layers interact correctly with the business logic.
-
+ 
+Integration tests verify that the API routes interact correctly with the service layer and database.
+ 
+These tests check:
+ 
+- Status codes
+- Validation
+- Error handling
+- JSON responses
+ 
 ## End-to-End Tests
-
-End-to-End tests use Playwright to simulate real user behaviour in a browser. These tests ensure the full system works from the users perspective, including form submissions and UI updates.
-
-## Test Distribution
-The majority of tests are unit tests, with fewer integration and end-to-end tests. This is intentional because unit tests are faster and more focused, while high-level tests are used to validate overall system behaviour.
-
-This approach helps balance test speed with reliability and overall coverage.
-
----
-
-## Reflection: TDD vs Other Development Approaches
-
-This project was built using Test Driven Development (TDD), where tests were written before the implementation code. This approach helped guide the design of the application and ensured that each feature was written with clear expected behaviour.
-
-Using TDD helped me break the system down into smaller parts, such as validate, business logic, and route handling. This made it easier to build and debug because each part was tested in isolation.
-
-If I had used a more traditional approach (writing the full application first and testing afterwards), I think I would have spent more time debugging issues and refactoring large sections of code all at once. It would also have been harder to ensure edge cases were covered.
-
-BDD is a behaviour-focused development approach that describes functionality from the users perspective. In my delivery project, I have seen BDD-style thinking used in Jira tickets, where requirements are written using structured scenarios using Given / When / Then. These tickets describe how a feature should behave before development begins. It provides good context and helps improve communication between developers and testers.
-
-For example:
-Given I am on the homepage
-When I enter a valid duty number and description
-And I click "Add Duty"
-Then I should see the duty displayed in the list
-
-This helps ensure clarity around the behaviour and reduces ambiguity. Although I have not implemented BDD frameworks in this project.
-
-Compared to BDD, TDD feels more practical for this project because it helped me focus on building and testing small pieces of logic step-by-step.
-
-If I were to extend this project, I could consider implementing BDD-style scenarios to better represent the full user journeys perhaps with end-to-end tests.
-
-Overall, TDD improved the structure of my code, made refactoring safer, and gave me more confidence that changes would not break existing functionality.
  
-## How to Run the Project
- 
-### Install Dependencies
- 
-Before running the app, install the required packages:
- 
-- pip install flask pytest pytest-cov playwright
+Playwright was used during Phase 1 to test the original web interface.
  
 ---
  
-### Run the App
+# TDD Approach
  
-To start the Flask application:
+The project was built using Test Driven Development.
+ 
+For each new feature I generally followed this process:
+ 
+1. Write a failing test.
+2. Implement the smallest amount of code required to pass.
+3. Refactor where appropriate.
+4. Repeat.
+ 
+This helped me build the project in small, testable pieces while giving me confidence that existing functionality continued to work.
+ 
+---
+ 
+# Deployment
+ 
+The API is deployed to an AWS EC2 instance.
+ 
+Deployment is automated using a GitHub Actions pipeline.
+ 
+Whenever changes are pushed to the repository, the pipeline deploys the latest version to the EC2 server.
+ 
+---
+ 
+# Running the Project
+ 
+## Install dependencies
+ 
+pip install -r requirements.txt
+
+ 
+## Start the application
  
 python app.py
+
  
-Then open:
- 
-http://localhost:5000
- 
----
- 
-### Run Tests
- 
-To run all tests:
+## Run the tests
  
 pytest
+
  
----
- 
-### Check Test Coverage
- 
-To generate a coverage report:
+## Generate coverage
  
 pytest --cov=. --cov-report=term-missing
  
-The project currently has over 80% test coverage, which meets the requirement.
+---
+ 
+# Reflection
+ 
+This project helped improve in several areas including:
+ 
+- Test Driven Development
+- REST APIs
+- Database relationships
+- Validation
+- Git workflows
+- CI/CD pipelines
+- AWS deployment
+ 
+Compared to Phase 1, I found Phase 2 much more challenging because changes in one area often affected multiple layers of the application. Following TDD made these changes much easier to manage because the existing tests quickly highlighted anything I had broken.
  
 ---
  
-### End-to-End Tests
+# Future Improvements
  
-End-to-end tests use Playwright and run through real browser interactions.
+Given more time, there are several improvements I would make.
  
-To run them:
+- Remove the remaining Phase 1 in-memory implementation so the application only uses the API and database.
+- Refactor some of the test setup to reduce repeated code by introducing shared fixtures.
+- Introduce controllers for both Coins and Duties to move business logic out of app.py and better separate responsibilities.
+- Improve the front end so it utilises the REST API rather than using the original Phase 1 implementation.
+- Remove remaining legacy code from Phase 1 that is no longer required.
  
-pytest
- 
----
- 
-## Deployment
- 
-This project is deployed using AWS as part of a CI/CD pipeline.
- 
-When changes are pushed to the repository, the application is automatically built and deployed.
-
----
-
-## Future Improvements
-
-Currently duties are stored as formatted strings, which keeps the implementation simple for the current project requirements.
-
-During development, I chose not to refactor duties into structured objects because the tests and requirements at this stage did not drive the design in that direction. As the project followed a Test Driven Development (TDD) approach, I aimed to avoid unnecessary abstraction or complexity before it was required by the tests or feature requirements.
-
-If the application were expanded with features such as editing, persistence, filtering, or database integration, duties could be refactored into structured objects to improve scalability and maintainability.
-
-Additional improvements could include:
-- Database integration for persistent storage
-- User authentication
-- Editing and deleting duties
-- Improved UI accessibility
+Although these improvements would make the project cleaner and easier to maintain, I prioritised completing the required functionality and meeting the assignment criteria within the available time.
