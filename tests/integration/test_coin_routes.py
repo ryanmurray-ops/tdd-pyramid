@@ -146,4 +146,29 @@ def test_update_coin_returns_error_when_coin_already_exists():
     assert api_response["data"] is None
     assert api_response["error"] == "Coin already exists"
 
+def test_can_create_coin_with_duties_via_api():
+    client = app.test_client()
+
+    client.post("/duties", json={
+        "number": "D5",
+        "description": "CI/CD Pipeline"
+    })
+
+    response = client.post("/coins", json={
+        "name": "Automate",
+        "duties": ["D5"]
+    })
+
+    api_response = response.get_json()
+
+    duty_numbers = [duty["number"] for duty in api_response["data"]["duties"]]
+
+    assert response.status_code == 201
+    assert api_response["success"] is True
+    assert api_response["data"]["name"] == "Automate"
+
+    assert "D5" in duty_numbers
+    assert api_response["error"] is None
+
+
 
