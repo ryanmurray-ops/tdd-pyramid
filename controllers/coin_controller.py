@@ -4,8 +4,8 @@ class CoinController:
     def __init__(self):
         self.service = CoinService()
 
-    def create_coin(self, name):
-        return self.service.create_coin(name)
+    def create_coin(self, name, duties):
+        return self.service.create_coin(name, duties)
     
     def get_all_coins(self):
         return self.service.get_all_coins()

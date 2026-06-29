@@ -19,6 +19,9 @@ class CoinService:
     def create_coin(self, name, duties=None):
         if duties is None:
             duties = []
+        
+        if not duties:
+            return self._error("Coin must have at least one duty")
 
         if CoinModel.get_or_none(CoinModel.name == name):
             return self._error("Coin already exists")
@@ -72,6 +75,7 @@ class CoinService:
         if not coin:
             return self._error("Coin not found")
         
+        coin.duties.clear()
         coin.delete_instance()
 
         return self._success("Coin deleted")

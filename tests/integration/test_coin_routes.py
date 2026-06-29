@@ -5,9 +5,7 @@ from app import app
 def test_can_create_coin_via_api():
     client = app.test_client()
 
-    response = client.post("/coins", json={
-        "name": "Automate"
-    })
+    response = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
 
     data = response.get_json()
 
@@ -19,9 +17,12 @@ def test_can_create_coin_via_api():
 def test_create_coin_returns_error_when_coin_already_exists_via_api():
     client = app.test_client()
 
-    client.post("/coins", json={"name": "Automate"})
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
 
-    create_coin = client.post("/coins", json={"name": "Automate"})
+    client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+
+    create_coin = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+    
     api_response = create_coin.get_json()
 
     assert create_coin.status_code == 400
@@ -32,8 +33,13 @@ def test_create_coin_returns_error_when_coin_already_exists_via_api():
 def test_can_get_all_coins_via_api():
     client = app.test_client()
 
-    client.post("/coins", json={"name": "Automate"})
-    client.post("/coins", json={"name": "Deploy"})
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
+
+    client.post("/duties", json={"number": "D6", "description": "Monitoring"})
+
+    client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+
+    client.post("/coins", json={"name": "Deploy", "duties": ["D6"]})
 
     response = client.get("/coins")
     api_response = response.get_json()
@@ -49,7 +55,10 @@ def test_can_get_all_coins_via_api():
 def test_can_get_coin_by_id_via_api():
     client = app.test_client()
 
-    created_coin = client.post("/coins", json={"name": "Automate"})
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
+
+    created_coin = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+
     coin_data = created_coin.get_json()
 
     coin_id = coin_data["data"]["id"]
@@ -77,9 +86,11 @@ def test_get_coin_by_id_returns_error_when_coin_not_found():
 def test_can_delete_coin_via_api():
     client = app.test_client()
 
-    created_coin = client.post("/coins", json={"name": "Automate"})
-    coin_data = created_coin.get_json()
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
 
+    created_coin = client.post("/coins", json={"name": "Automate","duties": ["D5"]})
+
+    coin_data = created_coin.get_json()
     coin_id = coin_data["data"]["id"]
 
     delete_response = client.delete(f"/coins/{coin_id}")
@@ -105,9 +116,14 @@ def test_delete_coin_returns_error_when_coin_not_found():
 def test_can_update_coin_via_api():
     client = app.test_client()
 
-    created_coin = client.post("/coins", json={"name": "Automate"})
-    coin_data = created_coin.get_json()
+    client.post("/duties", json={
+        "number": "D5",
+        "description": "CI/CD Pipeline"
+    })
 
+    created_coin = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+
+    coin_data = created_coin.get_json()
     coin_id = coin_data["data"]["id"]
 
     update_response = client.put(f"/coins/{coin_id}", json={"name": "Deploy"})
@@ -132,8 +148,13 @@ def test_update_coin_returns_error_when_coin_not_found():
 def test_update_coin_returns_error_when_coin_already_exists():
     client = app.test_client()
 
-    coin1 = client.post("/coins", json={"name": "Automate"}) 
-    coin2 = client.post("/coins", json={"name": "Deploy"}) 
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
+
+    client.post("/duties", json={"number": "D6", "description": "Monitoring"})
+
+    coin1 = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
+
+    coin2 = client.post("/coins", json={"name": "Deploy", "duties": ["D6"]})
 
     coin2_id = coin2.get_json()["data"]["id"]
 
@@ -149,15 +170,9 @@ def test_update_coin_returns_error_when_coin_already_exists():
 def test_can_create_coin_with_duties_via_api():
     client = app.test_client()
 
-    client.post("/duties", json={
-        "number": "D5",
-        "description": "CI/CD Pipeline"
-    })
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
 
-    response = client.post("/coins", json={
-        "name": "Automate",
-        "duties": ["D5"]
-    })
+    response = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
 
     api_response = response.get_json()
 
