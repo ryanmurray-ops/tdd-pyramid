@@ -170,5 +170,14 @@ def test_can_create_coin_with_duties_via_api():
     assert "D5" in duty_numbers
     assert api_response["error"] is None
 
+def test_create_coin_requires_at_least_one_duty():
+    client = app.test_client()
 
+    response = client.post("/coins", json={"name": "Automate"})
 
+    api_response = response.get_json()
+
+    assert response.status_code == 400
+    assert api_response["success"] is False
+    assert api_response["data"] is None
+    assert api_response["error"] == "Coin must have at least one duty"
