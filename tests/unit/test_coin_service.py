@@ -81,11 +81,14 @@ def test_get_coin_by_name_returns_error_when_coin_does_not_exist():
     assert missing_coin["error"] == "Coin not found"
 
 def test_get_coin_by_id_returns_success_response():
-    service = CoinService()
-    
-    created_coin = service.create_coin("Automate", ["D5"])
+    coin_service = CoinService()
+    duty_service = DutyService()
 
-    found_coin = service.get_coin_by_id(created_coin["data"].id)
+    duty_service.create_duty("D5", "CI/CD Pipeline")
+    
+    created_coin = coin_service.create_coin("Automate", ["D5"])
+
+    found_coin = coin_service.get_coin_by_id(created_coin["data"].id)
 
     assert found_coin["success"] == True
     assert found_coin["data"].id == created_coin["data"].id
@@ -102,11 +105,14 @@ def test_get_coin_by_id_returns_error_when_coin_does_not_exist():
     assert missing_coin["error"] == "Coin not found"
 
 def test_update_completion_status_returns_success_response():
-    service = CoinService()
+    coin_service = CoinService()
+    duty_service = DutyService()
 
-    created_coin = service.create_coin("Automate", ["D5"])
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
-    result = service.update_completion_status(created_coin["data"].id)
+    created_coin = coin_service.create_coin("Automate", ["D5"])
+
+    result = coin_service.update_completion_status(created_coin["data"].id)
 
     assert result["success"] is True
     assert result["data"].is_complete is True
@@ -145,6 +151,9 @@ def test_assign_duty_returns_error_when_coin_does_not_exist():
 
 def test_assign_duty_returns_error_when_duty_does_not_exist():
     coin_service = CoinService()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     created_coin = coin_service.create_coin("Automate", ["D5"])
 

@@ -16,23 +16,27 @@ class CoinService:
             "error": message
         }
     
-    def create_coin(self, name, duties=None):
-        if duties is None:
-            duties = []
+    def create_coin(self, name, duties):
+        if CoinModel.get_or_none(CoinModel.name == name):
+            return self._error("Coin already exists")
         
         if not duties:
             return self._error("Coin must have at least one duty")
 
-        if CoinModel.get_or_none(CoinModel.name == name):
-            return self._error("Coin already exists")
-        
-        coin = CoinModel.create(name=name)
+        found_duties = []
 
         for duty_number in duties:
             duty = DutyModel.get_or_none(DutyModel.number == duty_number)
 
-            if duty:
-                coin.duties.add(duty)
+            if not duty:
+                return self._error("Duty not found")
+
+            found_duties.append(duty)
+
+        coin = CoinModel.create(name=name)
+
+        for duty in found_duties:
+            coin.duties.add(duty)
 
         return self._success(coin)
   

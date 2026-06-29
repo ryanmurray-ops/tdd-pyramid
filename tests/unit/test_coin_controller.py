@@ -1,7 +1,11 @@
 from controllers.coin_controller import CoinController
+from services.duty_service import DutyService
 
 def test_controller_can_create_coin():
     controller = CoinController()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     created_coin = controller.create_coin("Automate", ["D5"])
 
@@ -11,6 +15,9 @@ def test_controller_can_create_coin():
 
 def test_controller_can_get_all_coins():
     controller = CoinController()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     controller.create_coin("Automate", ["D5"])
     controller.create_coin("Deploy", ["D5"])
@@ -21,6 +28,9 @@ def test_controller_can_get_all_coins():
 
 def test_controller_can_get_coin_by_name():
     controller = CoinController()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     controller.create_coin("Automate", ["D5"])
 
@@ -30,6 +40,9 @@ def test_controller_can_get_coin_by_name():
 
 def test_get_coin_by_id():
     controller = CoinController()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     created_coin = controller.create_coin("Automate", ["D5"])
 
@@ -39,6 +52,9 @@ def test_get_coin_by_id():
 
 def test_controller_can_update_completion_status():
     controller = CoinController()
+    duty_service = DutyService()
+
+    duty_service.create_duty("D5", "CI/CD Pipeline")
 
     created_coin = controller.create_coin("Automate", ["D5"])
 

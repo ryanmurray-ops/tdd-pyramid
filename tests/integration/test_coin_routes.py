@@ -5,6 +5,8 @@ from app import app
 def test_can_create_coin_via_api():
     client = app.test_client()
 
+    client.post("/duties", json={"number": "D5", "description": "CI/CD Pipeline"})
+
     response = client.post("/coins", json={"name": "Automate", "duties": ["D5"]})
 
     data = response.get_json()
