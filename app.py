@@ -38,7 +38,10 @@ def home():
 def create_coin():
     create_coin_request = request.get_json()
 
-    created_coin = app.coin_service.create_coin(create_coin_request["name"])
+    created_coin = app.coin_service.create_coin(
+        create_coin_request["name"],
+        create_coin_request.get("duties", [])
+        )
 
     if not created_coin["success"]:
         return jsonify(created_coin), 400

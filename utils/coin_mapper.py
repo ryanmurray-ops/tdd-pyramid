@@ -4,7 +4,14 @@ def format_coin_response(coin_response):
         "data": {
             "id": str(coin_response["data"].id),
             "name": coin_response["data"].name,
-            "is_complete": coin_response["data"].is_complete
+            "is_complete": coin_response["data"].is_complete,
+            "duties": [
+                {
+                    "number": duty.number,
+                    "description": duty.description
+                }
+                for duty in coin_response["data"].duties
+            ]
         },
         "error": coin_response["error"]
     }
