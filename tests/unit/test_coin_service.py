@@ -29,6 +29,15 @@ def test_create_coin_returns_error_when_coin_already_exists():
     assert duplicate_coin["success"] is False
     assert duplicate_coin["data"] is None
     assert duplicate_coin["error"] == "Coin already exists"
+
+def test_create_coin_returns_error_when_duty_does_not_exist():
+    coin_service = CoinService()
+
+    created_coin = coin_service.create_coin("Automate", ["D999"])
+
+    assert created_coin["success"] is False
+    assert created_coin["data"] is None
+    assert created_coin["error"] == "Duty not found"
     
 def test_can_get_all_coins():
     coin_service = CoinService()
